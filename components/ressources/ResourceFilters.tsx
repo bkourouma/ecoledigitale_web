@@ -1,0 +1,81 @@
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
+import {
+  RESOURCE_TYPES,
+  RESOURCE_TYPE_LABELS,
+  RESOURCE_PERSONAS,
+  RESOURCE_PERSONA_LABELS,
+} from '@/lib/content/resource.schema';
+
+interface ResourceFiltersProps {
+  currentPersona?: string;
+  currentType?: string;
+}
+
+const SELECT_CLASSES =
+  'h-11 rounded-md border border-slate-300 bg-white px-3 text-sm text-ink ' +
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500';
+
+/**
+ * Filtres du hub — formulaire HTML natif en `GET`. Aucun JavaScript client :
+ * la soumission recharge `/ressources` avec les paramètres d'URL, ce qui
+ * préserve l'architecture RSC et le score de performance (cf. research.md R-002).
+ */
+export function ResourceFilters({ currentPersona, currentType }: ResourceFiltersProps) {
+  const hasActiveFilter = Boolean(currentPersona || currentType);
+
+  return (
+    <form method="GET" action="/ressources" className="flex flex-wrap items-end gap-4">
+      <div className="space-y-1.5">
+        <label htmlFor="filter-persona" className="block text-sm font-medium text-ink">
+          Public cible
+        </label>
+        <select
+          id="filter-persona"
+          name="persona"
+          defaultValue={currentPersona ?? ''}
+          className={SELECT_CLASSES}
+        >
+          <option value="">Tous les publics</option>
+          {RESOURCE_PERSONAS.map((persona) => (
+            <option key={persona} value={persona}>
+              {RESOURCE_PERSONA_LABELS[persona]}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="space-y-1.5">
+        <label htmlFor="filter-type" className="block text-sm font-medium text-ink">
+          Type de ressource
+        </label>
+        <select
+          id="filter-type"
+          name="type"
+          defaultValue={currentType ?? ''}
+          className={SELECT_CLASSES}
+        >
+          <option value="">Tous les types</option>
+          {RESOURCE_TYPES.map((type) => (
+            <option key={type} value={type}>
+              {RESOURCE_TYPE_LABELS[type].plural}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <Button type="submit" size="md">
+        Filtrer
+      </Button>
+
+      {hasActiveFilter && (
+        <Link
+          href="/ressources"
+          className="text-sm font-medium text-brand-700 underline-offset-4 hover:underline"
+        >
+          Réinitialiser
+        </Link>
+      )}
+    </form>
+  );
+}

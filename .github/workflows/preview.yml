@@ -1,0 +1,51 @@
+name: Preview Lighthouse
+
+# Déclenché par le webhook "deployment_status" de Vercel sur les PR previews.
+# Lance Lighthouse CI sur l'URL preview Vercel déployée.
+
+on:
+  deployment_status:
+
+concurrency:
+  group: preview-lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse-preview:
+    name: Lighthouse on Vercel preview
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment != 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '9.12.0'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Run Lighthouse against preview
+        env:
+          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+        run: |
+          npx --yes @lhci/cli@0.14.x autorun \
+            --collect.url=$PREVIEW_URL/ \
+            --collect.url=$PREVIEW_URL/modules \
+            --collect.url=$PREVIEW_URL/modules/socle-ecoledigitale \
+            --collect.url=$PREVIEW_URL/modules/parcours-bts \
+            --collect.url=$PREVIEW_URL/demander-demo \
+            --collect.url=$PREVIEW_URL/confidentialite \
+            --collect.numberOfRuns=1 \
+            --collect.settings.preset=desktop \
+            --collect.settings.emulatedFormFactor=mobile \
+            --assert.preset=lighthouse:no-pwa \
+            --assert.assertions.categories:performance.0=error \
+            --assert.assertions.categories:performance.1.minScore=0.85 \
+            --upload.target=temporary-public-storage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview-lighthouse
+          path: .lighthouseci/
+          retention-days: 14

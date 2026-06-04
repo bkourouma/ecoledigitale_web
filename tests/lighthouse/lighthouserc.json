@@ -1,0 +1,42 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:4000/",
+        "http://localhost:4000/modules",
+        "http://localhost:4000/modules/socle-ecoledigitale",
+        "http://localhost:4000/modules/parcours-bts",
+        "http://localhost:4000/modules/parcours-superieur",
+        "http://localhost:4000/modules/proformation",
+        "http://localhost:4000/modules/campus-live",
+        "http://localhost:4000/demander-demo",
+        "http://localhost:4000/confidentialite",
+        "http://localhost:4000/ressources",
+        "http://localhost:4000/ressources/guides/digitaliser-institut-bts",
+        "http://localhost:4000/ressources/guides/choisir-logiciel-gestion-ecole-privee",
+        "http://localhost:4000/auteurs/equipe-ecoledigitale"
+      ],
+      "startServerCommand": "cross-env VERCEL_ENV=production pnpm start",
+      "startServerReadyPattern": "Ready",
+      "startServerReadyTimeout": 60000,
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop",
+        "emulatedFormFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.85 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.9 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

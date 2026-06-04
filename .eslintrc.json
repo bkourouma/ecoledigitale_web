@@ -1,0 +1,20 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["FormField"],
+        "controlComponents": ["Input", "Textarea", "Select", "Checkbox", "ModuleMultiSelect", "Controller"],
+        "assert": "either",
+        "depth": 4
+      }
+    ],
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/consistent-type-imports": ["warn", { "prefer": "type-imports" }],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+  },
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "coverage/", "playwright-report/", ".lighthouseci/"]
+}
