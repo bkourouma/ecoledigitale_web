@@ -33,6 +33,7 @@ ENV LEADS_FROM_EMAIL=build-stub@example.com
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN mkdir -p /app/public
 RUN pnpm build
 
 # ── Stage 3 : image de production (standalone) ────────────────────────────────
