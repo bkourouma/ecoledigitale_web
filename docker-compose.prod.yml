@@ -3,27 +3,8 @@ services:
     image: ghcr.io/bkourouma/ecoledigitale-web:latest
     container_name: ecoledigitale-web
     restart: unless-stopped
-    # Variables runtime (secrets, non baked dans l'image)
     env_file: .env.production
-    expose:
-      - "3000"
-    networks:
-      - internal
-
-  nginx:
-    image: nginx:1.27-alpine
-    container_name: ecoledigitale-nginx
-    restart: unless-stopped
-    # Port hôte 8082 → le proxy global du serveur route le sous-domaine vers ce port
+    # Port hôte local → conteneur Next.js (PORT=3000 dans le Dockerfile)
+    # Le nginx système (hôte) proxie https://... vers ce port.
     ports:
-      - "8082:80"
-    volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      - web
-    networks:
-      - internal
-
-networks:
-  internal:
-    driver: bridge
+      - '127.0.0.1:3011:3000'

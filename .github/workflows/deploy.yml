@@ -2,13 +2,13 @@ name: CI/CD EcoleDigitale
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
   APP_NAME: ecoledigitale-web
-  APP_DOMAIN: ecoledigitale_web.allianceconsultants.net
+  APP_DOMAIN: ecoledigitale-web.allianceconsultants.net
   DEPLOY_PATH: /home/deployer/apps/ecoledigitale-web
   APP_IMAGE: ghcr.io/bkourouma/ecoledigitale-web
 
@@ -32,7 +32,7 @@ jobs:
         run: |
           docker build \
             -f infra/Dockerfile \
-            --build-arg NEXT_PUBLIC_SITE_URL=https://ecoledigitale_web.allianceconsultants.net \
+            --build-arg NEXT_PUBLIC_SITE_URL=https://ecoledigitale-web.allianceconsultants.net \
             --build-arg NEXT_PUBLIC_PLAUSIBLE_DOMAIN=${{ secrets.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }} \
             --build-arg NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL=${{ secrets.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_URL }} \
             --build-arg NEXT_PUBLIC_CONTACT_EMAIL=${{ secrets.NEXT_PUBLIC_CONTACT_EMAIL }} \
