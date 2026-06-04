@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+coverage
+playwright-report
+.lighthouseci
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.vercel
+public

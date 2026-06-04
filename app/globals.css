@@ -1,0 +1,294 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), system-ui, sans-serif;
+
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #1d4ed8;
+  --color-primary-700: #1e40af;
+  --color-primary-800: #1e3a8a;
+  --color-primary-900: #1e326d;
+  --color-primary-950: #172554;
+
+  --color-accent-50: #ecfdf5;
+  --color-accent-100: #d1fae5;
+  --color-accent-200: #a7f3d0;
+  --color-accent-300: #6ee7b7;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --color-accent-800: #065f46;
+  --color-accent-900: #064e3b;
+  --color-accent-950: #022c22;
+
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  /* Historical aliases kept so the existing component surface can migrate safely. */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #1e40af;
+  --color-brand-800: #1e3a8a;
+  --color-brand-900: #1e326d;
+  --color-brand-950: #172554;
+
+  --color-ink: #0f172a;
+  --color-ink-muted: #475569;
+  --color-ink-soft: #64748b;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-muted: #f1f5f9;
+  --color-surface-raised: #ffffff;
+  --color-line: #e2e8f0;
+
+  --text-display-lg: clamp(2.45rem, 4.35vw, 3.85rem);
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--letter-spacing: 0;
+  --text-display-md: clamp(2.25rem, 4.5vw, 3.25rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: 0;
+  --text-display-sm: clamp(1.75rem, 3vw, 2.5rem);
+  --text-display-sm--line-height: 1.12;
+  --text-display-sm--letter-spacing: 0;
+
+  --container-content: 72rem;
+  --container-wide: 84rem;
+  --spacing-section: 6rem;
+
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --shadow-card-hover: 0 2px 8px rgba(15, 23, 42, 0.07), 0 22px 48px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-elevated: 0 8px 18px rgba(15, 23, 42, 0.08), 0 28px 70px rgba(15, 23, 42, 0.14);
+  --shadow-brand: 0 0 0 3px rgba(16, 185, 129, 0.24);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+    background: #ffffff;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    background: #020617;
+  }
+
+  body {
+    @apply bg-surface text-ink antialiased font-sans dark:bg-neutral-950 dark:text-neutral-50;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  ::selection {
+    @apply bg-accent-200 text-neutral-950;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@utility container-content {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-content);
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility container-wide {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-wide);
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-700);
+}
+
+@utility premium-surface {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78)),
+    radial-gradient(80% 70% at 10% 0%, rgba(29,78,216,0.10), transparent 55%),
+    radial-gradient(70% 60% at 90% 20%, rgba(16,185,129,0.10), transparent 60%),
+    #ffffff;
+}
+
+@utility dark-premium-surface {
+  background:
+    radial-gradient(70% 60% at 15% 0%, rgba(59,130,246,0.18), transparent 58%),
+    radial-gradient(60% 50% at 88% 10%, rgba(16,185,129,0.14), transparent 62%),
+    linear-gradient(180deg, #061024, #020617);
+}
+
+@utility mesh-hero {
+  background-color: #fff;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% -10%, rgba(29, 78, 216, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 110%, rgba(16, 185, 129, 0.10) 0%, transparent 60%);
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ————————————————————————————————————————————
+   Motion keyframes
+   ———————————————————————————————————————————— */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, -5%) scale(1.07); }
+  66% { transform: translate(-3%, 4%) scale(0.95); }
+}
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility animate-blob {
+  animation: blob-drift 18s ease-in-out infinite;
+}
+
+@utility animate-blob-delayed {
+  animation: blob-drift 22s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+@utility animate-blob-slow {
+  animation: blob-drift 28s ease-in-out infinite;
+  animation-delay: -14s;
+}
+
+/* ————————————————————————————————————————————
+   Progress bar grow (hero dashboard)
+   ———————————————————————————————————————————— */
+
+@keyframes grow-bar {
+  from { width: 0% }
+  to   { width: var(--bar-width, 100%) }
+}
+
+@utility animate-grow-bar {
+  animation: grow-bar 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--bar-delay, 0s);
+}
+
+/* ————————————————————————————————————————————
+   Gradient text shift (H1 hero)
+   ———————————————————————————————————————————— */
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50% }
+  50%       { background-position: 100% 50% }
+}
+
+@utility animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* ————————————————————————————————————————————
+   Glow pulse (FinalCTA blobs)
+   ———————————————————————————————————————————— */
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+@utility animate-glow-pulse {
+  animation: glow-pulse 7s ease-in-out infinite;
+}
+
+@utility animate-glow-pulse-delayed {
+  animation: glow-pulse 9s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* ————————————————————————————————————————————
+   Button shimmer (primary CTA)
+   ———————————————————————————————————————————— */
+
+@utility shimmer-btn {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-120%);
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+    transition: transform 0.75s ease;
+    pointer-events: none;
+  }
+  &:hover::before {
+    transform: translateX(120%);
+  }
+}
