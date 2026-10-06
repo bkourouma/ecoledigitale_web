@@ -1,5 +1,9 @@
 name: CI/CD EcoleDigitale
 
+# Site MARKETING EcoleDigitale. Il partage le serveur « alliance » avec l'application EcoleDigitaleV2 (autre dépôt) :
+# rien ici ne doit pouvoir la toucher. D'où un nom de conteneur, un port, un dossier et un projet compose PROPRES à ce site,
+# et des garde-fous avant tout redémarrage. Procédure de bascule de l'adresse : docs/cutover-domaine-marketing.md
+
 on:
   push:
     branches: ['main']
@@ -7,10 +11,13 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  APP_NAME: ecoledigitale-web
-  APP_DOMAIN: ecoledigitale-web.allianceconsultants.net
-  DEPLOY_PATH: /home/deployer/apps/ecoledigitale-web
-  APP_IMAGE: ghcr.io/bkourouma/ecoledigitale-web
+  APP_NAME: ecoledigitale-site
+  # Adresse publique du site (compilée dans l'image via NEXT_PUBLIC_SITE_URL ; Umami ne compte que ce nom d'hôte).
+  APP_DOMAIN: ecoledigitale.allianceconsultants.net
+  DEPLOY_PATH: /home/deployer/apps/ecoledigitale-site
+  APP_IMAGE: ghcr.io/bkourouma/ecoledigitale-site
+  # Port local publié (127.0.0.1) : celui du docker-compose.prod.yml et du vhost nginx (infra/nginx/ecoledigitale-site.conf).
+  HOST_PORT: '3021'
 
 jobs:
   build:
@@ -32,7 +39,7 @@ jobs:
         run: |
           docker build \
             -f infra/Dockerfile \
-            --build-arg NEXT_PUBLIC_SITE_URL=https://ecoledigitale-web.allianceconsultants.net \
+            --build-arg NEXT_PUBLIC_SITE_URL=https://${{ env.APP_DOMAIN }} \
             --build-arg NEXT_PUBLIC_CONTACT_EMAIL=${{ secrets.NEXT_PUBLIC_CONTACT_EMAIL }} \
             --build-arg NEXT_PUBLIC_CONTACT_PHONE=${{ secrets.NEXT_PUBLIC_CONTACT_PHONE }} \
             --build-arg NEXT_PUBLIC_WHATSAPP_NUMBER=${{ secrets.NEXT_PUBLIC_WHATSAPP_NUMBER }} \
@@ -60,6 +67,35 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Garde-fous avant déploiement
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP_DIR="${{ env.DEPLOY_PATH }}"
+          APP_NAME="${{ env.APP_NAME }}"
+          PORT="${{ env.HOST_PORT }}"
+
+          # 1. Le dossier de déploiement et son .env.production sont préparés une fois sur le serveur (cutover, étape 1).
+          if [ ! -f "$APP_DIR/.env.production" ]; then
+            echo "::error::$APP_DIR/.env.production est absent : préparer le serveur d'abord (docs/cutover-domaine-marketing.md, étape 1)."
+            exit 1
+          fi
+
+          # 2. Le port local doit être libre, ou déjà à CE site : jamais celui d'un autre conteneur (ex. l'application).
+          OWNER="$(docker ps --format '{{.Names}}|{{.Ports}}' | awk -F'|' -v p="127.0.0.1:${PORT}->" 'index($2, p) { print $1; exit }')"
+          if [ -n "$OWNER" ] && [ "$OWNER" != "$APP_NAME" ]; then
+            echo "::error::Le port ${PORT} est déjà publié par le conteneur « $OWNER ». Déploiement annulé pour ne pas l'écraser."
+            exit 1
+          fi
+
+          # 3. Le nom de conteneur ne doit pas appartenir à un autre projet compose.
+          PROJECT="$(docker inspect -f '{{ index .Config.Labels "com.docker.compose.project" }}' "$APP_NAME" 2>/dev/null || true)"
+          if [ -n "$PROJECT" ] && [ "$PROJECT" != "ecoledigitale-site" ]; then
+            echo "::error::Un conteneur « $APP_NAME » existe déjà dans le projet compose « $PROJECT ». Déploiement annulé."
+            exit 1
+          fi
+          echo "Garde-fous OK (dossier, port ${PORT}, nom de conteneur)."
+
       - name: Deploy on self-hosted runner
         shell: bash
         run: |
@@ -70,8 +106,9 @@ jobs:
           cp docker/nginx/nginx.conf "$APP_DIR/docker/nginx/nginx.conf"
           cd "$APP_DIR"
           docker pull "${{ env.APP_IMAGE }}:latest"
+          # -p : projet compose explicite, donc `down` ne peut concerner que ce site.
           dc() {
-            docker compose --env-file .env.production -f docker-compose.prod.yml "$@"
+            docker compose -p ecoledigitale-site --env-file .env.production -f docker-compose.prod.yml "$@"
           }
           dc down 2>/dev/null || true
           dc up -d
@@ -79,5 +116,34 @@ jobs:
           sleep 10
           dc ps
           echo "--- Web logs (last 30 lines) ---"
-          docker logs --tail 30 ecoledigitale-web 2>&1 || true
+          docker logs --tail 30 "${{ env.APP_NAME }}" 2>&1 || true
           docker image prune -f
+
+      - name: Vérifier que le bon site répond
+        shell: bash
+        run: |
+          set -euo pipefail
+          PORT="${{ env.HOST_PORT }}"
+          DOMAIN="${{ env.APP_DOMAIN }}"
+
+          # Le conteneur répond en local (jusqu'à 60 s).
+          ok=0
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null "http://127.0.0.1:${PORT}/robots.txt"; then ok=1; break; fi
+            sleep 2
+          done
+          if [ "$ok" != 1 ]; then
+            echo "::error::Le conteneur ne répond pas sur 127.0.0.1:${PORT}."
+            docker logs --tail 50 "${{ env.APP_NAME }}" 2>&1 || true
+            exit 1
+          fi
+
+          # L'adresse publique sert BIEN ce conteneur (et pas une autre application). robots.txt contient l'adresse du
+          # site (NEXT_PUBLIC_SITE_URL) : deux sites différents ne donnent pas la même réponse.
+          LOCAL="$(curl -fsS "http://127.0.0.1:${PORT}/robots.txt" | sha256sum | cut -d' ' -f1)"
+          PUBLIC="$(curl -fsS --max-time 20 "https://${DOMAIN}/robots.txt" | sha256sum | cut -d' ' -f1 || true)"
+          if [ "$LOCAL" != "$PUBLIC" ]; then
+            echo "::error::https://${DOMAIN} ne sert pas ce conteneur : nginx pointe encore ailleurs. Voir docs/cutover-domaine-marketing.md (étape nginx)."
+            exit 1
+          fi
+          echo "OK : https://${DOMAIN} sert bien le site marketing (conteneur ${{ env.APP_NAME }}, port ${PORT})."

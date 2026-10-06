@@ -1,0 +1,20 @@
+# Contexte de build Docker : n'envoyer que le code source.
+# Sans ce fichier, `COPY . .` écrase les node_modules installés dans l'image (Linux) par ceux de la machine qui construit,
+# et peut embarquer des fichiers locaux (.env, .git, rapports de test) dans les couches de build.
+node_modules
+.next
+.git
+.github
+.husky
+.claude
+.specify
+.agents
+.env
+.env.*
+!.env.example
+test-results
+playwright-report
+coverage
+*.log
+*.tsbuildinfo
+.DS_Store
