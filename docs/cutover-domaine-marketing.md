@@ -26,18 +26,22 @@ Avant cette branche, un push sur `main` ici aurait redémarré **le conteneur de
 - **`.dockerignore`** (nouveau) : sans lui, `COPY . .` écrase les `node_modules` de l'image par ceux de la machine qui construit (build local cassé) et peut embarquer des fichiers locaux (`.env`, `.git`) dans les couches de build. Aucun effet sur le build de GitHub (copie propre).
 - **`infra/nginx/ecoledigitale-site.conf`** : le vhost du site (à installer à l'étape 5).
 
-## 3. Décision à prendre : où va l'application EcoleDigitaleV2 ?
+## 3. Décision prise : l'application passe sur `ecoledigitale-web.allianceconsultants.net`
 
-Tant que l'application répond sur `ecoledigitale.allianceconsultants.net`, **on ne peut pas** lui donner ce nom. À déplacer côté application :
+Décision relayée le 2026-10-06 : l'application EcoleDigitaleV2 vit sur **`ecoledigitale-web.allianceconsultants.net`** (DNS, certificat valide jusqu'au 2027-01-01 et vhost existent déjà : **aucun DNS, aucun hPanel**). L'adresse `ecoledigitale.allianceconsultants.net` est libérée pour le site marketing.
 
-- **Son dépôt** (`EcoleDigitaleV2`, `.github/workflows/deploy.yml`) : l'URL de l'environnement de production et `DEPLOY_HEALTH_URL` (`…/health`).
-- **Son fichier d'environnement sur le serveur** (`/home/deployer/ecoledigitale.env`) : `NEXTAUTH_URL` et `CORS_ORIGIN` (aujourd'hui l'adresse actuelle), puis redéploiement de l'application.
-- **Son nginx** : un vhost sur la nouvelle adresse, avec ses routes `/api/v1/` → `127.0.0.1:8011` et `/health` → `127.0.0.1:8011/api/v1/health`, comme dans l'ancien vhost `ecoledigitale`.
-- **Un certificat** pour la nouvelle adresse.
+À changer côté application (rien n'est appliqué à ce jour) :
 
-Constats utiles : le DNS n'a **pas** de joker (`*.allianceconsultants.net`) : toute nouvelle adresse exige un enregistrement chez Hostinger. Les sous-domaines de clients `*.ecoledigitale…` n'existent pas dans le DNS aujourd'hui. L'adresse `ecoledigitale-web.allianceconsultants.net` existe déjà (DNS, certificat valide jusqu'au 2027-01-01, vhost nginx) et sert la même application, mais son vhost n'a **pas** les routes `/api/v1` ni `/health`.
+- **Son dépôt** (`EcoleDigitaleV2`, `.github/workflows/deploy.yml`) : l'URL de l'environnement de production et `DEPLOY_HEALTH_URL` → `https://ecoledigitale-web.allianceconsultants.net/health`.
+- **Son fichier d'environnement sur le serveur** (`/home/deployer/ecoledigitale.env`) : `NEXTAUTH_URL` et `CORS_ORIGIN` → `https://ecoledigitale-web.allianceconsultants.net`, puis redéploiement de l'application. À lire d'abord, ne rien deviner : `grep -nE 'NEXTAUTH_URL|CORS_ORIGIN|ecoledigitale' /home/deployer/ecoledigitale.env` et chercher aussi toute autre mention de l'ancienne adresse (clients mobiles, webhooks, fournisseur d'authentification : URLs de rappel OAuth à mettre à jour chez le fournisseur).
+- **Son nginx** : `infra/nginx/ecoledigitale-app.conf` (ce dépôt) **remplace** `/etc/nginx/sites-available/ecoledigitale-web` : même hôte, mais avec les routes `/api/v1/` → `127.0.0.1:8011` et `/health` → `127.0.0.1:8011/api/v1/health` qui manquaient (sans elles : connexion et contrôle de santé cassés). La logique « tenant » des sous-domaines clients n'est pas reprise (ils n'existent pas dans le DNS).
+- **Certificat** : celui de `ecoledigitale-web…` existe déjà (`/etc/letsencrypt/live/ecoledigitale-web.allianceconsultants.net/`), rien à émettre.
 
-> **Question ouverte** : l'adresse de l'application après la bascule. Les étapes 2 et suivantes en dépendent.
+Conséquences à connaître :
+
+- Pendant l'étape 2 puis jusqu'à l'étape 5, l'application répond sur les deux adresses (l'ancienne via l'ancien vhost). Après l'étape 5, l'ancienne adresse sert le marketing : **les utilisateurs de l'application qui ont l'ancienne adresse en favori ou un lien de rappel (courriels, OAuth) tomberont sur le site marketing**. À annoncer avant la bascule.
+- Le site Umami « EcoleDigitale » porte aujourd'hui le domaine `ecoledigitale-web.allianceconsultants.net`, qui devient celui de l'application : tant que l'étape 7 n'est pas faite, les visites du site marketing (sur l'apex) seraient filtrées par `data-domains` (domaine compté = celui de `NEXT_PUBLIC_SITE_URL`, soit l'apex). Faire l'étape 7 juste après la bascule.
+- Le dashboard n'a aucun autre rapport avec l'application : rien à y changer.
 
 ## 4. Ordre des opérations
 
@@ -52,9 +56,10 @@ ssh alliance "ss -ltn | grep -c ':3021 ' || echo 'port 3021 libre'"
 
 Contrôle : le fichier existe, et le port 3021 est libre. (L'exécuteur `gha-runner` est dans les groupes `docker` et `deploy`, il peut écrire dans ce dossier.)
 
-### Étape 2 — Déplacer l'application ailleurs
+### Étape 2 — Déplacer l'application sur `ecoledigitale-web.allianceconsultants.net`
 
-Voir §3. **À ne faire qu'une fois l'adresse décidée**, et à valider sur l'application (connexion, `…/health`) avant de continuer.
+Voir §3. Ordre : (a) sauvegarder puis installer `infra/nginx/ecoledigitale-app.conf` (`nginx -t` avant rechargement) ; (b) contrôler `curl -s -o /dev/null -w '%{http_code}
+' https://ecoledigitale-web.allianceconsultants.net/health` (200) ; (c) sauvegarder `/home/deployer/ecoledigitale.env`, changer `NEXTAUTH_URL` et `CORS_ORIGIN`, redéployer l'application ; (d) fusionner dans le dépôt `EcoleDigitaleV2` le changement d'URL / `DEPLOY_HEALTH_URL`. **Valider sur l'application (connexion, `/health`) avant de continuer.**
 
 ### Étape 3 — Fusionner dans `main` → déploiement du conteneur
 
@@ -102,7 +107,7 @@ L'étape « Vérifier que le bon site répond » doit maintenant être **verte**
 
 - **nginx** (le plus rapide) : `sudo cp /etc/nginx/sites-available/ecoledigitale.bak-<date> /etc/nginx/sites-available/ecoledigitale && sudo nginx -t && sudo systemctl reload nginx`. L'adresse sert de nouveau l'ancien contenu.
 - Le conteneur `ecoledigitale-site` peut rester : il n'écoute que sur `127.0.0.1:3021` et ne gêne rien. Pour l'arrêter : `cd ~/apps/ecoledigitale-site && docker compose -p ecoledigitale-site -f docker-compose.prod.yml down`.
-- Si l'application a déjà été déplacée (étape 2), la remettre sur l'ancienne adresse suppose de rétablir ses `NEXTAUTH_URL` / `CORS_ORIGIN` : à ne pas faire à la légère, d'où l'ordre ci-dessus.
+- Si l'application a déjà été déplacée (étape 2), elle peut rester sur `ecoledigitale-web…` : le retour arrière nginx ci-dessus rend l'ancienne adresse à l'ancien vhost, qui proxifie toujours vers le même conteneur (3011/8011) ; seuls `NEXTAUTH_URL`/`CORS_ORIGIN` (désormais sur la nouvelle adresse) ne correspondent plus à l'ancienne. Sauvegardes à garder : `ecoledigitale.bak-<date>`, `ecoledigitale-web.bak-<date>`, `ecoledigitale.env.bak-<date>`.
 
 ## 6. Points de contrôle
 
@@ -110,7 +115,8 @@ L'étape « Vérifier que le bon site répond » doit maintenant être **verte**
 # Le bon site répond à l'adresse publique
 curl -s https://ecoledigitale.allianceconsultants.net/robots.txt
 curl -s https://ecoledigitale.allianceconsultants.net/ | grep -o '<title>[^<]*</title>'
-# L'application, elle, répond à sa nouvelle adresse (à compléter une fois décidée) : …/health
+# L'application, elle, répond à sa nouvelle adresse :
+curl -s -o /dev/null -w 'app /health: HTTP %{http_code}\n' https://ecoledigitale-web.allianceconsultants.net/health
 # Umami : le script est servi, domaine compté = celui de NEXT_PUBLIC_SITE_URL
 curl -s https://ecoledigitale.allianceconsultants.net/ | grep -o 'data-domains[^,]*'
 ```
