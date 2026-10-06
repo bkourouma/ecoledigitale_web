@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Inter_Tight } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
-import { PlausibleScript } from '@/components/analytics/PlausibleScript';
+import { UmamiScript } from '@/components/analytics/UmamiScript';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildOrganization, buildWebSite } from '@/lib/seo/jsonld';
 import './globals.css';
@@ -57,8 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <JsonLd data={[buildOrganization(), buildWebSite()]} />
         {children}
-        <PlausibleScript />
-        <Analytics />
+        <UmamiScript />
       </body>
     </html>
   );

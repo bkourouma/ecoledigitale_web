@@ -3,11 +3,11 @@ import {
   clearCapturedEvents,
   getCapturedEvents,
   getEventsByName,
-  installPlausibleMock,
-} from './helpers/mock-plausible';
+  installUmamiMock,
+} from './helpers/mock-umami';
 
 test.beforeEach(async ({ page }) => {
-  await installPlausibleMock(page);
+  await installUmamiMock(page);
 });
 
 test.describe('Analytics — Demo CTA Clicked', () => {
@@ -27,7 +27,10 @@ test.describe('Analytics — Demo CTA Clicked', () => {
 
   test('clic sur CTA démo du header sticky → placement=header', async ({ page }) => {
     await page.goto('/modules');
-    await page.locator('header').getByRole('link', { name: /Demander une démonstration/i }).click();
+    await page
+      .locator('header')
+      .getByRole('link', { name: /Demander une démonstration/i })
+      .click();
 
     const events = await getEventsByName(page, 'Demo CTA Clicked');
     expect(events.some((e) => e.props?.placement === 'header')).toBe(true);
@@ -37,7 +40,10 @@ test.describe('Analytics — Demo CTA Clicked', () => {
 test.describe('Analytics — Modules CTA Clicked', () => {
   test('clic sur "Voir les modules" du hero accueil → placement=hero', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: /Voir les modules/i }).first().click();
+    await page
+      .getByRole('link', { name: /Voir les modules/i })
+      .first()
+      .click();
 
     const events = await getEventsByName(page, 'Modules CTA Clicked');
     expect(events.some((e) => e.props?.placement === 'hero')).toBe(true);
@@ -45,7 +51,10 @@ test.describe('Analytics — Modules CTA Clicked', () => {
 
   test('clic sur une carte module → placement=card', async ({ page }) => {
     await page.goto('/modules');
-    await page.getByRole('link', { name: /Voir le module/i }).first().click();
+    await page
+      .getByRole('link', { name: /Voir le module/i })
+      .first()
+      .click();
 
     const events = await getEventsByName(page, 'Modules CTA Clicked');
     expect(events.some((e) => e.props?.placement === 'card')).toBe(true);
@@ -58,9 +67,7 @@ test.describe('Analytics — Module Page Viewed', () => {
 
     // Le useEffect doit avoir tourné après navigation
     await page.waitForFunction(() =>
-      (window.__plausibleEvents ?? []).some(
-        (e) => e.event === 'Module Page Viewed',
-      ),
+      (window.__umamiEvents ?? []).some((e) => e.event === 'Module Page Viewed'),
     );
 
     const events = await getEventsByName(page, 'Module Page Viewed');
@@ -81,8 +88,10 @@ test.describe('Analytics — Module Page Viewed', () => {
       await page.goto(`/modules/${slug}`);
       await page.waitForFunction(
         (s) =>
-          (window.__plausibleEvents ?? []).some(
-            (e) => e.event === 'Module Page Viewed' && (e.props as { moduleSlug?: string })?.moduleSlug === s,
+          (window.__umamiEvents ?? []).some(
+            (e) =>
+              e.event === 'Module Page Viewed' &&
+              (e.props as { moduleSlug?: string })?.moduleSlug === s,
           ),
         slug,
       );
@@ -98,9 +107,7 @@ test.describe('Analytics — Module Selected In Form', () => {
 
     const events = await getEventsByName(page, 'Module Selected In Form');
     expect(events).toHaveLength(1);
-    expect(events[0]!.props).toEqual(
-      expect.objectContaining({ moduleSlug: 'parcours-bts' }),
-    );
+    expect(events[0]!.props).toEqual(expect.objectContaining({ moduleSlug: 'parcours-bts' }));
   });
 
   test("décocher un module n'émet PAS d'event (seul le toggle ON est tracé)", async ({ page }) => {
@@ -145,7 +152,10 @@ test.describe('Analytics — Demo Form Submitted / Failed', () => {
 });
 
 test.describe('Analytics — Contact Channel Clicked', () => {
-  test('clic sur WhatsApp dans le footer → event avec channel=whatsapp', async ({ page, context }) => {
+  test('clic sur WhatsApp dans le footer → event avec channel=whatsapp', async ({
+    page,
+    context,
+  }) => {
     // Empêcher la navigation vers wa.me
     await context.route('https://wa.me/**', (route) => route.abort());
     await page.goto('/');
@@ -175,7 +185,10 @@ test('catalogue complet : aucun event hors-whitelist émis sur le golden path', 
   ]);
 
   await page.goto('/');
-  await page.getByRole('link', { name: /Voir les modules/i }).first().click();
+  await page
+    .getByRole('link', { name: /Voir les modules/i })
+    .first()
+    .click();
   await page.waitForURL('**/modules');
 
   const events = await getCapturedEvents(page);

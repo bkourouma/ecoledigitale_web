@@ -13,7 +13,7 @@ export interface ResourceCTAProps extends Omit<ButtonLinkProps, 'onClick'> {
 }
 
 /**
- * CTA des pages ressources. Émet l'événement Plausible `Resource CTA Clicked`
+ * CTA des pages ressources. Émet l'événement Umami `Resource CTA Clicked`
  * avec le contexte de la ressource d'origine — permet de mesurer SC-006
  * (chaque lead démo issu du hub renseigne une ressource source identifiable).
  */

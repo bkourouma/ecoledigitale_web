@@ -8,7 +8,7 @@ Site marketing public d'EcoleDigitale (plateforme SaaS de gestion d'établisseme
 - **Style** : Tailwind CSS 4 (CSS-first via `@theme`)
 - **Contenu** : MDX (`@next/mdx`, `next-mdx-remote/rsc`) — modules dans `content/modules/`
 - **Email transactionnel** : Resend
-- **Analytics** : Plausible (cookieless) + Vercel Web Analytics
+- **Analytics** : Umami auto-hébergé (cookieless, sans adresse IP conservée)
 - **Tests** : Vitest (unit) + Playwright (E2E) + axe-core (a11y) + Lighthouse CI (perf ≥ 85 mobile)
 - **CI/CD** : GitHub Actions + Vercel
 
@@ -26,19 +26,19 @@ Documentation complète : [specs/001-site-marketing/quickstart.md](specs/001-sit
 
 ## Scripts utiles
 
-| Script | Description |
-|---|---|
-| `pnpm dev` | Serveur de développement sur le port 4000 |
-| `pnpm build` | Build production statique |
-| `pnpm start` | Sert le build sur le port 4000 |
-| `pnpm lint` | ESLint + règles jsx-a11y |
-| `pnpm typecheck` | `tsc --noEmit` strict |
-| `pnpm test:unit` | Vitest |
-| `pnpm test:e2e` | Playwright (toutes les specs) |
-| `pnpm test:e2e:ui` | Playwright avec UI |
-| `pnpm test:a11y` | Audit axe-core sur les 8 pages MVP |
+| Script                 | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `pnpm dev`             | Serveur de développement sur le port 4000    |
+| `pnpm build`           | Build production statique                    |
+| `pnpm start`           | Sert le build sur le port 4000               |
+| `pnpm lint`            | ESLint + règles jsx-a11y                     |
+| `pnpm typecheck`       | `tsc --noEmit` strict                        |
+| `pnpm test:unit`       | Vitest                                       |
+| `pnpm test:e2e`        | Playwright (toutes les specs)                |
+| `pnpm test:e2e:ui`     | Playwright avec UI                           |
+| `pnpm test:a11y`       | Audit axe-core sur les 8 pages MVP           |
 | `pnpm test:lighthouse` | Lighthouse CI (gate Performance ≥ 85 mobile) |
-| `pnpm analyze` | Build avec bundle analyzer |
+| `pnpm analyze`         | Build avec bundle analyzer                   |
 
 ## Architecture du repo
 
@@ -59,7 +59,7 @@ components/
   marketing/               # Composants pages (Hero, ModulesGrid, FinalCTA, ...)
   forms/                   # DemoRequestForm, FormField, ModuleMultiSelect
   mdx/                     # Composants module (ModuleHero, ModuleBenefits, ...)
-  analytics/               # PlausibleScript, ModulePageView
+  analytics/               # UmamiScript, ModulePageView
 
 content/
   modules/                 # 5 fichiers MDX — source unique du catalogue
@@ -83,16 +83,16 @@ tests/
 
 Ce projet est piloté par [GitHub Spec Kit](https://github.com/github/spec-kit). Tout le travail produit suit le workflow Spec → Plan → Tasks → Implement.
 
-| Artefact | Lien |
-|---|---|
-| Constitution | [.specify/memory/constitution.md](.specify/memory/constitution.md) |
-| Spec | [specs/001-site-marketing/spec.md](specs/001-site-marketing/spec.md) |
-| Plan technique | [specs/001-site-marketing/plan.md](specs/001-site-marketing/plan.md) |
-| Recherche (Phase 0) | [specs/001-site-marketing/research.md](specs/001-site-marketing/research.md) |
-| Modèle de données | [specs/001-site-marketing/data-model.md](specs/001-site-marketing/data-model.md) |
-| Contrats | [specs/001-site-marketing/contracts/](specs/001-site-marketing/contracts/) |
-| Quickstart dev | [specs/001-site-marketing/quickstart.md](specs/001-site-marketing/quickstart.md) |
-| Tâches | [specs/001-site-marketing/tasks.md](specs/001-site-marketing/tasks.md) |
+| Artefact            | Lien                                                                             |
+| ------------------- | -------------------------------------------------------------------------------- |
+| Constitution        | [.specify/memory/constitution.md](.specify/memory/constitution.md)               |
+| Spec                | [specs/001-site-marketing/spec.md](specs/001-site-marketing/spec.md)             |
+| Plan technique      | [specs/001-site-marketing/plan.md](specs/001-site-marketing/plan.md)             |
+| Recherche (Phase 0) | [specs/001-site-marketing/research.md](specs/001-site-marketing/research.md)     |
+| Modèle de données   | [specs/001-site-marketing/data-model.md](specs/001-site-marketing/data-model.md) |
+| Contrats            | [specs/001-site-marketing/contracts/](specs/001-site-marketing/contracts/)       |
+| Quickstart dev      | [specs/001-site-marketing/quickstart.md](specs/001-site-marketing/quickstart.md) |
+| Tâches              | [specs/001-site-marketing/tasks.md](specs/001-site-marketing/tasks.md)           |
 
 Le PRD de référence est dans [docs/PRD_SITE_MARKETING_ECOLEDIGITALE.md](docs/PRD_SITE_MARKETING_ECOLEDIGITALE.md).
 
@@ -114,7 +114,7 @@ sans toucher au code : il suffit d'ajouter un fichier MDX.
 5. Ouvrir une PR, faire relire, merger.
 
 Guide complet de rédaction et schéma de frontmatter :
-[content/ressources/_TEMPLATE-BRIEF.md](content/ressources/_TEMPLATE-BRIEF.md).
+[content/ressources/\_TEMPLATE-BRIEF.md](content/ressources/_TEMPLATE-BRIEF.md).
 Parcours développeur détaillé :
 [specs/002-hub-ressources/quickstart.md](specs/002-hub-ressources/quickstart.md).
 
