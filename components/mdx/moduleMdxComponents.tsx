@@ -18,32 +18,47 @@ export function createModuleMdxComponents(module: ModuleFrontmatter): MDXCompone
   return {
     // HTML mappings (cohérents avec mdx-components.tsx racine)
     h2: ({ children, ...props }) => (
-      <h2 className="mt-12 text-2xl font-semibold tracking-tight text-ink" {...props}>
+      <h2
+        className="text-ink mt-12 text-2xl font-semibold tracking-tight dark:text-neutral-50"
+        {...props}
+      >
         {children}
       </h2>
     ),
     h3: ({ children, ...props }) => (
-      <h3 className="mt-8 text-xl font-semibold text-ink" {...props}>
+      <h3 className="text-ink mt-8 text-xl font-semibold dark:text-neutral-50" {...props}>
         {children}
       </h3>
     ),
     p: ({ children, ...props }) => (
-      <p className="mt-4 max-w-prose text-base leading-relaxed text-ink-muted" {...props}>
+      <p
+        className="text-ink-muted mt-4 max-w-prose text-base leading-relaxed dark:text-slate-300"
+        {...props}
+      >
         {children}
       </p>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="mt-4 list-disc space-y-2 pl-6 text-ink-muted marker:text-brand-500" {...props}>
+      <ul
+        className="text-ink-muted marker:text-brand-500 mt-4 list-disc space-y-2 pl-6 dark:text-slate-300"
+        {...props}
+      >
         {children}
       </ul>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="mt-4 list-decimal space-y-2 pl-6 text-ink-muted" {...props}>
+      <ol
+        className="text-ink-muted mt-4 list-decimal space-y-2 pl-6 dark:text-slate-300"
+        {...props}
+      >
         {children}
       </ol>
     ),
     a: ({ children, ...props }) => (
-      <a className="font-medium text-brand-700 underline-offset-4 hover:underline" {...props}>
+      <a
+        className="text-brand-700 dark:text-brand-300 font-medium underline-offset-4 hover:underline"
+        {...props}
+      >
         {children}
       </a>
     ),
