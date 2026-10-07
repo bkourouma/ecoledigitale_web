@@ -1,4 +1,5 @@
 <!-- SPECKIT START -->
+
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan:
 
@@ -13,9 +14,10 @@ shell commands, and other important information, read the current plan:
 Previous feature: `specs/001-site-marketing/` (site marketing MVP — livré, base technique du projet).
 
 Stack résumé : Next.js 15 (App Router) + TypeScript + Tailwind CSS 4 + MDX,
-Resend (email), Plausible (analytics), Vercel (hosting). Application standalone.
+Resend (email), Umami (analytics), Vercel (hosting). Application standalone.
 
 Sprint 1 SEO technique (mai 2026) livré entre la feature 001 et la 002 :
 helpers `lib/seo/jsonld.ts` (Organization, WebSite, BreadcrumbList, Course, FAQPage, Article),
 composant `components/seo/JsonLd.tsx`, icônes natives `app/icon.tsx`/`app/apple-icon.tsx`/`app/manifest.ts`.
+
 <!-- SPECKIT END -->

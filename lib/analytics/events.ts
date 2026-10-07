@@ -8,7 +8,7 @@ export type SubmissionFailureReason = 'validation' | 'rate_limit' | 'server' | '
 export type ResourceCtaTarget = 'demo' | 'module' | 'external';
 
 /**
- * Catalogue typé des événements Plausible.
+ * Catalogue typé des événements Umami.
  * Voir specs/001-site-marketing/contracts/analytics-events.contract.md
  */
 export type AnalyticsEventMap = {

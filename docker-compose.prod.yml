@@ -1,10 +1,14 @@
+name: ecoledigitale-site
+
 services:
   web:
-    image: ghcr.io/bkourouma/ecoledigitale-web:latest
-    container_name: ecoledigitale-web
+    image: ghcr.io/bkourouma/ecoledigitale-site:latest
+    # Nom, port et projet PROPRES au site marketing : l'application EcoleDigitaleV2 (autre dépôt, même serveur)
+    # utilise « ecoledigitale-web » et le port 3011. Ne jamais réutiliser ces deux-là.
+    container_name: ecoledigitale-site
     restart: unless-stopped
     env_file: .env.production
-    # Port hôte local → conteneur Next.js (PORT=3000 dans le Dockerfile)
-    # Le nginx système (hôte) proxie https://... vers ce port.
+    # Port hôte local → conteneur Next.js (PORT=3000 dans le Dockerfile).
+    # Le nginx système (hôte) proxie https://... vers ce port (infra/nginx/ecoledigitale-site.conf).
     ports:
-      - '127.0.0.1:3011:3000'
+      - '127.0.0.1:3021:3000'

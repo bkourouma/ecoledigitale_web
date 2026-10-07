@@ -12,7 +12,7 @@ export interface ModulePageViewProps {
  * Client component qui émet `Module Page Viewed` au chargement de la page.
  * Monté en début de `/modules/[slug]/page.tsx`.
  *
- * Plausible suit déjà les pageviews automatiquement, mais cet event custom
+ * Umami suit déjà les pageviews automatiquement, mais cet event custom
  * expose la propriété `moduleSlug` pour le ranking des modules les plus consultés.
  */
 export function ModulePageView({ moduleSlug }: ModulePageViewProps) {
