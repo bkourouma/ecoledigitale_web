@@ -42,6 +42,8 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
     siteName: 'EcoleDigitale',
   },
+  // Propriété Google Search Console (valeur publique, servie dans le HTML).
+  verification: { google: 'WCtsnzYFVt9ud_pN59hcfuJ4L-lZ1eOoUAKbVyPd6u8' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
