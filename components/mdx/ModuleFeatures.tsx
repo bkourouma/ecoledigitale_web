@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import type { ModuleFrontmatter } from '@/lib/content/module.schema';
 
 export interface ModuleFeaturesProps {
@@ -6,22 +7,23 @@ export interface ModuleFeaturesProps {
 
 export function ModuleFeatures({ module }: ModuleFeaturesProps) {
   return (
-    <section className="container-content py-16">
-      <h2 className="text-ink text-2xl font-semibold tracking-tight dark:text-neutral-50">
-        Principales fonctionnalités
+    <section className="container-content py-12 md:py-16">
+      <h2 className="font-display text-display-sm text-primary-800 font-bold">
+        Principales <span className="marker">fonctionnalités</span>
       </h2>
-      <p className="text-ink-muted mt-2 max-w-prose dark:text-slate-300">
+      <p className="text-ink-muted mt-2 max-w-prose text-lg">
         Un aperçu de ce que vos équipes utiliseront au quotidien.
       </p>
-      <ul className="text-ink mt-8 grid gap-x-8 gap-y-3 text-sm md:grid-cols-2 dark:text-neutral-50">
+      <ul className="border-primary-700/70 mt-8 grid gap-x-12 border-t-2 md:grid-cols-2">
         {module.features.map((feature) => (
           <li
             key={feature}
-            className="flex gap-2.5 border-b border-slate-100 pb-3 dark:border-slate-800"
+            className="border-primary-200 text-ink flex gap-3 border-b-2 border-dashed py-4 text-base"
           >
-            <span
+            <Check
+              className="text-accent-600 mt-1 h-5 w-5 shrink-0"
+              strokeWidth={3}
               aria-hidden="true"
-              className="bg-brand-500 mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
             />
             <span>{feature}</span>
           </li>

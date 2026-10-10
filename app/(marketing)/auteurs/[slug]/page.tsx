@@ -63,7 +63,7 @@ export default async function AuthorPage({ params }: PageProps) {
       />
 
       <section className="container-content py-12 md:py-16">
-        <nav aria-label="Fil d’Ariane" className="text-sm text-ink-soft">
+        <nav aria-label="Fil d’Ariane" className="text-ink-soft text-sm">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="underline-offset-4 hover:underline">
@@ -80,8 +80,8 @@ export default async function AuthorPage({ params }: PageProps) {
         </div>
 
         {resources.length > 0 && (
-          <div className="mt-14 border-t border-slate-100 pt-12">
-            <h2 className="text-2xl font-semibold tracking-tight text-ink">
+          <div className="border-line mt-14 border-t pt-12">
+            <h2 className="font-display text-primary-800 text-4xl leading-none font-bold">
               Ressources signées
             </h2>
             <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

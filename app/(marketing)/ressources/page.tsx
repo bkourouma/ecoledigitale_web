@@ -40,23 +40,12 @@ export default async function ResourcesHubPage({ searchParams }: PageProps) {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-slate-100">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 60% at 20% -10%, rgba(47,129,250,0.09) 0%, transparent 60%), #fff',
-          }}
-        />
+      <section className="relative">
         <div className="container-content py-16 md:py-20">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-700">
-            Ressources
-          </p>
-          <h1 className="mt-3 text-display-md font-semibold tracking-tight text-ink">
+          <h1 className="font-display text-display-md text-primary-800 mt-3 font-bold">
             Guides, études de cas et glossaire
           </h1>
-          <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-muted">
+          <p className="text-ink-muted mt-5 max-w-prose text-lg leading-relaxed">
             Des repères concrets pour digitaliser la gestion académique, pédagogique et
             administrative de votre établissement — sans jargon et sans promesse exagérée.
           </p>

@@ -7,7 +7,7 @@ test.describe('Page /modules', () => {
 
   test('affiche le titre et l’intro', async ({ page }) => {
     await expect(
-      page.getByRole('heading', { level: 1, name: /5 modules pour s’adapter/i }),
+      page.getByRole('heading', { level: 1, name: /5 modules pour s['’]adapter/i }),
     ).toBeVisible();
   });
 

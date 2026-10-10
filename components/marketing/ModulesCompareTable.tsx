@@ -6,49 +6,53 @@ export function ModulesCompareTable() {
   const modules = loadModules();
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-neutral-200/80 bg-white shadow-card dark:border-white/10 dark:bg-white/6">
-      <table className="w-full divide-y divide-neutral-200 text-left text-sm dark:divide-white/10">
+    <div className="border-primary-700/70 shadow-card overflow-x-auto border-2 bg-white">
+      <table className="w-full text-left text-base">
         <caption className="sr-only">Vue comparative des modules EcoleDigitale</caption>
-        <thead className="sticky top-0 bg-neutral-50 dark:bg-white/8">
-          <tr>
+        <thead>
+          <tr className="border-primary-700/70 bg-marker-soft/70 border-b-2">
             {['Module', 'Type', 'Positionnement', 'Détails'].map((heading) => (
               <th
                 key={heading}
                 scope="col"
-                className="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-ink-soft last:text-right dark:text-neutral-400"
+                className="font-display text-primary-800 px-5 py-3 text-2xl leading-none font-bold last:text-right"
               >
                 {heading}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-200 dark:divide-white/10">
+        <tbody>
           {modules.map(({ frontmatter }) => (
-            <tr key={frontmatter.slug} className="transition-colors hover:bg-neutral-50 dark:hover:bg-white/8">
-              <th scope="row" className="whitespace-nowrap px-5 py-4 font-semibold text-ink dark:text-white">
+            <tr
+              key={frontmatter.slug}
+              className="border-primary-200 hover:bg-marker-soft/40 border-b border-dashed transition-colors last:border-b-0"
+            >
+              <th
+                scope="row"
+                className="font-display text-primary-800 px-5 py-4 text-2xl font-bold whitespace-nowrap"
+              >
                 {frontmatter.name}
               </th>
-              <td className="whitespace-nowrap px-5 py-4">
+              <td className="px-5 py-4 whitespace-nowrap">
                 <span
                   className={
                     frontmatter.type === 'socle'
-                      ? 'inline-flex items-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-semibold text-primary-800 dark:bg-primary-400/15 dark:text-primary-200'
-                      : 'inline-flex items-center rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-semibold text-accent-800 dark:bg-accent-400/15 dark:text-accent-200'
+                      ? 'marker text-primary-800 font-bold'
+                      : 'text-accent-700 font-bold'
                   }
                 >
                   {frontmatter.type === 'socle' ? 'Socle de base' : 'Activable en option'}
                 </span>
               </td>
-              <td className="min-w-72 px-5 py-4 text-ink-muted dark:text-neutral-300">
-                {frontmatter.tagline}
-              </td>
-              <td className="whitespace-nowrap px-5 py-4 text-right">
+              <td className="text-ink-muted min-w-72 px-5 py-4">{frontmatter.tagline}</td>
+              <td className="px-5 py-4 text-right whitespace-nowrap">
                 <Link
                   href={`/modules/${frontmatter.slug}`}
-                  className="inline-flex items-center gap-1 font-semibold text-primary-700 underline-offset-4 hover:text-accent-700 hover:underline dark:text-primary-200 dark:hover:text-accent-200"
+                  className="text-primary-700 hover:bg-marker-soft inline-flex items-center gap-1 font-bold underline decoration-2 underline-offset-4"
                 >
                   Voir
-                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </td>
             </tr>

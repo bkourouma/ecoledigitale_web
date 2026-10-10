@@ -47,10 +47,7 @@ export const ModuleMultiSelect = forwardRef<HTMLFieldSetElement, ModuleMultiSele
         ref={ref}
         aria-invalid={invalid || undefined}
         aria-describedby={errorId}
-        className={cn(
-          'rounded-md border p-3',
-          invalid ? 'border-red-400' : 'border-slate-200',
-        )}
+        className={cn('rounded-md border p-3', invalid ? 'border-red-400' : 'border-line')}
       >
         <legend className="sr-only">Modules qui vous intéressent</legend>
         <ul className="space-y-2">
@@ -61,7 +58,7 @@ export const ModuleMultiSelect = forwardRef<HTMLFieldSetElement, ModuleMultiSele
               <li key={opt.slug}>
                 <label
                   htmlFor={inputId}
-                  className="flex cursor-pointer items-start gap-3 rounded-md p-2 transition-colors hover:bg-surface-muted"
+                  className="hover:bg-surface-muted flex cursor-pointer items-start gap-3 rounded-md p-2 transition-colors"
                 >
                   <Checkbox
                     id={inputId}
@@ -70,9 +67,9 @@ export const ModuleMultiSelect = forwardRef<HTMLFieldSetElement, ModuleMultiSele
                     className="mt-0.5"
                   />
                   <span>
-                    <span className="block text-sm font-medium text-ink">{opt.label}</span>
+                    <span className="text-ink block text-sm font-medium">{opt.label}</span>
                     {opt.description && (
-                      <span className="block text-xs text-ink-soft">{opt.description}</span>
+                      <span className="text-ink-soft block text-xs">{opt.description}</span>
                     )}
                   </span>
                 </label>

@@ -31,9 +31,7 @@ export function RelatedResources({
   const published = getAllResources();
   const resolved = refs
     .map((ref) =>
-      published.find(
-        (b) => b.frontmatter.type === ref.type && b.frontmatter.slug === ref.slug,
-      ),
+      published.find((b) => b.frontmatter.type === ref.type && b.frontmatter.slug === ref.slug),
     )
     .filter((b): b is NonNullable<typeof b> => b !== undefined);
 
@@ -41,18 +39,18 @@ export function RelatedResources({
 
   return (
     <section className={cn('max-w-3xl', className)}>
-      <h2 className="text-2xl font-semibold tracking-tight text-ink">{heading}</h2>
+      <h2 className="font-display text-primary-800 text-4xl leading-none font-bold">{heading}</h2>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {resolved.map((b) => (
           <li key={`${b.frontmatter.type}/${b.frontmatter.slug}`}>
             <Link
               href={`/ressources/${b.frontmatter.type}/${b.frontmatter.slug}`}
-              className="block h-full rounded-xl border border-slate-200 bg-white p-5 shadow-card transition-colors hover:border-brand-300"
+              className="border-line shadow-card hover:border-brand-300 block h-full rounded-md border bg-white p-5 transition-colors"
             >
-              <span className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+              <span className="red-note text-xl">
                 {RESOURCE_TYPE_LABELS[b.frontmatter.type].singular}
               </span>
-              <span className="mt-2 block font-semibold text-ink">{b.frontmatter.title}</span>
+              <span className="text-ink mt-2 block font-semibold">{b.frontmatter.title}</span>
             </Link>
           </li>
         ))}

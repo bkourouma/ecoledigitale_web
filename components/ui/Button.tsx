@@ -1,27 +1,31 @@
-import { forwardRef, type ButtonHTMLAttributes, type AnchorHTMLAttributes, type ReactNode } from 'react';
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/ui/cn';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'chalk';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary:
-    'shimmer-btn bg-accent-500 text-neutral-950 shadow-xs hover:bg-accent-400 active:bg-accent-600 disabled:bg-accent-200 hover:shadow-sm dark:text-neutral-950',
+  primary: 'stamp disabled:opacity-50',
+  chalk: 'stamp-chalk disabled:opacity-50',
   secondary:
-    'bg-white text-ink ring-1 ring-inset ring-neutral-200 hover:bg-surface-subtle hover:ring-accent-300 disabled:opacity-60 shadow-xs dark:bg-white/8 dark:text-neutral-50 dark:ring-white/10 dark:hover:bg-white/12',
-  ghost:
-    'text-ink-muted hover:text-ink hover:bg-surface-muted disabled:opacity-60 dark:text-neutral-300 dark:hover:bg-white/10 dark:hover:text-white',
+    'rounded-md border-2 border-primary-700 bg-paper text-primary-800 rotate-[0.8deg] shadow-xs hover:rotate-0 hover:bg-marker-soft disabled:opacity-50',
+  ghost: 'text-primary-700 pen-underline hover:text-primary-900 disabled:opacity-50',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-xs font-medium',
-  md: 'h-10 px-4 text-sm',
-  lg: 'h-11 px-5 text-sm',
+  sm: 'h-9 px-3.5 text-lg',
+  md: 'h-11 px-5 text-xl',
+  lg: 'h-12 px-7 text-2xl',
 };
 
 const BASE_CLASSES =
-  'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:hover:translate-y-0 select-none';
+  'inline-flex items-center justify-center gap-2 font-display font-bold leading-none transition-all duration-200 disabled:cursor-not-allowed select-none';
 
 export interface ButtonOwnProps {
   variant?: ButtonVariant;

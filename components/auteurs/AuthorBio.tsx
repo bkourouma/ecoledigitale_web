@@ -19,16 +19,16 @@ export function AuthorBio({ author }: AuthorBioProps) {
       <div className="flex flex-wrap items-start gap-5">
         <AuthorAvatar name={frontmatter.name} photo={frontmatter.photo} size={96} />
         <div>
-          <h1 className="text-display-md font-semibold tracking-tight text-ink">
+          <h1 className="font-display text-display-md text-primary-800 font-bold">
             {frontmatter.name}
           </h1>
-          <p className="mt-2 text-lg text-ink-muted">{frontmatter.role}</p>
+          <p className="text-ink-muted mt-2 text-lg">{frontmatter.role}</p>
           {frontmatter.linkedinUrl && (
             <a
               href={frontmatter.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-sm font-medium text-brand-700 underline-offset-4 hover:underline"
+              className="text-brand-700 mt-2 inline-block text-sm font-medium underline-offset-4 hover:underline"
             >
               Profil LinkedIn
             </a>
@@ -36,18 +36,15 @@ export function AuthorBio({ author }: AuthorBioProps) {
         </div>
       </div>
 
-      <p className="mt-6 max-w-prose text-ink-muted">{frontmatter.bio}</p>
+      <p className="text-ink-muted mt-6 max-w-prose">{frontmatter.bio}</p>
 
       <div className="mt-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+        <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
           Domaines d’expertise
         </h2>
         <ul className="mt-3 flex flex-wrap gap-2">
           {frontmatter.expertise.map((item) => (
-            <li
-              key={item}
-              className="rounded-full bg-surface-muted px-3 py-1 text-sm text-ink"
-            >
+            <li key={item} className="bg-surface-muted text-ink rounded-full px-3 py-1 text-sm">
               {item}
             </li>
           ))}

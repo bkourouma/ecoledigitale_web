@@ -6,13 +6,14 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
 }
 
+/** Une fiche de papier posée sur la page. */
 export function Card({ className, children, interactive, ...rest }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-2xl border border-neutral-200/70 bg-white p-6 shadow-card dark:border-white/10 dark:bg-white/6',
+        'border-line shadow-card rounded-md border bg-white p-6',
         interactive &&
-          'transition-all duration-200 hover:-translate-y-1 hover:border-accent-300/70 hover:shadow-card-hover focus-within:shadow-card-hover cursor-pointer dark:hover:border-accent-400/50',
+          'hover:shadow-card-hover focus-within:shadow-card-hover cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:rotate-[-0.4deg]',
         className,
       )}
       {...rest}

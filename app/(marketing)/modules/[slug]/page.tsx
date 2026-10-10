@@ -67,7 +67,7 @@ export default async function ModulePage({ params }: PageProps) {
       <ModuleFeatures module={frontmatter} />
       <ModuleAudiences module={frontmatter} />
 
-      <section className="container-content border-t border-slate-100 py-16">
+      <section className="container-content py-16">
         <article className="prose-style">
           <MDXRemote source={body} components={mdxComponents} />
         </article>

@@ -52,15 +52,15 @@ export function FormField({
   return (
     <div className={cn('space-y-1.5', className)}>
       {as === 'group' ? (
-        <span className="block text-sm font-medium text-ink">{headingContent}</span>
+        <span className="text-primary-800 block text-base font-bold">{headingContent}</span>
       ) : (
-        <label htmlFor={id} className="block text-sm font-medium text-ink">
+        <label htmlFor={id} className="text-primary-800 block text-base font-bold">
           {headingContent}
         </label>
       )}
 
       {description && (
-        <p id={descriptionId} className="text-sm text-ink-soft">
+        <p id={descriptionId} className="text-ink-soft text-sm">
           {description}
         </p>
       )}

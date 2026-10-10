@@ -2,10 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import {
-  ResourceTypeSchema,
-  RESOURCE_TYPE_LABELS,
-} from '@/lib/content/resource.schema';
+import { ResourceTypeSchema, RESOURCE_TYPE_LABELS } from '@/lib/content/resource.schema';
 import { getResourceBySlug, getStaticResourceParams } from '@/lib/content/resources';
 import { getAuthor } from '@/lib/content/authors';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -95,7 +92,7 @@ export default async function ResourcePage({ params }: PageProps) {
       <JsonLd data={jsonLd} />
 
       <article className="container-content py-12 md:py-16">
-        <nav aria-label="Fil d’Ariane" className="text-sm text-ink-soft">
+        <nav aria-label="Fil d’Ariane" className="text-ink-soft text-sm">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="underline-offset-4 hover:underline">
@@ -124,13 +121,10 @@ export default async function ResourcePage({ params }: PageProps) {
         {caseStudyFm?.isFictional && <FictionalCaseBanner className="mt-6" />}
 
         <header className="mt-6 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-            {typeLabel.singular}
-          </p>
-          <h1 className="mt-3 text-display-md font-semibold tracking-tight text-ink">
+          <h1 className="font-display text-display-md text-primary-800 mt-3 font-bold">
             {heading}
           </h1>
-          <p className="mt-4 text-lg text-ink-muted">{lead}</p>
+          <p className="text-ink-muted mt-4 text-lg">{lead}</p>
           <ResourceMeta
             frontmatter={frontmatter}
             author={author}
@@ -140,10 +134,7 @@ export default async function ResourcePage({ params }: PageProps) {
         </header>
 
         {caseStudyFm && (
-          <CaseStudyAside
-            caseStudy={caseStudyFm.caseStudy}
-            className="mt-8 max-w-3xl"
-          />
+          <CaseStudyAside caseStudy={caseStudyFm.caseStudy} className="mt-8 max-w-3xl" />
         )}
 
         {body.trim().length > 0 && (
@@ -154,25 +145,38 @@ export default async function ResourcePage({ params }: PageProps) {
 
         {frontmatter.faq && frontmatter.faq.length > 0 && (
           <section className="mt-14 max-w-3xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-ink">
+            <h2 className="font-display text-primary-800 text-4xl leading-none font-bold">
               Questions fréquentes
             </h2>
-            <div className="mt-6 divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-card">
+            <div className="divide-line border-line shadow-card mt-6 divide-y overflow-hidden rounded-md border bg-white">
               {frontmatter.faq.map((item) => (
                 <details key={item.question} className="group">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 hover:bg-surface-subtle transition-colors">
-                    <h3 className="text-sm font-semibold text-ink">{item.question}</h3>
+                  <summary className="hover:bg-surface-subtle flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 transition-colors">
+                    <h3 className="font-display text-primary-800 text-3xl leading-none font-bold">
+                      {item.question}
+                    </h3>
                     <span
                       aria-hidden="true"
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-200 text-ink-muted transition-transform duration-200 group-open:rotate-45"
+                      className="border-line text-ink-muted flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-transform duration-200 group-open:rotate-45"
                     >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                        <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 1v10M1 6h10"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                        />
                       </svg>
                     </span>
                   </summary>
                   <div className="px-6 pb-5">
-                    <p className="text-sm leading-relaxed text-ink-muted">{item.answer}</p>
+                    <p className="text-ink-muted text-sm leading-relaxed">{item.answer}</p>
                   </div>
                 </details>
               ))}
@@ -188,11 +192,11 @@ export default async function ResourcePage({ params }: PageProps) {
 
         {author && <AuthorCard author={author} className="mt-14 max-w-3xl" />}
 
-        <section className="mt-14 max-w-3xl rounded-2xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 shadow-card">
-          <h2 className="text-xl font-semibold tracking-tight text-ink">
+        <section className="sheet tape mt-14 max-w-3xl rotate-[-0.6deg] p-8">
+          <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
             EcoleDigitale pour votre établissement
           </h2>
-          <p className="mt-2 text-ink-muted">
+          <p className="text-ink-muted mt-2">
             Découvrez en conditions réelles comment la plateforme couvre la gestion académique,
             pédagogique et financière de votre établissement.
           </p>

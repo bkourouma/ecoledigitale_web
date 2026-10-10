@@ -13,7 +13,7 @@ interface ResourceFiltersProps {
 }
 
 const SELECT_CLASSES =
-  'h-11 rounded-md border border-slate-300 bg-white px-3 text-sm text-ink ' +
+  'h-11 rounded-md border border-line bg-white px-3 text-sm text-ink ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500';
 
 /**
@@ -27,7 +27,7 @@ export function ResourceFilters({ currentPersona, currentType }: ResourceFilters
   return (
     <form method="GET" action="/ressources" className="flex flex-wrap items-end gap-4">
       <div className="space-y-1.5">
-        <label htmlFor="filter-persona" className="block text-sm font-medium text-ink">
+        <label htmlFor="filter-persona" className="text-ink block text-sm font-medium">
           Public cible
         </label>
         <select
@@ -46,7 +46,7 @@ export function ResourceFilters({ currentPersona, currentType }: ResourceFilters
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor="filter-type" className="block text-sm font-medium text-ink">
+        <label htmlFor="filter-type" className="text-ink block text-sm font-medium">
           Type de ressource
         </label>
         <select
@@ -71,7 +71,7 @@ export function ResourceFilters({ currentPersona, currentType }: ResourceFilters
       {hasActiveFilter && (
         <Link
           href="/ressources"
-          className="text-sm font-medium text-brand-700 underline-offset-4 hover:underline"
+          className="text-brand-700 text-sm font-medium underline-offset-4 hover:underline"
         >
           Réinitialiser
         </Link>

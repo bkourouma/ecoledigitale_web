@@ -1,48 +1,65 @@
 import type { ModuleFrontmatter } from '@/lib/content/module.schema';
 import { TrackedModuleLink } from '@/components/marketing/TrackedModuleLink';
-import { ArrowRight, Layers } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/ui/cn';
 
 export interface ModuleCardProps {
   module: ModuleFrontmatter;
+  /** Inclinaison légère, pour que les blocs semblent écrits à la main. */
+  tilt?: number;
 }
 
-export function ModuleCard({ module }: ModuleCardProps) {
+/** Un module écrit à la craie dans un cadre tracé à main levée. À poser sur une ardoise. */
+export function ModuleCard({ module, tilt = 0 }: ModuleCardProps) {
+  const isSocle = module.type === 'socle';
+
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-accent-300/70 hover:shadow-card-hover focus-within:shadow-card-hover dark:border-white/10 dark:bg-white/6 dark:hover:border-accent-400/50">
-      <div
-        className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-600 via-accent-400 to-primary-400 opacity-80"
-        aria-hidden="true"
-      />
-      <div className="flex items-start justify-between gap-2">
-        <span
-          className={
-            module.type === 'socle'
-              ? 'inline-flex items-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-semibold text-primary-800 dark:bg-primary-400/15 dark:text-primary-200'
-              : 'inline-flex items-center rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-semibold text-accent-800 dark:bg-accent-400/15 dark:text-accent-200'
-          }
-        >
-          {module.type === 'socle' ? 'Socle de base' : 'Module optionnel'}
-        </span>
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-neutral-50 text-primary-700 transition-colors group-hover:bg-accent-50 group-hover:text-accent-700 dark:bg-white/8 dark:text-primary-200 dark:group-hover:bg-accent-400/12 dark:group-hover:text-accent-200">
-          <Layers className="h-4 w-4" aria-hidden="true" />
-        </span>
-      </div>
-      <h3 className="mt-5 font-display text-xl font-semibold text-ink dark:text-white">
+    <article
+      className={cn(
+        'group chalk-box relative flex h-full flex-col p-6 transition-transform duration-200 ease-out focus-within:rotate-0 hover:rotate-0',
+        isSocle && 'border-chalk-yellow/90 p-7 md:p-8',
+      )}
+      style={{ transform: `rotate(${tilt}deg)` }}
+    >
+      <h3
+        className={cn(
+          'chalk font-display leading-none font-bold',
+          isSocle ? 'text-5xl md:text-6xl' : 'text-4xl',
+        )}
+      >
         {module.name}
       </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted dark:text-neutral-300">
-        {module.tagline}
-      </p>
-      <TrackedModuleLink
-        href={`/modules/${module.slug}`}
-        className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-700 underline-offset-4 hover:text-accent-700 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 dark:text-primary-200 dark:hover:text-accent-200"
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 220 10"
+        className="text-chalk-yellow mt-2 h-2.5 w-44"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
       >
-        Voir le module
-        <ArrowRight
-          className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5"
-          aria-hidden="true"
+        <path
+          className="chalk-draw"
+          style={{ ['--len' as string]: 240 }}
+          d="M3 6c30-5 52 3 88-1s70 3 126-2"
         />
-      </TrackedModuleLink>
+      </svg>
+      <p className="text-ink-muted mt-4 flex-1 text-base leading-relaxed">{module.tagline}</p>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <span className="font-display text-chalk-yellow text-2xl leading-none font-bold">
+          {isSocle ? 'Le socle de base' : 'Module optionnel'}
+        </span>
+        <TrackedModuleLink
+          href={`/modules/${module.slug}`}
+          className="text-chalk decoration-chalk-yellow hover:text-chalk-yellow inline-flex items-center gap-1.5 text-base font-bold underline decoration-2 underline-offset-4 after:absolute after:inset-0"
+        >
+          Voir le module
+          <ArrowRight
+            className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </TrackedModuleLink>
+      </div>
     </article>
   );
 }

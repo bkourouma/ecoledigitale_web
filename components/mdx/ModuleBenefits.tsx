@@ -1,33 +1,32 @@
 import { Check } from 'lucide-react';
 import type { ModuleFrontmatter } from '@/lib/content/module.schema';
+import { Board } from '@/components/ui/Board';
 
 export interface ModuleBenefitsProps {
   module: ModuleFrontmatter;
 }
 
+/** Ce que le module apporte, écrit à la craie au tableau. */
 export function ModuleBenefits({ module }: ModuleBenefitsProps) {
   return (
-    <section className="bg-surface-subtle border-y border-slate-100 py-16 dark:border-slate-800 dark:bg-slate-900/40">
-      <div className="container-content">
-        <h2 className="text-ink text-2xl font-semibold tracking-tight dark:text-neutral-50">
+    <section className="container-content py-10 md:py-14">
+      <Board innerClassName="px-6 py-10 md:px-12 md:py-14">
+        <h2 className="chalk font-display text-display-sm max-w-2xl font-bold">
           Ce que ce module apporte à votre établissement
         </h2>
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-x-10 gap-y-5 md:grid-cols-2">
           {module.benefits.map((benefit) => (
-            <li
-              key={benefit}
-              className="shadow-card flex gap-3 rounded-2xl border border-slate-100 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"
-            >
-              <span className="bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300 mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                <Check className="h-3.5 w-3.5" aria-hidden="true" />
-              </span>
-              <span className="text-ink text-sm leading-relaxed dark:text-neutral-50">
-                {benefit}
-              </span>
+            <li key={benefit} className="text-ink flex gap-3 text-lg leading-snug">
+              <Check
+                className="text-chalk-yellow mt-1 h-5 w-5 shrink-0"
+                strokeWidth={3}
+                aria-hidden="true"
+              />
+              <span>{benefit}</span>
             </li>
           ))}
         </ul>
-      </div>
+      </Board>
     </section>
   );
 }
