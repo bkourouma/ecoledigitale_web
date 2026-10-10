@@ -18,21 +18,18 @@ export function AuthorCard({ author, className }: AuthorCardProps) {
   return (
     <aside
       className={cn(
-        'flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-6 shadow-card',
+        'border-line shadow-card flex items-start gap-4 rounded-md border bg-white p-6',
         className,
       )}
     >
       <AuthorAvatar name={frontmatter.name} photo={frontmatter.photo} size={56} />
       <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
-          À propos de l’auteur
-        </p>
-        <p className="mt-1 font-semibold text-ink">{frontmatter.name}</p>
-        <p className="text-sm text-ink-soft">{frontmatter.role}</p>
-        <p className="mt-2 text-sm leading-relaxed text-ink-muted">{frontmatter.bio}</p>
+        <p className="text-ink mt-1 font-semibold">{frontmatter.name}</p>
+        <p className="text-ink-soft text-sm">{frontmatter.role}</p>
+        <p className="text-ink-muted mt-2 text-sm leading-relaxed">{frontmatter.bio}</p>
         <Link
           href={`/auteurs/${frontmatter.slug}`}
-          className="mt-3 inline-block text-sm font-medium text-brand-700 underline-offset-4 hover:underline"
+          className="text-brand-700 mt-3 inline-block text-sm font-medium underline-offset-4 hover:underline"
         >
           Voir le profil de l’auteur →
         </Link>

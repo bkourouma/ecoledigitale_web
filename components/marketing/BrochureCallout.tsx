@@ -24,12 +24,12 @@ export function BrochureCallout() {
     <button
       type="button"
       onClick={handleClick}
-      className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+      className="border-line text-ink-muted hover:bg-surface-muted focus-visible:outline-brand-500 inline-flex items-center gap-2 rounded-md border bg-white px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
       aria-label="Demander la brochure (bientôt disponible)"
     >
       <FileDown className="h-4 w-4" aria-hidden="true" />
       <span>Recevoir la brochure</span>
-      <span className="text-xs text-ink-soft">— bientôt</span>
+      <span className="text-ink-soft text-xs">— bientôt</span>
     </button>
   );
 }

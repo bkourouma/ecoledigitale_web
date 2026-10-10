@@ -29,7 +29,7 @@ test.describe('Analytics — Demo CTA Clicked', () => {
     await page.goto('/modules');
     await page
       .locator('header')
-      .getByRole('link', { name: /Demander une démonstration/i })
+      .getByRole('link', { name: /Demander une démo/i })
       .click();
 
     const events = await getEventsByName(page, 'Demo CTA Clicked');

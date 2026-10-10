@@ -1,23 +1,26 @@
 import type { MDXComponents } from 'mdx/types';
 
-const proseText = 'max-w-prose text-base leading-8 text-ink-muted dark:text-neutral-300';
+const proseText = 'max-w-prose text-lg leading-8 text-ink-muted';
 const proseLink =
-  'font-semibold text-primary-700 underline decoration-primary-200 underline-offset-4 transition-colors hover:text-accent-700 hover:decoration-accent-300 dark:text-accent-300 dark:decoration-accent-500/40';
+  'font-bold text-primary-700 underline decoration-primary-300 decoration-2 underline-offset-4 transition-colors hover:bg-marker-soft';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children, ...props }) => (
-      <h1 className="font-display text-display-md font-semibold text-ink dark:text-white" {...props}>
+      <h1 className="font-display text-display-md text-primary-800 font-bold" {...props}>
         {children}
       </h1>
     ),
     h2: ({ children, ...props }) => (
-      <h2 className="mt-12 font-display text-3xl font-semibold text-ink dark:text-white" {...props}>
+      <h2
+        className="font-display text-primary-800 mt-12 text-4xl leading-none font-bold"
+        {...props}
+      >
         {children}
       </h2>
     ),
     h3: ({ children, ...props }) => (
-      <h3 className="mt-8 font-display text-xl font-semibold text-ink dark:text-white" {...props}>
+      <h3 className="font-display text-primary-700 mt-8 text-3xl leading-none font-bold" {...props}>
         {children}
       </h3>
     ),
@@ -27,44 +30,59 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </p>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="mt-5 max-w-prose list-disc space-y-2 pl-6 text-ink-muted marker:text-accent-500 dark:text-neutral-300" {...props}>
+      <ul
+        className="text-ink-muted marker:text-pen-500 mt-5 max-w-prose list-disc space-y-2 pl-6"
+        {...props}
+      >
         {children}
       </ul>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="mt-5 max-w-prose list-decimal space-y-2 pl-6 text-ink-muted marker:text-accent-600 dark:text-neutral-300" {...props}>
+      <ol
+        className="text-ink-muted marker:text-pen-500 mt-5 max-w-prose list-decimal space-y-2 pl-6"
+        {...props}
+      >
         {children}
       </ol>
     ),
     blockquote: ({ children, ...props }) => (
-      <blockquote className="mt-6 max-w-prose rounded-2xl border border-primary-100 bg-primary-50/70 px-5 py-4 text-ink-muted shadow-xs dark:border-primary-300/20 dark:bg-primary-400/10 dark:text-neutral-300" {...props}>
+      <blockquote
+        className="border-primary-100 bg-primary-50/70 text-ink-muted mt-6 max-w-prose rounded-md border px-5 py-4 shadow-xs"
+        {...props}
+      >
         {children}
       </blockquote>
     ),
     code: ({ children, ...props }) => (
-      <code className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-medium text-ink dark:bg-white/10 dark:text-neutral-100" {...props}>
+      <code
+        className="text-ink rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-medium"
+        {...props}
+      >
         {children}
       </code>
     ),
     pre: ({ children, ...props }) => (
-      <pre className="mt-6 max-w-prose overflow-x-auto rounded-2xl border border-neutral-200 bg-neutral-950 p-4 text-sm leading-7 text-neutral-100 shadow-card dark:border-white/10" {...props}>
+      <pre
+        className="border-line shadow-card mt-6 max-w-prose overflow-x-auto rounded-md border bg-neutral-950 p-4 text-sm leading-7 text-neutral-100"
+        {...props}
+      >
         {children}
       </pre>
     ),
     table: ({ children, ...props }) => (
-      <div className="mt-6 max-w-full overflow-x-auto rounded-2xl border border-neutral-200 shadow-card dark:border-white/10">
-        <table className="min-w-full divide-y divide-neutral-200 bg-white text-sm dark:divide-white/10 dark:bg-white/6" {...props}>
+      <div className="border-line shadow-card mt-6 max-w-full overflow-x-auto rounded-md border">
+        <table className="min-w-full divide-y divide-neutral-200 bg-white text-sm" {...props}>
           {children}
         </table>
       </div>
     ),
     th: ({ children, ...props }) => (
-      <th className="bg-neutral-50 px-4 py-3 text-left font-semibold text-ink dark:bg-white/8 dark:text-white" {...props}>
+      <th className="text-ink bg-white/70 px-4 py-3 text-left font-semibold" {...props}>
         {children}
       </th>
     ),
     td: ({ children, ...props }) => (
-      <td className="border-t border-neutral-200 px-4 py-3 text-ink-muted dark:border-white/10 dark:text-neutral-300" {...props}>
+      <td className="border-line text-ink-muted border-t px-4 py-3" {...props}>
         {children}
       </td>
     ),

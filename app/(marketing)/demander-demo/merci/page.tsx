@@ -16,7 +16,7 @@ export default function MerciPage() {
     <section className="container-content py-24">
       <div className="mx-auto max-w-xl text-center">
         {/* Success icon */}
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-elevated">
+        <div className="bg-brand-600 shadow-elevated mx-auto flex h-14 w-14 items-center justify-center rounded-md text-white">
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"
@@ -31,12 +31,13 @@ export default function MerciPage() {
           </svg>
         </div>
 
-        <h1 className="mt-7 text-display-md font-semibold tracking-tight text-ink">
+        <h1 className="font-display text-display-md text-primary-800 mt-7 font-bold">
           Merci pour votre demande
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-ink-muted">
+        <p className="text-ink-muted mt-4 text-lg leading-relaxed">
           Votre demande de démonstration a bien été transmise. Un membre de l'équipe commerciale
-          vous recontacte <strong className="font-semibold text-ink">sous 48 heures ouvrées</strong>.
+          vous recontacte <strong className="text-ink font-semibold">sous 48 heures ouvrées</strong>
+          .
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -46,17 +47,19 @@ export default function MerciPage() {
           <ButtonLink href="/modules">Explorer les modules</ButtonLink>
         </div>
 
-        <div className="mt-12 rounded-2xl border border-slate-100 bg-surface-subtle p-6 text-left shadow-card">
-          <h2 className="text-sm font-semibold text-ink">Besoin d'un échange immédiat ?</h2>
-          <p className="mt-2 text-sm text-ink-muted">
+        <div className="border-line bg-surface-subtle shadow-card mt-12 rounded-md border p-6 text-left">
+          <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+            Besoin d'un échange immédiat ?
+          </h2>
+          <p className="text-ink-muted mt-2 text-sm">
             Vous pouvez aussi nous joindre directement :
           </p>
           <ContactChannels placement="inline" variant="stacked" className="mt-4" />
         </div>
 
-        <p className="mt-8 text-xs text-ink-soft">
+        <p className="text-ink-soft mt-8 text-xs">
           Une question entre temps ?{' '}
-          <Link href="/confidentialite" className="font-medium text-brand-700 hover:underline">
+          <Link href="/confidentialite" className="text-brand-700 font-medium hover:underline">
             Confidentialité de vos données
           </Link>
         </p>

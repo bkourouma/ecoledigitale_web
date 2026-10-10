@@ -28,30 +28,29 @@ export interface ModuleAudiencesProps {
 
 export function ModuleAudiences({ module }: ModuleAudiencesProps) {
   return (
-    <section className="bg-surface-subtle border-y border-slate-100 py-16 dark:border-slate-800 dark:bg-slate-900/40">
-      <div className="container-content">
-        <h2 className="text-ink text-2xl font-semibold tracking-tight dark:text-neutral-50">
-          Profils utilisateurs adressés
-        </h2>
-        <p className="text-ink-muted mt-2 max-w-prose dark:text-slate-300">
-          Chaque profil dispose d'un espace dédié, conçu autour de ses besoins quotidiens.
-        </p>
-        <ul className="mt-8 flex flex-wrap gap-3">
-          {module.audiences.map((slug) => {
-            const meta = AUDIENCE_META[slug];
-            const Icon = meta.icon;
-            return (
-              <li
-                key={slug}
-                className="text-ink inline-flex items-center gap-2 rounded-full border border-slate-100 bg-white px-4 py-2 text-sm font-medium shadow-xs dark:border-slate-800 dark:bg-slate-900 dark:text-neutral-50"
-              >
-                <Icon className="text-brand-700 dark:text-brand-300 h-4 w-4" aria-hidden="true" />
-                <span>{meta.label}</span>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+    <section className="container-content py-12 md:py-16">
+      <h2 className="font-display text-display-sm text-primary-800 font-bold">
+        Profils utilisateurs <span className="marker">adressés</span>
+      </h2>
+      <p className="text-ink-muted mt-2 max-w-prose text-lg">
+        Chaque profil dispose d&apos;un espace dédié, conçu autour de ses besoins quotidiens.
+      </p>
+      <ul className="mt-8 flex flex-wrap gap-x-3 gap-y-4">
+        {module.audiences.map((slug, index) => {
+          const meta = AUDIENCE_META[slug];
+          const Icon = meta.icon;
+          return (
+            <li
+              key={slug}
+              className="border-primary-300 font-display text-primary-800 inline-flex items-center gap-2 rounded-[4px] border-2 border-dashed bg-white px-4 py-2 text-2xl leading-none font-bold shadow-xs"
+              style={{ transform: `rotate(${index % 2 ? 0.8 : -0.8}deg)` }}
+            >
+              <Icon className="text-primary-600 h-5 w-5" aria-hidden="true" />
+              <span>{meta.label}</span>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

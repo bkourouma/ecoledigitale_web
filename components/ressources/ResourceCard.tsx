@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import { formatFrenchDate } from '@/lib/ui/format-date';
-import {
-  RESOURCE_TYPE_LABELS,
-  RESOURCE_PERSONA_LABELS,
-} from '@/lib/content/resource.schema';
+import { RESOURCE_TYPE_LABELS, RESOURCE_PERSONA_LABELS } from '@/lib/content/resource.schema';
 import type { ResourceBundle } from '@/lib/content/resources';
 
 interface ResourceCardProps {
@@ -17,17 +14,13 @@ export function ResourceCard({ bundle }: ResourceCardProps) {
     <li>
       <Link
         href={`/ressources/${frontmatter.type}/${frontmatter.slug}`}
-        className="group flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
+        className="group border-line shadow-card hover:shadow-card-hover flex h-full flex-col rounded-md border bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:rotate-[-0.4deg]"
       >
-        <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">
-          {RESOURCE_TYPE_LABELS[frontmatter.type].singular}
-        </span>
-
-        <h3 className="mt-3 text-base font-semibold tracking-tight text-ink group-hover:text-brand-700 transition-colors">
+        <h3 className="font-display text-primary-800 group-hover:text-primary-600 text-3xl leading-[1.05] font-bold transition-colors">
           {frontmatter.title}
         </h3>
 
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
+        <p className="text-ink-muted mt-3 flex-1 text-base leading-relaxed">
           {frontmatter.description}
         </p>
 
@@ -35,14 +28,17 @@ export function ResourceCard({ bundle }: ResourceCardProps) {
           {frontmatter.personas.map((persona) => (
             <li
               key={persona}
-              className="rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-ink-muted"
+              className="border-primary-300 text-ink-muted rounded-[3px] border border-dashed px-2 py-0.5 text-sm font-medium"
             >
               {RESOURCE_PERSONA_LABELS[persona]}
             </li>
           ))}
         </ul>
 
-        <p className="mt-3 text-xs text-ink-soft">
+        <p className="text-ink-soft mt-4 flex flex-wrap items-baseline gap-x-3 text-sm">
+          <span className="red-note text-xl">
+            {RESOURCE_TYPE_LABELS[frontmatter.type].singular}
+          </span>
           <time dateTime={frontmatter.publishedAt}>
             {formatFrenchDate(frontmatter.publishedAt)}
           </time>{' '}

@@ -25,14 +25,12 @@ export default function ModulesPage() {
         ])}
       />
 
-      <section className="relative overflow-hidden premium-surface dark:dark-premium-surface">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-45 dark:opacity-15" aria-hidden="true" />
+      <section className="relative">
         <Reveal className="container-wide py-20 md:py-24">
-          <p className="section-kicker">Catalogue des modules</p>
-          <h1 className="mt-3 max-w-3xl font-display text-display-md font-semibold text-ink dark:text-white">
+          <h1 className="font-display text-display-md text-primary-800 mt-3 max-w-3xl font-bold">
             5 modules pour s'adapter à votre activité
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted dark:text-neutral-300">
+          <p className="text-ink-muted mt-5 max-w-xl text-lg leading-relaxed">
             Commencez par le socle EcoleDigitale, indispensable au pilotage de la scolarité, et
             activez les modules optionnels selon vos besoins : BTS, post-BTS, formation
             professionnelle, cours en direct.
@@ -47,10 +45,10 @@ export default function ModulesPage() {
 
       <section className="container-wide py-16">
         <Reveal className="mb-8">
-          <h2 className="font-display text-display-sm font-semibold text-ink dark:text-white">
+          <h2 className="font-display text-display-sm text-primary-800 font-bold">
             Aperçu des modules
           </h2>
-          <p className="mt-2 text-ink-muted dark:text-neutral-300">
+          <p className="text-ink-muted mt-2">
             Cliquez sur un module pour voir les fonctionnalités détaillées, les profils utilisateurs
             adressés et les cas d'usage.
           </p>
@@ -60,13 +58,13 @@ export default function ModulesPage() {
         </Reveal>
       </section>
 
-      <section className="border-y border-neutral-200 bg-neutral-50 py-16 dark:border-white/10 dark:bg-neutral-950">
+      <section className="py-16">
         <div className="container-wide">
           <Reveal className="mb-8">
-            <h2 className="font-display text-display-sm font-semibold text-ink dark:text-white">
+            <h2 className="font-display text-display-sm text-primary-800 font-bold">
               Vue comparative
             </h2>
-            <p className="mt-2 text-ink-muted dark:text-neutral-300">
+            <p className="text-ink-muted mt-2">
               Le module socle est obligatoire — les autres s'activent en complément selon votre
               activité.
             </p>

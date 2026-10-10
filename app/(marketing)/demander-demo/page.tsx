@@ -15,6 +15,12 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function DemanderDemoPage() {
+  const hasDirectChannel = Boolean(
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL ||
+    process.env.NEXT_PUBLIC_CONTACT_PHONE ||
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER,
+  );
+
   return (
     <>
       <JsonLd
@@ -24,14 +30,12 @@ export default function DemanderDemoPage() {
         ])}
       />
 
-      <section className="relative overflow-hidden border-b border-neutral-200 premium-surface dark:border-white/10 dark:dark-premium-surface">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40 dark:opacity-15" aria-hidden="true" />
+      <section className="border-line relative overflow-hidden border-b">
         <Reveal className="container-wide max-w-4xl py-16 md:py-20">
-          <p className="section-kicker">Demande de démonstration</p>
-          <h1 className="mt-3 font-display text-display-md font-semibold text-ink dark:text-white">
+          <h1 className="font-display text-display-md text-primary-800 mt-3 font-bold">
             Découvrez EcoleDigitale avec un conseiller
           </h1>
-          <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink-muted dark:text-neutral-300">
+          <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed">
             Renseignez vos coordonnées et les modules qui vous intéressent. Un membre de l'équipe
             commerciale vous recontacte sous 48 heures ouvrées.
           </p>
@@ -40,29 +44,35 @@ export default function DemanderDemoPage() {
 
       <section className="container-wide py-12">
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-          <Reveal className="rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-card md:p-8 dark:border-white/10 dark:bg-white/6">
+          <Reveal className="border-line shadow-card rounded-md border bg-white p-6 md:p-8">
             <DemoRequestForm />
           </Reveal>
 
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
-            <Reveal delay={0.05} className="rounded-2xl border border-neutral-200/80 bg-neutral-50 p-6 shadow-xs dark:border-white/10 dark:bg-white/6">
-              <h2 className="text-sm font-semibold text-ink dark:text-white">Pas de formulaire ?</h2>
-              <p className="mt-2 text-sm text-ink-muted dark:text-neutral-300">
-                Vous pouvez aussi nous contacter directement :
-              </p>
-              <ContactChannels placement="inline" variant="stacked" className="mt-4" />
-            </Reveal>
+            {hasDirectChannel && (
+              <Reveal delay={0.05} className="sheet p-6">
+                <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+                  Pas de formulaire ?
+                </h2>
+                <p className="text-ink-muted mt-2 text-sm">
+                  Vous pouvez aussi nous contacter directement :
+                </p>
+                <ContactChannels placement="inline" variant="stacked" className="mt-4" />
+              </Reveal>
+            )}
 
-            <Reveal delay={0.1} className="rounded-2xl border border-neutral-200/80 bg-neutral-50 p-6 shadow-xs dark:border-white/10 dark:bg-white/6">
-              <h2 className="text-sm font-semibold text-ink dark:text-white">Ce qui suit</h2>
-              <ol className="mt-3 space-y-3 text-sm text-ink-muted dark:text-neutral-300">
+            <Reveal delay={0.1} className="sheet p-6">
+              <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+                Ce qui suit
+              </h2>
+              <ol className="text-ink-muted mt-3 space-y-3 text-sm">
                 {[
                   'Réception de votre demande',
                   'Échange téléphonique de qualification',
                   'Démonstration personnalisée selon vos modules',
                 ].map((step, index) => (
                   <li key={step} className="flex gap-3">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-bold text-primary-700 dark:bg-primary-400/15 dark:text-primary-200">
+                    <span className="bg-primary-100 text-primary-700 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold">
                       {index + 1}
                     </span>
                     <span>{step}</span>
@@ -71,14 +81,17 @@ export default function DemanderDemoPage() {
               </ol>
             </Reveal>
 
-            <Reveal delay={0.15} className="rounded-2xl border border-accent-200 bg-accent-50 p-6 shadow-xs dark:border-accent-400/30 dark:bg-accent-400/10">
+            <Reveal
+              delay={0.15}
+              className="border-accent-200 bg-accent-50 rounded-md border p-6 shadow-xs"
+            >
               <div className="flex gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 text-accent-700 dark:text-accent-300" aria-hidden="true" />
+                <CheckCircle2 className="text-accent-700 mt-0.5 h-5 w-5" aria-hidden="true" />
                 <div>
-                  <p className="text-sm font-medium text-accent-900 dark:text-accent-100">
+                  <p className="text-accent-900 text-sm font-medium">
                     Réponse garantie sous 48 h ouvrées.
                   </p>
-                  <p className="mt-1 text-xs text-accent-800 dark:text-accent-200">
+                  <p className="text-accent-800 mt-1 text-xs">
                     Sans engagement — pas de carte bancaire requise.
                   </p>
                 </div>

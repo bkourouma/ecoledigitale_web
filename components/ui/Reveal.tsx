@@ -1,7 +1,7 @@
 'use client';
 
 import type { CSSProperties, ReactNode } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { cn } from '@/lib/ui/cn';
 
 interface RevealProps {
@@ -21,14 +21,9 @@ export function Reveal({
   once = true,
   ...rest
 }: RevealProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className} {...rest}>{children}</div>;
-  }
-
   return (
     <motion.div
+      data-reveal
       className={className}
       {...rest}
       initial={{ opacity: 0, y }}
@@ -48,14 +43,9 @@ interface RevealGroupProps {
 }
 
 export function RevealGroup({ children, className, ...rest }: RevealGroupProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className} {...rest}>{children}</div>;
-  }
-
   return (
     <motion.div
+      data-reveal
       className={cn(className)}
       {...rest}
       initial="hidden"
@@ -78,14 +68,9 @@ interface RevealItemProps {
 }
 
 export function RevealItem({ children, className, ...rest }: RevealItemProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className} {...rest}>{children}</div>;
-  }
-
   return (
     <motion.div
+      data-reveal
       className={className}
       {...rest}
       variants={{

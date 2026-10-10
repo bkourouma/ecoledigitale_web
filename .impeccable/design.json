@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T00:00:00Z",
+  "title": "Design System: EcoleDigitale",
+  "extensions": {
+    "colorMeta": {
+      "primary-700": {
+        "role": "primary",
+        "displayName": "Encre bleu-nuit",
+        "canonical": "#1f2d7a",
+        "tonalRamp": [
+          "#0b1235",
+          "#111b4d",
+          "#172363",
+          "#1f2d7a",
+          "#3f51b0",
+          "#6070c8",
+          "#bac2ec",
+          "#eef0fb"
+        ]
+      },
+      "accent-500": {
+        "role": "secondary",
+        "displayName": "Crayon vert",
+        "canonical": "#3a8f5c",
+        "tonalRamp": [
+          "#0b2118",
+          "#143525",
+          "#1b4630",
+          "#235b3a",
+          "#3a8f5c",
+          "#7dbf93",
+          "#d6ecdc",
+          "#eef7f0"
+        ]
+      },
+      "pen-500": {
+        "role": "secondary",
+        "displayName": "Stylo rouge du professeur",
+        "canonical": "#d13b30",
+        "tonalRamp": ["#962620", "#b72e25", "#d13b30", "#e2685d", "#fad6d2", "#fdeeec"]
+      },
+      "marker": {
+        "role": "tertiary",
+        "displayName": "Surligneur",
+        "canonical": "#ffe45c",
+        "tonalRamp": ["#ffe45c", "#fff1a6"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier de cahier",
+        "canonical": "#fcfbf6",
+        "tonalRamp": [
+          "#171a1a",
+          "#272a29",
+          "#3e413f",
+          "#565955",
+          "#73766f",
+          "#9b9d94",
+          "#dcdcd2",
+          "#fcfbf6"
+        ]
+      },
+      "board": {
+        "role": "neutral",
+        "displayName": "Ardoise",
+        "canonical": "#23312b",
+        "tonalRamp": ["#18211d", "#23312b", "#3a4a42", "#c5ccc3", "#f4f2ea"]
+      },
+      "oak-500": {
+        "role": "neutral",
+        "displayName": "Cadre de chêne",
+        "canonical": "#a9763f",
+        "tonalRamp": ["#52361a", "#7a5128", "#a9763f", "#d4a76b"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Titre manuscrit", "purpose": "Titres et boutons en Caveat." },
+      "body": { "displayName": "Texte Andika", "purpose": "Lecture courante." },
+      "annotation": {
+        "displayName": "Remarque du professeur",
+        "purpose": "Quelques mots en La Belle Aurore, stylo rouge."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-card",
+        "value": "0 1px 1px rgba(24,29,69,0.07), 0 8px 16px -8px rgba(24,29,69,0.22)",
+        "purpose": "Fiche posée."
+      },
+      {
+        "name": "shadow-card-hover",
+        "value": "0 2px 3px rgba(24,29,69,0.1), 0 16px 26px -10px rgba(24,29,69,0.3)",
+        "purpose": "Fiche soulevée."
+      },
+      {
+        "name": "shadow-elevated",
+        "value": "0 3px 6px rgba(24,29,69,0.12), 0 22px 36px -14px rgba(24,29,69,0.34)",
+        "purpose": "Bulletin collé."
+      },
+      {
+        "name": "stamp",
+        "value": "0 2px 0 #0b1235, 0 10px 18px -8px rgba(24,29,69,0.55)",
+        "purpose": "Tranche d'encre du tampon."
+      },
+      {
+        "name": "shadow-brand",
+        "value": "0 0 0 3px rgba(63,81,176,0.28)",
+        "purpose": "Anneau de focus."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-ink",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Tampons, apparition des notes, trait de craie."
+      },
+      {
+        "name": "written",
+        "value": "1.5s steps(28, end)",
+        "purpose": "Titre révélé de gauche à droite."
+      },
+      {
+        "name": "ink-trail",
+        "value": "650ms trail, 1400ms blot",
+        "purpose": "Traînée de plume et tache au clic."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Tampon principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action principale, bouton tampon encreur.",
+      "html": "<button class=\"ds-stamp\">Demander une démonstration</button>",
+      "css": ".ds-stamp{position:relative;isolation:isolate;height:44px;padding:0 20px;font-family:Caveat,'Segoe Print',cursive;font-weight:700;font-size:1.25rem;line-height:1;background:#1f2d7a;color:#fdfcf6;border:0;border-radius:6px;transform:rotate(-1.2deg);box-shadow:0 2px 0 #0b1235,0 10px 18px -8px rgba(24,29,69,.55);transition:transform .18s cubic-bezier(.22,1,.36,1),background-color .18s}.ds-stamp::after{content:'';position:absolute;inset:4px;border:1.5px dashed rgba(253,252,246,.5);border-radius:3px;pointer-events:none}.ds-stamp:hover{background:#2c3c96;transform:rotate(0) translateY(-2px)}.ds-stamp:active{transform:rotate(0) translateY(2px) scale(.985);box-shadow:0 0 0 #0b1235}.ds-stamp:focus-visible{outline:3px solid #3f51b0;outline-offset:3px}"
+    },
+    {
+      "name": "Tampon craie",
+      "kind": "button",
+      "refersTo": "button-chalk",
+      "description": "Tampon jaune pour l'ardoise.",
+      "html": "<div class=\"ds-slate\"><button class=\"ds-chalk-stamp\">Voir les modules</button></div>",
+      "css": ".ds-slate{background:#23312b;padding:24px}.ds-chalk-stamp{position:relative;isolation:isolate;height:44px;padding:0 20px;font-family:Caveat,'Segoe Print',cursive;font-weight:700;font-size:1.25rem;line-height:1;background:#f5dc7a;color:#18211d;border:0;border-radius:6px;transform:rotate(-1.2deg);box-shadow:0 2px 0 #9b8423,0 10px 18px -8px rgba(0,0,0,.6);transition:transform .18s cubic-bezier(.22,1,.36,1),background-color .18s}.ds-chalk-stamp::after{content:'';position:absolute;inset:4px;border:1.5px dashed rgba(24,33,29,.45);border-radius:3px;pointer-events:none}.ds-chalk-stamp:hover{background:#fbe99a;transform:rotate(0) translateY(-2px)}.ds-chalk-stamp:focus-visible{outline:3px solid #f5dc7a;outline-offset:3px}"
+    },
+    {
+      "name": "Bouton secondaire",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Bordure d'encre sur papier, surligneur au survol.",
+      "html": "<button class=\"ds-btn-secondary\">En savoir plus</button>",
+      "css": ".ds-btn-secondary{height:44px;padding:0 20px;font-family:Caveat,'Segoe Print',cursive;font-weight:700;font-size:1.25rem;line-height:1;background:#fcfbf6;color:#172363;border:2px solid #1f2d7a;border-radius:6px;transform:rotate(.8deg);box-shadow:0 1px 1px rgba(24,29,69,.08);transition:all .2s}.ds-btn-secondary:hover{transform:rotate(0);background:#fff1a6}.ds-btn-secondary:focus-visible{outline:3px solid #3f51b0;outline-offset:3px}"
+    },
+    {
+      "name": "Fiche",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Fiche de papier posée sur la page.",
+      "html": "<div class=\"ds-card\"><h3>Inscriptions</h3><p>Dossiers, classes et réinscriptions au même endroit.</p></div>",
+      "css": ".ds-card{background:#fff;border:1px solid #cfd5ec;border-radius:6px;padding:24px;color:#181d45;font-family:Andika,sans-serif;box-shadow:0 1px 1px rgba(24,29,69,.07),0 8px 16px -8px rgba(24,29,69,.22);transition:all .2s}.ds-card:hover{transform:translateY(-2px) rotate(-.4deg);box-shadow:0 2px 3px rgba(24,29,69,.1),0 16px 26px -10px rgba(24,29,69,.3)}.ds-card h3{margin:0 0 8px;font-family:Caveat,cursive;font-weight:700;font-size:2rem;color:#172363}"
+    },
+    {
+      "name": "Champ ligne",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Ligne à écrire, bordure basse seulement.",
+      "html": "<input class=\"ds-input\" placeholder=\"Nom de l'établissement\">",
+      "css": ".ds-input{display:block;width:100%;box-sizing:border-box;padding:10px 12px;font:1rem Andika,sans-serif;color:#181d45;background:rgba(255,255,255,.8);border:0;border-bottom:2px solid #8f9bdd;border-radius:0;transition:background-color .2s,border-color .2s}.ds-input::placeholder{color:#565c7e}.ds-input:focus{outline:0;background:#fff;border-bottom-color:#1f2d7a;box-shadow:0 0 0 2px #8f9bdd}"
+    },
+    {
+      "name": "Bulletin collé",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Feuille à lignes tenue par du scotch, avec annotation rouge.",
+      "html": "<div class=\"ds-sheet\"><strong>Notes &amp; bulletins</strong><p class=\"ds-note\">Très bien</p></div>",
+      "css": ".ds-sheet{position:relative;margin-top:24px;padding:24px;background-color:#fff;background-image:linear-gradient(to bottom,rgba(95,115,205,.22) 1px,transparent 1px);background-size:100% 1.75rem;background-position:0 1.2rem;border:1px solid #cfd5ec;box-shadow:0 3px 6px rgba(24,29,69,.12),0 22px 36px -14px rgba(24,29,69,.34);transform:rotate(1.5deg);font-family:Andika,sans-serif;color:#181d45}.ds-sheet::before{content:'';position:absolute;top:-.9rem;left:50%;width:6.5rem;height:1.9rem;transform:translateX(-50%) rotate(-3deg);background:rgba(255,228,92,.72);border-inline:1px dashed rgba(122,81,40,.35);box-shadow:0 1px 2px rgba(24,29,69,.16)}.ds-note{margin:8px 0 0;font-family:'La Belle Aurore','Segoe Script',cursive;font-size:1.375rem;color:#962620;transform:rotate(-2deg)}"
+    },
+    {
+      "name": "Ardoise",
+      "kind": "custom",
+      "refersTo": "board",
+      "description": "Ardoise dans son cadre de chêne, texte en craie.",
+      "html": "<div class=\"ds-board\"><div class=\"ds-board-surface\"><h3>Un socle, puis des modules</h3><p>Ajoutés au tableau.</p></div><div class=\"ds-tray\"></div></div>",
+      "css": ".ds-board{padding:16px;border-radius:8px;background-color:#a9763f;background-image:repeating-linear-gradient(92deg,rgba(82,54,26,.18) 0 2px,transparent 2px 9px),linear-gradient(180deg,#d4a76b,#a9763f 40%,#7a5128);box-shadow:0 2px 0 #52361a,0 22px 36px -16px rgba(24,29,69,.5);color:#f4f2ea}.ds-board-surface{padding:32px;border-radius:3px;background-color:#23312b;background-image:radial-gradient(60% 50% at 18% 12%,rgba(244,242,234,.07),transparent 70%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),inset 0 8px 28px rgba(0,0,0,.5);font-family:Andika,sans-serif}.ds-board-surface h3{margin:0 0 8px;font-family:Caveat,cursive;font-size:2.25rem;font-weight:700;text-shadow:0 0 1px rgba(244,242,234,.7),0 0 5px rgba(244,242,234,.12)}.ds-tray{height:14px;margin-top:10px;border-radius:0 0 4px 4px;background:linear-gradient(180deg,#7a5128,#52361a);box-shadow:inset 0 2px 0 rgba(0,0,0,.35)}"
+    },
+    {
+      "name": "Surligneur",
+      "kind": "chip",
+      "refersTo": "colors.marker",
+      "description": "Emphase d'un groupe de mots.",
+      "html": "<h2 class=\"ds-title\">gestion <span class=\"ds-marker\">académique, pédagogique et financière</span></h2>",
+      "css": ".ds-title{font-family:Caveat,cursive;font-weight:700;font-size:3rem;line-height:1.05;color:#172363}.ds-marker{background-image:linear-gradient(174deg,transparent 0 52%,#ffe45c 52% 90%,transparent 90%);background-repeat:no-repeat;padding-inline:.12em;margin-inline:-.12em;box-decoration-break:clone}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le cahier ouvert sur le pupitre",
+    "overview": "Le site est un cahier d'écolier posé sur un pupitre. La page Seyès sert à lire, l'ardoise dans son cadre de chêne porte les temps forts, la plume écrit pendant que l'on navigue. Titres manuscrits à l'encre bleu-nuit, remarques du professeur au stylo rouge, texte en Andika. Boutons en tampons encreurs, pied de page en couverture bleue. Le site refuse le gabarit SaaS.",
+    "keyCharacteristics": [
+      "Fond de page à lignes (pas de 1.75rem), marge rouge fixe à gauche.",
+      "Titres manuscrits (Caveat) en encre bleu-nuit, emphase au surligneur jaune.",
+      "Ombres de papier : posées, jamais flottantes.",
+      "Légères rotations sur tampons, notes et fiches, qui se redressent au survol.",
+      "Ardoise vert-noir, craie, rebord de chêne avec plumier."
+    ],
+    "rules": [
+      {
+        "name": "The Ink Swap Rule",
+        "body": "Dans board et cover, ink, ink-muted, ink-soft et line sont réaffectées en craie ou en papier clair. Une fiche posée sur l'ardoise rouvre le papier avec paper-reset ou label-card.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Highlighter Rule",
+        "body": "Le surligneur jaune marque l'emphase d'un groupe de mots, jamais un fond de bloc entier.",
+        "section": "colors"
+      },
+      {
+        "name": "The Teacher's Red Rule",
+        "body": "Le rouge est réservé à la main du professeur (annotations), à la marge et aux erreurs.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Hands Rule",
+        "body": "Caveat écrit les titres et boutons, Andika lit, La Belle Aurore annote. Aucune autre famille.",
+        "section": "typography"
+      },
+      {
+        "name": "The Short Scrawl Rule",
+        "body": "La cursive La Belle Aurore ne porte que quelques mots, jamais un paragraphe.",
+        "section": "typography"
+      },
+      {
+        "name": "The Resting Paper Rule",
+        "body": "Une ombre est une feuille posée : contact fort, étalement faible. Pas de halo flou.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do garder la page de cahier comme surface de lecture et l'ardoise pour quelques temps forts seulement.",
+      "Do utiliser les tampons (stamp, stamp-chalk) pour toute action principale, stamp-chalk sur l'ardoise.",
+      "Do écrire les titres en Caveat, le texte en Andika, les remarques en La Belle Aurore rouge.",
+      "Do surligner en jaune un groupe de mots par titre au plus.",
+      "Do rouvrir le papier (paper-reset, label-card) pour une fiche posée sur l'ardoise.",
+      "Do garder le contraste : encre ink sur paper, craie sur board, focus visible sur chaque fond.",
+      "Do n'écrire que du contenu réel ; ni témoignage ni chiffre client."
+    ],
+    "donts": [
+      "Don't revenir au gabarit SaaS : hero dégradé, maquette de tableau de bord, grille de cartes à icônes.",
+      "Don't introduire un mode sombre ou une autre teinte de marque.",
+      "Don't utiliser d'ombre flottante ou de halo diffus sur les fiches.",
+      "Don't composer un paragraphe entier en La Belle Aurore ou en Caveat.",
+      "Don't ajouter un curseur qui ne soit pas la plume ni une traînée qui ignore prefers-reduced-motion."
+    ]
+  }
+}

@@ -18,7 +18,11 @@ import { track } from '@/lib/analytics/track';
 const MODULE_OPTIONS: ModuleOption[] = [
   { slug: 'socle-ecoledigitale', label: 'Socle EcoleDigitale', description: 'Module de base' },
   { slug: 'parcours-bts', label: 'Parcours BTS', description: 'Cycle BTS' },
-  { slug: 'parcours-superieur', label: 'Parcours Supérieur', description: 'Post-BTS, bachelors, masters' },
+  {
+    slug: 'parcours-superieur',
+    label: 'Parcours Supérieur',
+    description: 'Post-BTS, bachelors, masters',
+  },
   { slug: 'proformation', label: 'ProFormation', description: 'Formation professionnelle' },
   { slug: 'campus-live', label: 'Campus Live', description: 'Cours en direct & hybride' },
 ];
@@ -54,65 +58,69 @@ export function DemoRequestForm() {
     mode: 'onSubmit',
   });
 
-  const onSubmit = handleSubmit(async (values) => {
-    setState({ kind: 'submitting' });
+  const onSubmit = handleSubmit(
+    async (values) => {
+      setState({ kind: 'submitting' });
 
-    try {
-      const response = await fetch(DEMO_FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8', Accept: 'application/json' },
-        body: JSON.stringify({ ...values, sourcePage: pathname }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok && data.ok) {
-        track('Demo Form Submitted', {
-          modulesCount: values.modulesOfInterest.length,
-          hasMessage: Boolean(values.message),
-          hasStudentCount: Boolean(values.studentCount),
-          sourcePage: pathname,
+      try {
+        const response = await fetch(DEMO_FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8', Accept: 'application/json' },
+          body: JSON.stringify({ ...values, sourcePage: pathname }),
         });
-        setState({ kind: 'success', correlationId: data.id });
-        router.push('/demander-demo/merci');
-        return;
-      }
 
-      const reason = response.status === 429 ? 'rate_limit' : response.status >= 500 ? 'server' : 'validation';
-      track('Demo Form Submission Failed', { reason, sourcePage: pathname });
-      setState({
-        kind: 'error',
-        message:
-          data?.message ??
-          (response.status === 429
-            ? 'Trop de tentatives. Réessayez dans quelques minutes ou contactez-nous directement.'
-            : 'Une erreur technique nous empêche de transmettre votre demande. Réessayez ou contactez-nous par WhatsApp / email.'),
-      });
-    } catch {
-      track('Demo Form Submission Failed', { reason: 'network', sourcePage: pathname });
-      setState({
-        kind: 'error',
-        message:
-          'Connexion impossible. Vérifiez votre réseau ou contactez-nous par WhatsApp / email.',
-      });
-    }
-  }, () => {
-    track('Demo Form Submission Failed', { reason: 'validation', sourcePage: pathname });
-  });
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && data.ok) {
+          track('Demo Form Submitted', {
+            modulesCount: values.modulesOfInterest.length,
+            hasMessage: Boolean(values.message),
+            hasStudentCount: Boolean(values.studentCount),
+            sourcePage: pathname,
+          });
+          setState({ kind: 'success', correlationId: data.id });
+          router.push('/demander-demo/merci');
+          return;
+        }
+
+        const reason =
+          response.status === 429 ? 'rate_limit' : response.status >= 500 ? 'server' : 'validation';
+        track('Demo Form Submission Failed', { reason, sourcePage: pathname });
+        setState({
+          kind: 'error',
+          message:
+            data?.message ??
+            (response.status === 429
+              ? 'Trop de tentatives. Réessayez dans quelques minutes ou contactez-nous directement.'
+              : 'Une erreur technique nous empêche de transmettre votre demande. Réessayez ou contactez-nous par WhatsApp / email.'),
+        });
+      } catch {
+        track('Demo Form Submission Failed', { reason: 'network', sourcePage: pathname });
+        setState({
+          kind: 'error',
+          message:
+            'Connexion impossible. Vérifiez votre réseau ou contactez-nous par WhatsApp / email.',
+        });
+      }
+    },
+    () => {
+      track('Demo Form Submission Failed', { reason: 'validation', sourcePage: pathname });
+    },
+  );
 
   const formError = state.kind === 'error' ? state.message : null;
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-6" data-testid="demo-form">
       {/* Honeypot — masqué visuellement et aux lecteurs d'écran */}
-      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0" style={{ left: '-9999px' }}>
+      <div
+        aria-hidden="true"
+        className="absolute h-0 w-0 overflow-hidden opacity-0"
+        style={{ left: '-9999px' }}
+      >
         <label>
           Ne pas remplir
-          <input
-            tabIndex={-1}
-            autoComplete="off"
-            {...register('website')}
-          />
+          <input tabIndex={-1} autoComplete="off" {...register('website')} />
         </label>
       </div>
 
@@ -215,8 +223,8 @@ export function DemoRequestForm() {
         />
       </FormField>
 
-      <details className="rounded-md border border-slate-200 bg-surface-subtle p-4">
-        <summary className="cursor-pointer text-sm font-medium text-ink">
+      <details className="border-line bg-surface-subtle rounded-md border p-4">
+        <summary className="text-ink cursor-pointer text-sm font-medium">
           Informations optionnelles
         </summary>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -236,7 +244,11 @@ export function DemoRequestForm() {
             />
           </FormField>
 
-          <FormField id="institutionType" label="Type d'établissement" error={errors.institutionType?.message}>
+          <FormField
+            id="institutionType"
+            label="Type d'établissement"
+            error={errors.institutionType?.message}
+          >
             <Input
               id="institutionType"
               placeholder="Institut privé post-bac, centre de formation…"
@@ -266,21 +278,16 @@ export function DemoRequestForm() {
         </div>
       </details>
 
-      <FormField
-        id="consent"
-        label=""
-        error={errors.consent?.message as string | undefined}
-      >
+      <FormField id="consent" label="" error={errors.consent?.message as string | undefined}>
         <label className="flex items-start gap-3">
-          <Checkbox
-            id="consent"
-            invalid={Boolean(errors.consent)}
-            {...register('consent')}
-          />
-          <span className="text-sm text-ink-muted">
+          <Checkbox id="consent" invalid={Boolean(errors.consent)} {...register('consent')} />
+          <span className="text-ink-muted text-sm">
             J'accepte d'être recontacté(e) par l'équipe EcoleDigitale au sujet de ma demande de
             démonstration. Voir notre{' '}
-            <a href="/confidentialite" className="font-medium text-brand-700 underline-offset-4 hover:underline">
+            <a
+              href="/confidentialite"
+              className="text-brand-700 font-medium underline-offset-4 hover:underline"
+            >
               politique de confidentialité
             </a>
             .
@@ -289,7 +296,10 @@ export function DemoRequestForm() {
       </FormField>
 
       {formError && (
-        <div role="alert" className="rounded-md border border-red-300 bg-red-50 p-4 text-sm text-red-800">
+        <div
+          role="alert"
+          className="rounded-md border border-red-300 bg-red-50 p-4 text-sm text-red-800"
+        >
           <p>{formError}</p>
           <div className="mt-3">
             <ContactChannels placement="inline" />
@@ -301,9 +311,7 @@ export function DemoRequestForm() {
         <Button type="submit" size="lg" disabled={isSubmitting || state.kind === 'submitting'}>
           {state.kind === 'submitting' ? 'Envoi en cours…' : 'Envoyer ma demande'}
         </Button>
-        <p className="text-xs text-ink-soft">
-          Réponse de notre équipe sous 48 heures ouvrées.
-        </p>
+        <p className="text-ink-soft text-xs">Réponse de notre équipe sous 48 heures ouvrées.</p>
       </div>
     </form>
   );

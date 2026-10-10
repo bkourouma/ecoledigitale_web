@@ -9,43 +9,40 @@ import type { MDXComponents } from 'mdx/types';
  */
 export const resourceMdxComponents: MDXComponents = {
   h2: ({ children, ...props }) => (
-    <h2 className="mt-12 text-2xl font-semibold tracking-tight text-ink" {...props}>
+    <h2 className="font-display text-primary-800 mt-12 text-4xl leading-none font-bold" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 className="mt-8 text-xl font-semibold text-ink" {...props}>
+    <h3 className="font-display text-primary-700 mt-8 text-3xl leading-none font-bold" {...props}>
       {children}
     </h3>
   ),
   p: ({ children, ...props }) => (
-    <p className="mt-4 max-w-prose text-base leading-relaxed text-ink-muted" {...props}>
+    <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed" {...props}>
       {children}
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul
-      className="mt-4 list-disc space-y-2 pl-6 text-ink-muted marker:text-brand-500"
-      {...props}
-    >
+    <ul className="text-ink-muted marker:text-pen-500 mt-4 list-disc space-y-2 pl-6" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="mt-4 list-decimal space-y-2 pl-6 text-ink-muted" {...props}>
+    <ol className="text-ink-muted mt-4 list-decimal space-y-2 pl-6" {...props}>
       {children}
     </ol>
   ),
   a: ({ children, ...props }) => (
-    <a className="font-medium text-brand-700 underline-offset-4 hover:underline" {...props}>
+    <a
+      className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+      {...props}
+    >
       {children}
     </a>
   ),
   blockquote: ({ children, ...props }) => (
-    <blockquote
-      className="mt-6 border-l-4 border-brand-200 pl-4 text-ink-muted italic"
-      {...props}
-    >
+    <blockquote className="red-note mt-6 max-w-prose text-2xl not-italic" {...props}>
       {children}
     </blockquote>
   ),

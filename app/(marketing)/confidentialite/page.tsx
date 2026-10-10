@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { useMDXComponents as getMdxComponents } from '@/mdx-components';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
@@ -28,8 +29,8 @@ export default function ConfidentialitePage() {
         ])}
       />
       <section className="container-content py-16 md:py-20">
-        <article className="prose prose-slate prose-sm mx-auto max-w-3xl sm:prose-base [&_h1]:text-display-md [&_h1]:font-semibold [&_h1]:tracking-tight [&_h1]:text-ink [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-ink [&_a]:text-brand-700 [&_a:hover]:underline">
-          <MDXRemote source={content} />
+        <article className="mx-auto max-w-3xl">
+          <MDXRemote source={content} components={getMdxComponents({})} />
         </article>
       </section>
     </>

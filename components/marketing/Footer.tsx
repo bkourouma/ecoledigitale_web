@@ -18,86 +18,87 @@ const MODULE_LINKS = [
   { href: '/modules/campus-live', label: 'Campus Live' },
 ];
 
+const LINK_CLASS =
+  'text-ink-muted underline-offset-4 decoration-2 transition-colors hover:text-marker hover:underline';
+
+/** Le dos du cahier : couverture bleue, reliure spirale, étiquette de propriétaire. */
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-section border-t border-neutral-200 bg-neutral-50 dark:border-white/10 dark:bg-neutral-950">
-      <div className="container-wide grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="cover mt-section relative">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 -top-3 h-6"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 50% 50%, #0b1235 0 4.5px, #e3e6f5 5px 7px, transparent 7.5px)',
+          backgroundSize: '30px 24px',
+          backgroundRepeat: 'repeat-x',
+          backgroundPosition: '8px center',
+        }}
+      />
+
+      <div className="container-wide grid gap-12 pt-16 pb-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.9fr_1.1fr]">
         <div>
-          <Link href="/" className="flex items-center gap-2.5" aria-label="EcoleDigitale — Accueil">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-700 text-sm font-bold text-white shadow-xs select-none dark:bg-primary-500">
-              É
-            </span>
-            <span className="font-display text-base font-semibold text-ink dark:text-white">
+          <div className="label-card max-w-xs rotate-[-1.5deg] p-5">
+            <p className="font-hand text-ink-soft text-sm">Ce cahier appartient à</p>
+            <Link
+              href="/"
+              className="border-primary-400 font-display text-primary-800 mt-1 block border-b-2 border-dotted pb-1 text-4xl leading-none font-bold"
+              aria-label="EcoleDigitale — Accueil"
+            >
               EcoleDigitale
-            </span>
-          </Link>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-muted dark:text-neutral-300">
-            Plateforme SaaS modulaire pour digitaliser la gestion académique, pédagogique et
-            financière des établissements de formation.
-          </p>
-        </div>
-
-        <nav aria-label="Pages" className="text-sm">
-          <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft dark:text-neutral-400">
-            Navigation
-          </p>
-          <ul className="mt-3 space-y-2.5">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-ink-muted transition-colors hover:text-primary-700 dark:text-neutral-300 dark:hover:text-accent-300"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <nav aria-label="Modules" className="text-sm">
-          <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft dark:text-neutral-400">
-            Modules
-          </p>
-          <ul className="mt-3 space-y-2.5">
-            {MODULE_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-ink-muted transition-colors hover:text-primary-700 dark:text-neutral-300 dark:hover:text-accent-300"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft dark:text-neutral-400">
-            Contact
-          </p>
-          <ContactChannels placement="footer" variant="stacked" className="mt-3" />
-          <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-4 shadow-card dark:border-white/10 dark:bg-white/6">
-            <p className="text-xs font-medium text-ink dark:text-white">
-              Réponse sous 48 h ouvrées
-            </p>
-            <p className="mt-1 text-xs text-ink-muted dark:text-neutral-300">
-              Remplissez le formulaire de démo ou contactez-nous directement — sans engagement.
+            </Link>
+            <p className="text-ink-muted mt-3 text-sm leading-snug">
+              Plateforme modulaire pour la gestion académique, pédagogique et financière des
+              établissements de formation.
             </p>
           </div>
         </div>
+
+        <nav aria-label="Pages" className="text-base">
+          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">
+            Navigation
+          </p>
+          <ul className="mt-4 space-y-2.5">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={LINK_CLASS}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Modules" className="text-base">
+          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">Modules</p>
+          <ul className="mt-4 space-y-2.5">
+            {MODULE_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={LINK_CLASS}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">Contact</p>
+          <ContactChannels placement="footer" variant="stacked" className="mt-4" />
+          <p className="text-ink-muted mt-6 max-w-xs text-base leading-snug">
+            Réponse sous 48 h ouvrées. Remplissez le formulaire de démonstration ou écrivez-nous
+            directement, sans engagement.
+          </p>
+        </div>
       </div>
 
-      <div className="border-t border-neutral-200 dark:border-white/10">
-        <div className="container-wide flex flex-wrap items-center justify-between gap-4 py-5 text-xs text-ink-soft dark:text-neutral-400">
+      <div className="border-t-2 border-dashed border-white/25">
+        <div className="container-wide text-ink-soft flex flex-wrap items-center justify-between gap-4 py-5 text-sm">
           <p>© {year} EcoleDigitale. Tous droits réservés.</p>
-          <Link
-            href="/confidentialite"
-            className="transition-colors hover:text-primary-700 dark:hover:text-accent-300"
-          >
+          <Link href="/confidentialite" className={LINK_CLASS}>
             Politique de confidentialité
           </Link>
         </div>

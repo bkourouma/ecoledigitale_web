@@ -1,95 +1,94 @@
-import { Briefcase, ClipboardList, GraduationCap, Presentation, Users } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 
 interface RoleBlock {
-  icon: LucideIcon;
   title: string;
   benefits: string[];
-  topAccent: string;
+  /** Couleur du surligneur propre à chaque matière. */
+  highlight: string;
 }
 
 const ROLE_BLOCKS: RoleBlock[] = [
   {
-    icon: Briefcase,
     title: 'Direction',
     benefits: [
       'Tableaux de bord académiques et financiers',
       'Pilotage multi-établissement et alertes',
       'Vision consolidée par cycle ou par programme',
     ],
-    topAccent: 'border-t-primary-600',
+    highlight: 'bg-marker',
   },
   {
-    icon: ClipboardList,
     title: 'Administration',
     benefits: [
       'Inscriptions et dossiers étudiants centralisés',
       'Échéanciers de paiement et relances automatisées',
       'Reporting de recouvrement en temps réel',
     ],
-    topAccent: 'border-t-primary-800',
+    highlight: 'bg-chalk-blue',
   },
   {
-    icon: Presentation,
     title: 'Enseignants',
     benefits: [
       'Saisie des notes et coefficients sans ressaisie',
       'Bulletins et moyennes générés automatiquement',
       'Présences, devoirs et planning au même endroit',
     ],
-    topAccent: 'border-t-accent-500',
+    highlight: 'bg-chalk-pink',
   },
   {
-    icon: Users,
     title: 'Parents & étudiants',
     benefits: [
       'Résultats, présences et bulletins en temps réel',
       'Communications et documents centralisés',
       'Paiements et factures accessibles à tout moment',
     ],
-    topAccent: 'border-t-accent-400',
+    highlight: 'bg-accent-200',
   },
   {
-    icon: GraduationCap,
     title: 'Formateurs',
     benefits: [
       'Catalogue, sessions et inscriptions partagés',
       'Supports, présences et messages dans un seul espace',
       'Suivi des heures et reporting commercial',
     ],
-    topAccent: 'border-t-primary-400',
+    highlight: 'bg-marker-soft',
   },
 ];
 
 export function BenefitsByRole() {
   return (
-    <section className="container-wide py-20 bg-gradient-to-br from-white to-primary-50/30 dark:from-neutral-950 dark:to-neutral-950">
+    <section aria-labelledby="roles-heading" className="container-wide py-16 md:py-20">
       <Reveal className="max-w-2xl">
-        <p className="section-kicker">Bénéfices par profil</p>
-        <h2 className="mt-3 font-display text-display-sm font-semibold text-ink dark:text-white">
-          Des bénéfices concrets pour chaque profil
+        <h2 id="roles-heading" className="font-display text-display-sm text-primary-800 font-bold">
+          Des bénéfices concrets pour <span className="marker">chaque profil</span>
         </h2>
-        <p className="mt-3 text-lg leading-relaxed text-ink-muted dark:text-neutral-300">
+        <p className="text-ink-muted mt-3 text-lg leading-relaxed">
           Chaque utilisateur retrouve dans EcoleDigitale ce dont il a besoin au quotidien, sans
           surcouche inutile.
         </p>
       </Reveal>
 
-      <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {ROLE_BLOCKS.map(({ icon: Icon, title, benefits, topAccent }) => (
+      <RevealGroup className="mt-12">
+        {ROLE_BLOCKS.map(({ title, benefits, highlight }) => (
           <RevealItem key={title}>
-            <article className={`group flex h-full flex-col rounded-2xl border border-neutral-200/80 border-t-2 ${topAccent} bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:border-accent-300/70 hover:shadow-card-hover dark:border-white/10 dark:bg-white/6`}>
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-700 ring-1 ring-primary-100 transition-all duration-200 group-hover:scale-110 group-hover:bg-accent-50 group-hover:text-accent-700 group-hover:shadow-[0_0_0_4px_rgba(16,185,129,0.14)] dark:bg-primary-400/12 dark:text-primary-200 dark:ring-primary-300/20 dark:group-hover:shadow-[0_0_0_4px_rgba(16,185,129,0.18)]">
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <h3 className="mt-4 text-base font-semibold text-ink dark:text-white">{title}</h3>
-              <ul className="mt-3 flex-1 space-y-2 text-sm text-ink-muted dark:text-neutral-300">
+            <article className="border-primary-700/70 grid gap-4 border-t-2 py-8 md:grid-cols-[minmax(0,15rem)_1fr] md:gap-12">
+              <h3 className="font-display text-primary-800 text-4xl leading-none font-bold">
+                <span className="relative isolate inline-block">
+                  <span
+                    aria-hidden="true"
+                    className={`absolute inset-x-[-0.15em] bottom-[0.08em] -z-10 h-[0.5em] -rotate-1 ${highlight}`}
+                  />
+                  {title}
+                </span>
+              </h3>
+              <ul className="text-ink-muted space-y-2.5 text-base">
                 {benefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-2.5">
-                    <span
+                  <li key={benefit} className="flex gap-3">
+                    <Check
+                      className="text-accent-600 mt-1 h-5 w-5 shrink-0"
+                      strokeWidth={3}
                       aria-hidden="true"
-                      className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400"
                     />
                     <span>{benefit}</span>
                   </li>

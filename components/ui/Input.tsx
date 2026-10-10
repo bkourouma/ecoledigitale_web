@@ -14,10 +14,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ref={ref}
       aria-invalid={invalid || undefined}
       className={cn(
-        'block w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-ink shadow-xs placeholder:text-ink-soft dark:bg-white/8 dark:text-neutral-50 dark:placeholder:text-neutral-500',
-        'focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent',
-        'disabled:cursor-not-allowed disabled:bg-surface-muted dark:disabled:bg-white/5',
-        invalid ? 'border-red-400 focus:ring-red-500' : 'border-neutral-300 dark:border-white/10',
+        'text-ink placeholder:text-ink-soft block w-full rounded-none border-0 border-b-2 bg-white/80 px-3 py-2.5 text-base transition-colors',
+        'focus:ring-primary-300 focus:bg-white focus:ring-2 focus:outline-none',
+        'disabled:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-70',
+        invalid
+          ? 'border-pen-500 focus:ring-pen-100'
+          : 'border-primary-300 focus:border-primary-700',
         className,
       )}
       {...rest}

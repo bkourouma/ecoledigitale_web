@@ -16,13 +16,13 @@ interface EmptyStateProps {
 export function EmptyState({ variant }: EmptyStateProps) {
   if (variant === 'hub-empty') {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-surface-subtle p-10 text-center">
-        <h2 className="text-xl font-semibold tracking-tight text-ink">
+      <div className="border-line bg-surface-subtle rounded-md border p-10 text-center">
+        <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
           Le hub se construit
         </h2>
-        <p className="mx-auto mt-2 max-w-prose text-ink-muted">
-          Les premières ressources — guides, études de cas et glossaire — arrivent
-          très prochainement. En attendant, échangeons sur votre établissement.
+        <p className="text-ink-muted mx-auto mt-2 max-w-prose">
+          Les premières ressources — guides, études de cas et glossaire — arrivent très
+          prochainement. En attendant, échangeons sur votre établissement.
         </p>
         <div className="mt-6 flex justify-center">
           <TrackedDemoCTA placement="inline">Demander une démonstration</TrackedDemoCTA>
@@ -32,18 +32,18 @@ export function EmptyState({ variant }: EmptyStateProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-surface-subtle p-10 text-center">
-      <h2 className="text-xl font-semibold tracking-tight text-ink">
+    <div className="border-line bg-surface-subtle rounded-md border p-10 text-center">
+      <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
         Aucune ressource pour ces filtres
       </h2>
-      <p className="mx-auto mt-2 max-w-prose text-ink-muted">
-        Aucune ressource ne correspond à cette combinaison. Essayez d’élargir votre
-        recherche ou de revenir à l’ensemble du catalogue.
+      <p className="text-ink-muted mx-auto mt-2 max-w-prose">
+        Aucune ressource ne correspond à cette combinaison. Essayez d’élargir votre recherche ou de
+        revenir à l’ensemble du catalogue.
       </p>
       <div className="mt-6">
         <Link
           href="/ressources"
-          className="text-sm font-medium text-brand-700 underline-offset-4 hover:underline"
+          className="text-brand-700 text-sm font-medium underline-offset-4 hover:underline"
         >
           Effacer les filtres
         </Link>

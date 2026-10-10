@@ -15,7 +15,10 @@ const FAQS: FaqItem[] = [
         Le prix dépend du nombre d'étudiants, des modules activés et de la durée d'engagement. Nous
         construisons une offre adaptée après un premier échange — pas de tarif standard affiché
         publiquement.{' '}
-        <Link href="/demander-demo" className="font-medium text-primary-700 hover:underline dark:text-accent-300">
+        <Link
+          href="/demander-demo"
+          className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+        >
           Demandez un devis personnalisé
         </Link>
         .
@@ -38,7 +41,10 @@ const FAQS: FaqItem[] = [
       <>
         Vos données sont hébergées en Union Européenne avec sauvegardes régulières, contrôle d'accès
         par rôle et chiffrement en transit. Voir notre{' '}
-        <Link href="/confidentialite" className="font-medium text-primary-700 hover:underline dark:text-accent-300">
+        <Link
+          href="/confidentialite"
+          className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+        >
           politique de confidentialité
         </Link>{' '}
         pour le détail.
@@ -68,34 +74,32 @@ const FAQS: FaqItem[] = [
 
 export function FAQ() {
   return (
-    <section className="container-wide py-20">
+    <section aria-labelledby="faq-heading" className="container-wide py-16 md:py-20">
       <Reveal className="max-w-2xl">
-        <p className="section-kicker">Questions fréquentes</p>
-        <h2 className="mt-3 font-display text-display-sm font-semibold text-ink dark:text-white">
-          Les réponses aux questions des décideurs
+        <h2 id="faq-heading" className="font-display text-display-sm text-primary-800 font-bold">
+          Les réponses aux <span className="marker">questions</span> des décideurs
         </h2>
-        <p className="mt-3 text-lg leading-relaxed text-ink-muted dark:text-neutral-300">
+        <p className="text-ink-muted mt-3 text-lg leading-relaxed">
           Pas la réponse à votre question ? Posez-la directement à notre équipe via le formulaire de
           démonstration.
         </p>
       </Reveal>
 
-      <Reveal className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-card dark:border-white/10 dark:bg-white/6">
+      <Reveal className="border-primary-700/70 mt-10 max-w-5xl border-t-2">
         {FAQS.map((faq, index) => (
-          <details key={index} className="group border-b border-neutral-200/70 last:border-b-0 dark:border-white/10">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-neutral-50 dark:hover:bg-white/8">
-              <h3 className="text-sm font-semibold text-ink dark:text-white">{faq.question}</h3>
-              <span
+          <details key={index} className="group border-primary-200 border-b-2 border-dashed">
+            <summary className="hover:bg-marker-soft/60 flex list-none items-center justify-between gap-4 py-5 transition-colors [&::-webkit-details-marker]:hidden">
+              <h3 className="font-display text-primary-800 text-3xl leading-tight font-bold">
+                {faq.question}
+              </h3>
+              <Plus
+                className="text-pen-600 h-6 w-6 shrink-0 transition-transform duration-200 group-open:rotate-45"
+                strokeWidth={3}
                 aria-hidden="true"
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-neutral-200 text-ink-muted transition-transform duration-200 group-open:rotate-45 dark:border-white/10 dark:text-neutral-300"
-              >
-                <Plus className="h-4 w-4" aria-hidden="true" />
-              </span>
+              />
             </summary>
-            <div className="px-6 pb-5 pt-0">
-              <p className="text-sm leading-relaxed text-ink-muted dark:text-neutral-300">
-                {faq.answer}
-              </p>
+            <div className="pr-10 pb-6">
+              <p className="text-ink-muted text-base leading-relaxed">{faq.answer}</p>
             </div>
           </details>
         ))}

@@ -49,3 +49,8 @@ Thumbs.db
 
 # Claude Code worktrees (ne pas versionner les workspaces isolés)
 .claude/worktrees/
+
+# Impeccable (captures et cache de session)
+.impeccable/review/
+.impeccable/hook.cache.json
+.impeccable/questions/
