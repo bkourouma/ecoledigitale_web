@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+import { mockLeadsApi } from './helpers/mock-leads';
 
 test.describe('Formulaire de demande de démo', () => {
   test.beforeEach(async ({ page }) => {
@@ -13,7 +14,9 @@ test.describe('Formulaire de demande de démo', () => {
     await expect(page.getByLabel(/Nom de l'établissement/i)).toBeVisible();
     await expect(page.getByLabel(/Votre rôle/i)).toBeVisible();
     await expect(page.getByLabel(/Ville et pays/i)).toBeVisible();
-    await expect(page.getByText(/Modules qui vous intéressent/i)).toBeVisible();
+    // Le groupe de cases à cocher porte son intitulé via <fieldset>/<legend> ;
+    // getByText résoudrait aussi le texte d'introduction de la page.
+    await expect(page.getByRole('group', { name: /Modules qui vous intéressent/i })).toBeVisible();
   });
 
   test('soumission vide → erreurs de validation sur les champs requis', async ({ page }) => {
@@ -32,7 +35,7 @@ test.describe('Formulaire de demande de démo', () => {
     await expect(emailField).toHaveAttribute('aria-invalid', 'true');
   });
 
-  test("aucun module sélectionné → erreur sur le groupe modules", async ({ page }) => {
+  test('aucun module sélectionné → erreur sur le groupe modules', async ({ page }) => {
     await fillRequiredFields(page, { skipModules: true, skipConsent: false });
     await page.getByRole('button', { name: /Envoyer ma demande/i }).click();
 
@@ -40,6 +43,7 @@ test.describe('Formulaire de demande de démo', () => {
   });
 
   test('soumission valide → redirection vers /merci', async ({ page }) => {
+    await mockLeadsApi(page);
     await fillRequiredFields(page);
     await page.getByRole('button', { name: /Envoyer ma demande/i }).click();
 
@@ -48,6 +52,7 @@ test.describe('Formulaire de demande de démo', () => {
   });
 
   test('double-clic submit → une seule requête', async ({ page }) => {
+    await mockLeadsApi(page);
     await fillRequiredFields(page);
 
     const requests: string[] = [];
@@ -64,7 +69,7 @@ test.describe('Formulaire de demande de démo', () => {
 });
 
 async function fillRequiredFields(
-  page: import('@playwright/test').Page,
+  page: Page,
   options: { skipModules?: boolean; skipConsent?: boolean } = {},
 ) {
   await page.getByLabel(/Nom complet/i).fill('Marie Dupont');

@@ -240,7 +240,11 @@ export function DemoRequestForm() {
               min={1}
               max={999999}
               invalid={Boolean(errors.studentCount)}
-              {...register('studentCount', { valueAsNumber: true })}
+              {...register('studentCount', {
+                // Champ optionnel : vide => absent (et non NaN, que le schéma refuserait).
+                setValueAs: (value: string) =>
+                  value === '' || Number.isNaN(Number(value)) ? undefined : Number(value),
+              })}
             />
           </FormField>
 
@@ -258,7 +262,13 @@ export function DemoRequestForm() {
           </FormField>
 
           <FormField id="preferredChannel" label="Canal de contact préféré">
-            <Select id="preferredChannel" {...register('preferredChannel')}>
+            <Select
+              id="preferredChannel"
+              {...register('preferredChannel', {
+                // « Aucune préférence » (valeur vide) => absent, le schéma n'accepte que les trois canaux.
+                setValueAs: (value: string) => value || undefined,
+              })}
+            >
               <option value="">— Aucune préférence —</option>
               <option value="email">Email</option>
               <option value="phone">Téléphone</option>

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { mockLeadsApi } from './helpers/mock-leads';
 import {
   clearCapturedEvents,
   getCapturedEvents,
@@ -27,6 +28,13 @@ test.describe('Analytics — Demo CTA Clicked', () => {
 
   test('clic sur CTA démo du header sticky → placement=header', async ({ page }) => {
     await page.goto('/modules');
+
+    // Sur mobile, le CTA du header est dans le menu burger, fermé au chargement.
+    const burger = page.locator('header').getByRole('button', { name: /Ouvrir le menu/i });
+    if (await burger.isVisible()) {
+      await burger.click();
+    }
+
     await page
       .locator('header')
       .getByRole('link', { name: /Demander une démo/i })
@@ -124,6 +132,7 @@ test.describe('Analytics — Module Selected In Form', () => {
 
 test.describe('Analytics — Demo Form Submitted / Failed', () => {
   test('soumission valide → Demo Form Submitted avec propriétés correctes', async ({ page }) => {
+    await mockLeadsApi(page);
     await page.goto('/demander-demo');
 
     await page.getByLabel(/Nom complet/i).fill('Marie Dupont');
