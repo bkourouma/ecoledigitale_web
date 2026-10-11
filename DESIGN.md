@@ -249,7 +249,7 @@ Pied de page : couverture bleue (primary-800) à grain, texte clair. L'étiquett
 
 ### Plume et traînée d'encre
 
-Curseur plume en SVG (`quill.svg`, `quill-ink.svg` sur les éléments cliquables), point de pose en (3, 37), actif au pointeur fin seulement. `InkTrail` dessine une traînée qui sèche en 650 ms et une tache de 1.4 s au clic ; l'encre devient craie sur ardoise et couverture. Désactivé au tactile et avec `prefers-reduced-motion`.
+Curseur plume en SVG (`quill.svg`, `quill-link.svg` sur les éléments cliquables : plume jaune dans une cible d'encre), point de pose en (3, 37), et (13, 47) pour la version cliquable, actif au pointeur fin seulement. `InkTrail` dessine une traînée qui sèche en 650 ms et une tache de 1.4 s au clic ; l'encre devient craie sur ardoise et couverture. Désactivé au tactile et avec `prefers-reduced-motion`.
 
 ### Écriture animée
 

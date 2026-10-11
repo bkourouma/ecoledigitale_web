@@ -193,7 +193,7 @@
     label[for],
     [role='button'] {
       cursor:
-        url('/cursors/quill-ink.svg') 3 37,
+        url('/cursors/quill-link.svg') 13 47,
         pointer;
     }
 
@@ -205,7 +205,7 @@
     input[type='checkbox'],
     input[type='radio'] {
       cursor:
-        url('/cursors/quill-ink.svg') 3 37,
+        url('/cursors/quill-link.svg') 13 47,
         pointer;
     }
   }
