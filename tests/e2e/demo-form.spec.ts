@@ -61,7 +61,8 @@ test.describe('Formulaire de demande de démo', () => {
     });
 
     const submit = page.getByRole('button', { name: /Envoyer ma demande/i });
-    await Promise.all([submit.click(), submit.click().catch(() => undefined)]);
+    // Le second clic peut tomber sur un bouton déjà désactivé : on borne son attente.
+    await Promise.all([submit.click(), submit.click({ timeout: 1_500 }).catch(() => undefined)]);
     await page.waitForURL('**/demander-demo/merci', { timeout: 10_000 });
 
     expect(requests.length).toBe(1);
