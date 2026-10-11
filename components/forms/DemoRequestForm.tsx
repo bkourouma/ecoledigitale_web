@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -42,6 +42,9 @@ export function DemoRequestForm() {
   const router = useRouter();
   const pathname = usePathname() || '/demander-demo';
   const [state, setState] = useState<SubmissionState>({ kind: 'idle' });
+  // Verrou synchrone : deux clics rapprochés se produisent avant que React ne
+  // désactive le bouton, l'état seul ne suffit donc pas à éviter un double envoi.
+  const sendingRef = useRef(false);
 
   const {
     register,
@@ -60,6 +63,8 @@ export function DemoRequestForm() {
 
   const onSubmit = handleSubmit(
     async (values) => {
+      if (sendingRef.current) return;
+      sendingRef.current = true;
       setState({ kind: 'submitting' });
 
       try {
@@ -83,6 +88,7 @@ export function DemoRequestForm() {
           return;
         }
 
+        sendingRef.current = false;
         const reason =
           response.status === 429 ? 'rate_limit' : response.status >= 500 ? 'server' : 'validation';
         track('Demo Form Submission Failed', { reason, sourcePage: pathname });
@@ -95,6 +101,7 @@ export function DemoRequestForm() {
               : 'Une erreur technique nous empêche de transmettre votre demande. Réessayez ou contactez-nous par WhatsApp / email.'),
         });
       } catch {
+        sendingRef.current = false;
         track('Demo Form Submission Failed', { reason: 'network', sourcePage: pathname });
         setState({
           kind: 'error',
@@ -318,7 +325,11 @@ export function DemoRequestForm() {
       )}
 
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" size="lg" disabled={isSubmitting || state.kind === 'submitting'}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={isSubmitting || state.kind === 'submitting' || state.kind === 'success'}
+        >
           {state.kind === 'submitting' ? 'Envoi en cours…' : 'Envoyer ma demande'}
         </Button>
         <p className="text-ink-soft text-xs">Réponse de notre équipe sous 48 heures ouvrées.</p>
