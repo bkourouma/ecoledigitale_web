@@ -1,13 +1,13 @@
 import { test, expect, type Page } from '@playwright/test';
 
 const MVP_ROUTES: { path: string; expectedTitleHint: RegExp; allowNoindex?: boolean }[] = [
-  { path: '/', expectedTitleHint: /EcoleDigitale/i },
-  { path: '/modules', expectedTitleHint: /Modules/i },
-  { path: '/modules/socle-ecoledigitale', expectedTitleHint: /Socle/i },
-  { path: '/modules/parcours-bts', expectedTitleHint: /BTS/i },
-  { path: '/modules/parcours-superieur', expectedTitleHint: /Supérieur/i },
-  { path: '/modules/proformation', expectedTitleHint: /ProFormation|formation professionnelle/i },
-  { path: '/modules/campus-live', expectedTitleHint: /Campus Live|cours en (ligne|direct)/i },
+  { path: '/', expectedTitleHint: /Logiciel de gestion scolaire/i },
+  { path: '/modules', expectedTitleHint: /Packs/i },
+  { path: '/modules/socle-ecoledigitale', expectedTitleHint: /école privée/i },
+  { path: '/modules/ecoledigitale-primary', expectedTitleHint: /primaire/i },
+  { path: '/modules/ecoledigitale-secondary', expectedTitleHint: /collège et lycée/i },
+  { path: '/modules/ecoledigitale-higher', expectedTitleHint: /BTS/i },
+  { path: '/modules/ecoledigitale-virtual', expectedTitleHint: /LMS/i },
   { path: '/demander-demo', expectedTitleHint: /Demander|démonstration/i },
   { path: '/confidentialite', expectedTitleHint: /Confidentialité/i },
   { path: '/demander-demo/merci', expectedTitleHint: /Merci/i, allowNoindex: true },
@@ -18,7 +18,7 @@ const MVP_ROUTES: { path: string; expectedTitleHint: RegExp; allowNoindex?: bool
   },
   {
     path: '/ressources/guides/choisir-logiciel-gestion-ecole-privee',
-    expectedTitleHint: /ecole privee|gestion/i,
+    expectedTitleHint: /logiciel d.école/i,
   },
 ];
 
@@ -35,13 +35,15 @@ test.describe('SEO — meta tags par page', () => {
       const title = await page.title();
       expect(title).toMatch(route.expectedTitleHint);
       expect(title.length).toBeGreaterThan(10);
-      expect(title.length).toBeLessThanOrEqual(80);
+      // 60 caractères au plus, suffixe « | EcoleDigitale » compris, et marque jamais doublée.
+      expect(title.length).toBeLessThanOrEqual(60);
+      expect(title.match(/EcoleDigitale/g)?.length ?? 0).toBeLessThanOrEqual(1);
 
       // Meta description
       const description = await getMeta(page, 'meta[name="description"]');
       expect(description).toBeTruthy();
       expect(description!.length).toBeGreaterThanOrEqual(50);
-      expect(description!.length).toBeLessThanOrEqual(200);
+      expect(description!.length).toBeLessThanOrEqual(155);
 
       // Canonical
       const canonical = await getMeta(page, 'link[rel="canonical"]', 'href');
@@ -152,18 +154,25 @@ test.describe('SEO — JSON-LD structured data', () => {
     expect(types).toContain('BreadcrumbList');
   });
 
-  test('chaque page module contient Course + BreadcrumbList', async ({ page }) => {
+  test('chaque page module contient WebPage + SoftwareApplication + BreadcrumbList + FAQPage', async ({
+    page,
+  }) => {
     const slugs = [
       'socle-ecoledigitale',
-      'parcours-bts',
-      'parcours-superieur',
-      'proformation',
-      'campus-live',
+      'ecoledigitale-primary',
+      'ecoledigitale-secondary',
+      'ecoledigitale-higher',
+      'ecoledigitale-virtual',
     ];
     for (const slug of slugs) {
       await page.goto(`/modules/${slug}`);
       const types = flattenTypes(await getJsonLd(page));
-      expect(types, `/modules/${slug} doit avoir Course`).toContain('Course');
+      expect(types, `/modules/${slug} ne doit plus avoir Course`).not.toContain('Course');
+      expect(types, `/modules/${slug} doit avoir WebPage`).toContain('WebPage');
+      expect(types, `/modules/${slug} doit avoir SoftwareApplication`).toContain(
+        'SoftwareApplication',
+      );
+      expect(types, `/modules/${slug} doit avoir FAQPage`).toContain('FAQPage');
       expect(types, `/modules/${slug} doit avoir BreadcrumbList`).toContain('BreadcrumbList');
     }
   });
@@ -185,10 +194,12 @@ test.describe('SEO — JSON-LD structured data', () => {
     expect(types, 'la page guide doit avoir FAQPage').toContain('FAQPage');
   });
 
-  test('une page auteur contient Person + BreadcrumbList', async ({ page }) => {
+  test('la page de l’équipe éditoriale est typée Organization (et non Person)', async ({
+    page,
+  }) => {
     await page.goto('/auteurs/equipe-ecoledigitale');
     const types = flattenTypes(await getJsonLd(page));
-    expect(types, 'la page auteur doit avoir Person').toContain('Person');
+    expect(types, 'une équipe n’est pas une Person').not.toContain('Person');
     expect(types, 'la page auteur doit avoir BreadcrumbList').toContain('BreadcrumbList');
   });
 });

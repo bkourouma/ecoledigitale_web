@@ -7,11 +7,11 @@
 
 Le hub `/ressources` publie trois types de contenu :
 
-| Type | Dossier | URL | Usage SEO |
-|------|---------|-----|-----------|
-| Guide | `content/ressources/guides/` | `/ressources/guides/{slug}` | Requêtes informationnelles longues |
-| Étude de cas | `content/ressources/etudes-de-cas/` | `/ressources/etudes-de-cas/{slug}` | Preuve sociale + conversion |
-| Définition | `content/ressources/glossaire/` | `/ressources/glossaire/{slug}` | Requêtes « qu'est-ce que… » |
+| Type         | Dossier                             | URL                                | Usage SEO                          |
+| ------------ | ----------------------------------- | ---------------------------------- | ---------------------------------- |
+| Guide        | `content/ressources/guides/`        | `/ressources/guides/{slug}`        | Requêtes informationnelles longues |
+| Étude de cas | `content/ressources/etudes-de-cas/` | `/ressources/etudes-de-cas/{slug}` | Preuve sociale + conversion        |
+| Définition   | `content/ressources/glossaire/`     | `/ressources/glossaire/{slug}`     | Requêtes « qu'est-ce que… »        |
 
 Les auteurs vivent dans `content/auteurs/{slug}.mdx`.
 
@@ -38,7 +38,7 @@ Les auteurs vivent dans `content/auteurs/{slug}.mdx`.
 - [ ] `status: published` (laisser `draft` tant que la ressource n'est pas prête)
 - [ ] Au moins un CTA explicite dans le corps (lien vers `/demander-demo` ou un module)
 - [ ] Au moins un lien interne (autre ressource ou module) pour le maillage
-- [ ] Sources externes citées et hyperliées (RNCP, France Compétences, ministère…)
+- [ ] Sources externes citées et hyperliées (textes officiels, ministère de l'Éducation nationale…)
 - [ ] FAQ remplie si la ressource s'y prête (active les rich results Google)
 - [ ] `relatedRessources` : 2 à 4 entrées vers des ressources **publiées**
 
@@ -46,23 +46,23 @@ Les auteurs vivent dans `content/auteurs/{slug}.mdx`.
 
 ### Champs communs à tous les types
 
-| Champ | Requis | Contrainte |
-|-------|:------:|-----------|
-| `slug` | ✅ | kebab-case, 3-60 car., = nom de fichier |
-| `title` | ✅ | 20-80 caractères |
-| `description` | ✅ | 80-160 caractères |
-| `type` | ✅ | `guides` \| `etudes-de-cas` \| `glossaire` (= dossier parent) |
-| `status` | ⬜ | `draft` (défaut) \| `published` |
-| `deprecated` | ⬜ | `true` \| `false` (défaut) |
-| `publishedAt` | ✅ | `AAAA-MM-JJ` |
-| `updatedAt` | ⬜ | `AAAA-MM-JJ`, ≥ `publishedAt` |
-| `author` | ✅ | slug d'un auteur existant |
-| `personas` | ✅ | 1-5 parmi `ecole-privee`, `lycee-bts`, `superieur`, `formation-pro`, `campus-live`, `tous` |
-| `category` | ✅ | texte libre, 2-40 caractères |
-| `seo.keywords` | ⬜ | 0-10 mots-clés |
-| `seo.ogImage` | ⬜ | chemin commençant par `/` (sinon image générée automatiquement) |
-| `faq` | ⬜ | 0-15 entrées `{ question, answer }` |
-| `relatedRessources` | ⬜ | 0-8 entrées `{ type, slug }` |
+| Champ               | Requis | Contrainte                                                                                             |
+| ------------------- | :----: | ------------------------------------------------------------------------------------------------------ |
+| `slug`              |   ✅   | kebab-case, 3-60 car., = nom de fichier                                                                |
+| `title`             |   ✅   | 20-80 caractères                                                                                       |
+| `description`       |   ✅   | 80-160 caractères                                                                                      |
+| `type`              |   ✅   | `guides` \| `etudes-de-cas` \| `glossaire` (= dossier parent)                                          |
+| `status`            |   ⬜   | `draft` (défaut) \| `published`                                                                        |
+| `deprecated`        |   ⬜   | `true` \| `false` (défaut)                                                                             |
+| `publishedAt`       |   ✅   | `AAAA-MM-JJ`                                                                                           |
+| `updatedAt`         |   ⬜   | `AAAA-MM-JJ`, ≥ `publishedAt`                                                                          |
+| `author`            |   ✅   | slug d'un auteur existant                                                                              |
+| `personas`          |   ✅   | 1-5 parmi `ecole-privee`, `primaire`, `secondaire`, `superieur`, `formation-pro`, `a-distance`, `tous` |
+| `category`          |   ✅   | texte libre, 2-40 caractères                                                                           |
+| `seo.keywords`      |   ⬜   | 0-10 mots-clés                                                                                         |
+| `seo.ogImage`       |   ⬜   | chemin commençant par `/` (sinon image générée automatiquement)                                        |
+| `faq`               |   ⬜   | 0-15 entrées `{ question, answer }`                                                                    |
+| `relatedRessources` |   ⬜   | 0-8 entrées `{ type, slug }`                                                                           |
 
 ### Champs spécifiques — étude de cas
 
@@ -124,7 +124,7 @@ Pour retirer une ressource du listing sans casser ses liens entrants :
 
 ```yaml
 deprecated: true
-updatedAt: "AAAA-MM-JJ"   # date de la dépréciation
+updatedAt: 'AAAA-MM-JJ' # date de la dépréciation
 ```
 
 La ressource reste accessible (avec un bandeau « archivée »), sort du hub, et

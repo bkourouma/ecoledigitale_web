@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { ContactChannels } from '@/components/marketing/ContactChannels';
+import { PUBLISHER_NOTICE } from '@/lib/site/contact';
 
 const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
-  { href: '/modules', label: 'Modules' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/modules', label: 'Packs' },
+  { href: '/ressources', label: 'Ressources' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/demander-demo', label: 'Demander une démonstration' },
   { href: '/confidentialite', label: 'Confidentialité' },
@@ -12,10 +13,10 @@ const NAV_LINKS = [
 
 const MODULE_LINKS = [
   { href: '/modules/socle-ecoledigitale', label: 'Socle EcoleDigitale' },
-  { href: '/modules/parcours-bts', label: 'Parcours BTS' },
-  { href: '/modules/parcours-superieur', label: 'Parcours Supérieur' },
-  { href: '/modules/proformation', label: 'ProFormation' },
-  { href: '/modules/campus-live', label: 'Campus Live' },
+  { href: '/modules/ecoledigitale-primary', label: 'Primary : maternelle et primaire' },
+  { href: '/modules/ecoledigitale-secondary', label: 'Secondary : collège et lycée' },
+  { href: '/modules/ecoledigitale-higher', label: 'Higher : supérieur et BTS' },
+  { href: '/modules/ecoledigitale-virtual', label: 'Virtual : formation à distance' },
 ];
 
 const LINK_CLASS =
@@ -51,8 +52,8 @@ export function Footer() {
               EcoleDigitale
             </Link>
             <p className="text-ink-muted mt-3 text-sm leading-snug">
-              Plateforme modulaire pour la gestion académique, pédagogique et financière des
-              établissements de formation.
+              Logiciel de gestion scolaire pour les établissements de la maternelle au supérieur, en
+              Côte d&apos;Ivoire et en Afrique francophone.
             </p>
           </div>
         </div>
@@ -72,8 +73,8 @@ export function Footer() {
           </ul>
         </nav>
 
-        <nav aria-label="Modules" className="text-base">
-          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">Modules</p>
+        <nav aria-label="Packs" className="text-base">
+          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">Packs</p>
           <ul className="mt-4 space-y-2.5">
             {MODULE_LINKS.map((link) => (
               <li key={link.href}>
@@ -97,7 +98,9 @@ export function Footer() {
 
       <div className="border-t-2 border-dashed border-white/25">
         <div className="container-wide text-ink-soft flex flex-wrap items-center justify-between gap-4 py-5 text-sm">
-          <p>© {year} EcoleDigitale. Tous droits réservés.</p>
+          <p>
+            © {year} EcoleDigitale. {PUBLISHER_NOTICE}. Tous droits réservés.
+          </p>
           <Link href="/confidentialite" className={LINK_CLASS}>
             Politique de confidentialité
           </Link>

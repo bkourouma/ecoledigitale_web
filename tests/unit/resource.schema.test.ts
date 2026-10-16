@@ -143,7 +143,7 @@ describe('formatResourceErrors()', () => {
 describe('Helpers de validation', () => {
   it('isValidModuleSlug reconnaît un module du catalogue', () => {
     expect(isValidModuleSlug('socle-ecoledigitale')).toBe(true);
-    expect(isValidModuleSlug('parcours-bts')).toBe(true);
+    expect(isValidModuleSlug('ecoledigitale-higher')).toBe(true);
   });
 
   it('isValidModuleSlug rejette un slug inconnu', () => {
@@ -151,16 +151,16 @@ describe('Helpers de validation', () => {
   });
 
   it('personasNeedAutoCleaning détecte "tous" combiné à d’autres valeurs', () => {
-    expect(personasNeedAutoCleaning(['tous', 'lycee-bts'])).toBe(true);
+    expect(personasNeedAutoCleaning(['tous', 'secondaire'])).toBe(true);
     expect(personasNeedAutoCleaning(['tous'])).toBe(false);
-    expect(personasNeedAutoCleaning(['lycee-bts', 'superieur'])).toBe(false);
+    expect(personasNeedAutoCleaning(['secondaire', 'superieur'])).toBe(false);
   });
 
   it('autoCleanPersonas réduit à ["tous"] quand "tous" est combiné', () => {
-    expect(autoCleanPersonas(['tous', 'lycee-bts', 'superieur'])).toEqual(['tous']);
+    expect(autoCleanPersonas(['tous', 'secondaire', 'superieur'])).toEqual(['tous']);
   });
 
   it('autoCleanPersonas laisse intact un tableau sans "tous"', () => {
-    expect(autoCleanPersonas(['lycee-bts', 'superieur'])).toEqual(['lycee-bts', 'superieur']);
+    expect(autoCleanPersonas(['secondaire', 'superieur'])).toEqual(['secondaire', 'superieur']);
   });
 });

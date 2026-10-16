@@ -3,24 +3,19 @@ import { CheckCircle2 } from 'lucide-react';
 import { DemoRequestForm } from '@/components/forms/DemoRequestForm';
 import { ContactChannels } from '@/components/marketing/ContactChannels';
 import { Reveal } from '@/components/ui/Reveal';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { buildMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/metadata';
 import { buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Demander une démonstration',
+  title: 'Demander une démonstration du logiciel',
   description:
-    'Échangez avec un conseiller EcoleDigitale pour découvrir la plateforme. Remplissez le formulaire et nous vous recontactons sous 48 heures.',
+    'Échangez avec un conseiller EcoleDigitale pour voir le logiciel de gestion scolaire à l’œuvre. Remplissez le formulaire : réponse sous 48 h ouvrées.',
   path: '/demander-demo',
+  ogImage: DEFAULT_OG_IMAGE,
 });
 
 export default function DemanderDemoPage() {
-  const hasDirectChannel = Boolean(
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL ||
-    process.env.NEXT_PUBLIC_CONTACT_PHONE ||
-    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER,
-  );
-
   return (
     <>
       <JsonLd
@@ -36,8 +31,8 @@ export default function DemanderDemoPage() {
             Découvrez EcoleDigitale avec un conseiller
           </h1>
           <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed">
-            Renseignez vos coordonnées et les modules qui vous intéressent. Un membre de l'équipe
-            commerciale vous recontacte sous 48 heures ouvrées.
+            Renseignez vos coordonnées et les packs qui vous intéressent. Un membre de l'équipe
+            commerciale vous recontacte sous 48 heures ouvrées. Les offres sont établies sur devis.
           </p>
         </Reveal>
       </section>
@@ -49,17 +44,15 @@ export default function DemanderDemoPage() {
           </Reveal>
 
           <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
-            {hasDirectChannel && (
-              <Reveal delay={0.05} className="sheet p-6">
-                <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
-                  Pas de formulaire ?
-                </h2>
-                <p className="text-ink-muted mt-2 text-sm">
-                  Vous pouvez aussi nous contacter directement :
-                </p>
-                <ContactChannels placement="inline" variant="stacked" className="mt-4" />
-              </Reveal>
-            )}
+            <Reveal delay={0.05} className="sheet p-6">
+              <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+                Pas de formulaire ?
+              </h2>
+              <p className="text-ink-muted mt-2 text-sm">
+                Vous pouvez aussi nous contacter directement :
+              </p>
+              <ContactChannels placement="inline" variant="stacked" className="mt-4" />
+            </Reveal>
 
             <Reveal delay={0.1} className="sheet p-6">
               <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
@@ -69,7 +62,7 @@ export default function DemanderDemoPage() {
                 {[
                   'Réception de votre demande',
                   'Échange téléphonique de qualification',
-                  'Démonstration personnalisée selon vos modules',
+                  'Démonstration personnalisée selon vos packs',
                 ].map((step, index) => (
                   <li key={step} className="flex gap-3">
                     <span className="bg-primary-100 text-primary-700 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold">

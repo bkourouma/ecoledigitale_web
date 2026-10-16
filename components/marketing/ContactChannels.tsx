@@ -4,6 +4,12 @@ import { Mail, Phone, MessageCircle } from 'lucide-react';
 import { track } from '@/lib/analytics/track';
 import type { ContactPlacement } from '@/lib/analytics/events';
 import { cn } from '@/lib/ui/cn';
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE_DISPLAY,
+  CONTACT_PHONE_E164,
+  CONTACT_WHATSAPP_NUMBER,
+} from '@/lib/site/contact';
 
 export interface ContactChannelsProps {
   placement: ContactPlacement;
@@ -12,7 +18,8 @@ export interface ContactChannelsProps {
 }
 
 /**
- * Liens vers les canaux de contact alternatifs (FR-017).
+ * Liens vers les canaux de contact alternatifs (FR-017) : WhatsApp, e-mail et téléphone.
+ * Les coordonnées viennent de `lib/site/contact.ts`.
  * Émet `Contact Channel Clicked` sur chaque clic.
  */
 export function ContactChannels({
@@ -20,12 +27,6 @@ export function ContactChannels({
   className,
   variant = 'inline',
 }: ContactChannelsProps) {
-  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
-  const phone = process.env.NEXT_PUBLIC_CONTACT_PHONE;
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-
-  if (!email && !phone && !whatsapp) return null;
-
   const onClick = (channel: 'whatsapp' | 'email' | 'phone') => () => {
     track('Contact Channel Clicked', {
       channel,
@@ -42,44 +43,38 @@ export function ContactChannels({
         className,
       )}
     >
-      {whatsapp && (
-        <li>
-          <a
-            href={`https://wa.me/${whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onClick('whatsapp')}
-            className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
-          >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            <span>WhatsApp</span>
-          </a>
-        </li>
-      )}
-      {email && (
-        <li>
-          <a
-            href={`mailto:${email}`}
-            onClick={onClick('email')}
-            className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
-          >
-            <Mail className="h-4 w-4" aria-hidden="true" />
-            <span>{email}</span>
-          </a>
-        </li>
-      )}
-      {phone && (
-        <li>
-          <a
-            href={`tel:${phone.replace(/\s+/g, '')}`}
-            onClick={onClick('phone')}
-            className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
-          >
-            <Phone className="h-4 w-4" aria-hidden="true" />
-            <span>{phone}</span>
-          </a>
-        </li>
-      )}
+      <li>
+        <a
+          href={`https://wa.me/${CONTACT_WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClick('whatsapp')}
+          className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
+        >
+          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          onClick={onClick('email')}
+          className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
+        >
+          <Mail className="h-4 w-4" aria-hidden="true" />
+          <span>{CONTACT_EMAIL}</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href={`tel:${CONTACT_PHONE_E164}`}
+          onClick={onClick('phone')}
+          className="text-ink-muted hover:text-ink inline-flex items-center gap-2 decoration-2 underline-offset-4 hover:underline"
+        >
+          <Phone className="h-4 w-4" aria-hidden="true" />
+          <span>{CONTACT_PHONE_DISPLAY}</span>
+        </a>
+      </li>
     </ul>
   );
 }

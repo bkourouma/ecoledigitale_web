@@ -5,10 +5,10 @@ const MVP_ROUTES = [
   '/',
   '/modules',
   '/modules/socle-ecoledigitale',
-  '/modules/parcours-bts',
-  '/modules/parcours-superieur',
-  '/modules/proformation',
-  '/modules/campus-live',
+  '/modules/ecoledigitale-primary',
+  '/modules/ecoledigitale-secondary',
+  '/modules/ecoledigitale-higher',
+  '/modules/ecoledigitale-virtual',
   '/demander-demo',
   '/confidentialite',
   '/ressources',
@@ -34,10 +34,7 @@ for (const path of MVP_ROUTES) {
       console.error(
         `Violations a11y sur ${path} :\n` +
           blockingViolations
-            .map(
-              (v) =>
-                `  - [${v.impact}] ${v.id}: ${v.help} (${v.nodes.length} occurrence(s))`,
-            )
+            .map((v) => `  - [${v.impact}] ${v.id}: ${v.help} (${v.nodes.length} occurrence(s))`)
             .join('\n'),
       );
     }

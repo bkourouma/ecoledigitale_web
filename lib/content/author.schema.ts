@@ -17,6 +17,9 @@ export const AuthorFrontmatterSchema = z.object({
   bio: z.string().trim().min(100).max(500),
   expertise: z.array(z.string().trim().min(2).max(40)).min(1).max(8),
 
+  /** `organization` : signature d'équipe (JSON-LD `Organization` au lieu de `Person`). */
+  kind: z.enum(['person', 'organization']).default('person'),
+
   // Optionnels
   photo: z.string().startsWith('/').optional(),
   linkedinUrl: z.string().url().optional(),
@@ -33,10 +36,7 @@ export type AuthorFrontmatter = z.infer<typeof AuthorFrontmatterSchema>;
  *   Invalid author frontmatter in content/auteurs/marie-dupont.mdx:
  *     - bio: 87 caractères (minimum 100). Étoffer la présentation.
  */
-export function formatAuthorErrors(
-  filePath: string,
-  error: z.ZodError,
-): string {
+export function formatAuthorErrors(filePath: string, error: z.ZodError): string {
   const lines: string[] = [`Invalid author frontmatter in ${filePath}:`];
   for (const issue of error.issues) {
     const path = issue.path.length > 0 ? issue.path.join('.') : '(root)';

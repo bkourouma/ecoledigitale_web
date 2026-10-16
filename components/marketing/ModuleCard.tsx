@@ -9,7 +9,7 @@ export interface ModuleCardProps {
   tilt?: number;
 }
 
-/** Un module écrit à la craie dans un cadre tracé à main levée. À poser sur une ardoise. */
+/** Un module (socle ou pack) écrit à la craie dans un cadre tracé à main levée. À poser sur une ardoise. */
 export function ModuleCard({ module, tilt = 0 }: ModuleCardProps) {
   const isSocle = module.type === 'socle';
 
@@ -47,13 +47,13 @@ export function ModuleCard({ module, tilt = 0 }: ModuleCardProps) {
       <p className="text-ink-muted mt-4 flex-1 text-base leading-relaxed">{module.tagline}</p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <span className="font-display text-chalk-yellow text-2xl leading-none font-bold">
-          {isSocle ? 'Le socle de base' : 'Module optionnel'}
+          {isSocle ? 'Le socle commun' : 'Pack'}
         </span>
         <TrackedModuleLink
           href={`/modules/${module.slug}`}
           className="text-chalk decoration-chalk-yellow hover:text-chalk-yellow inline-flex items-center gap-1.5 text-base font-bold underline decoration-2 underline-offset-4 after:absolute after:inset-0"
         >
-          Voir le module
+          {isSocle ? 'Découvrir le socle' : 'Découvrir le pack'}
           <ArrowRight
             className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1"
             aria-hidden="true"

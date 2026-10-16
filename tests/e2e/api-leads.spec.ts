@@ -7,7 +7,7 @@ const validPayload = {
   institutionName: 'Institut Exemple',
   role: 'Directrice',
   location: 'Paris, France',
-  modulesOfInterest: ['parcours-bts'],
+  modulesOfInterest: ['ecoledigitale-higher'],
   consent: true,
   sourcePage: '/demander-demo',
 };

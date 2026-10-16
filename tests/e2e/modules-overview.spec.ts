@@ -7,20 +7,20 @@ test.describe('Page /modules', () => {
 
   test('affiche le titre et l’intro', async ({ page }) => {
     await expect(
-      page.getByRole('heading', { level: 1, name: /5 modules pour s['’]adapter/i }),
+      page.getByRole('heading', { level: 1, name: /Un socle commun et quatre packs par cycle/i }),
     ).toBeVisible();
   });
 
-  test('affiche les 5 cartes module dans la grille', async ({ page }) => {
+  test('affiche le socle et les 4 packs dans la grille', async ({ page }) => {
     const grid = page.locator('ul').filter({ hasText: 'Socle EcoleDigitale' }).first();
     await expect(grid).toBeVisible();
 
     for (const name of [
       'Socle EcoleDigitale',
-      'Parcours BTS',
-      'Parcours Supérieur',
-      'ProFormation',
-      'Campus Live',
+      'EcoleDigitale Primary',
+      'EcoleDigitale Secondary',
+      'EcoleDigitale Higher',
+      'EcoleDigitale Virtual',
     ]) {
       await expect(grid.getByRole('heading', { name })).toBeVisible();
     }
@@ -30,16 +30,16 @@ test.describe('Page /modules', () => {
     const table = page.getByRole('table');
     await expect(table).toBeVisible();
     await expect(table.getByText(/Socle de base/i)).toBeVisible();
-    await expect(table.getByText(/Activable en option/i).first()).toBeVisible();
+    await expect(table.getByText(/Pack à ajouter/i).first()).toBeVisible();
   });
 
   test('chaque carte renvoie vers la page module correspondante', async ({ page }) => {
     const slugs = [
       'socle-ecoledigitale',
-      'parcours-bts',
-      'parcours-superieur',
-      'proformation',
-      'campus-live',
+      'ecoledigitale-primary',
+      'ecoledigitale-secondary',
+      'ecoledigitale-higher',
+      'ecoledigitale-virtual',
     ];
 
     for (const slug of slugs) {
@@ -48,8 +48,8 @@ test.describe('Page /modules', () => {
     }
   });
 
-  test('expose un CTA "Demander une offre modulée"', async ({ page }) => {
-    const cta = page.getByRole('link', { name: /Demander une offre modulée/i }).first();
+  test('expose un CTA "Demander un devis"', async ({ page }) => {
+    const cta = page.getByRole('link', { name: /Demander un devis/i }).first();
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute('href', /\/demander-demo/);
   });

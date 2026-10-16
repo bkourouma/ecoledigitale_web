@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { buildMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/metadata';
 import { buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     'Comment EcoleDigitale collecte, conserve et protège vos données personnelles. Mention RGPD et droits utilisateur.',
   path: '/confidentialite',
+  ogImage: DEFAULT_OG_IMAGE,
 });
 
 export default function ConfidentialitePage() {

@@ -8,8 +8,9 @@ export interface ModuleHeroProps {
 export function ModuleHero({ module }: ModuleHeroProps) {
   return (
     <section className="container-content py-14 md:py-20">
-      <h1 className="font-display text-display-lg text-primary-800 max-w-3xl font-bold">
-        <span className="marker">{module.name}</span>
+      <p className="font-display text-primary-700 text-3xl leading-none font-bold">{module.name}</p>
+      <h1 className="font-display text-display-lg text-primary-800 mt-3 max-w-3xl font-bold">
+        <span className="marker">{module.h1}</span>
       </h1>
       <p className="font-display text-primary-700 mt-5 max-w-2xl text-3xl leading-tight font-bold">
         {module.tagline}
@@ -20,7 +21,7 @@ export function ModuleHero({ module }: ModuleHeroProps) {
           {module.cta.label}
         </TrackedDemoCTA>
         <p className="red-note self-center text-2xl">
-          {module.type === 'socle' ? 'Le module socle' : 'Module optionnel'}
+          {module.type === 'socle' ? 'Le socle commun' : 'Pack à ajouter au socle'}
         </p>
       </div>
     </section>

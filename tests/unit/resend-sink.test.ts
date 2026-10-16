@@ -16,7 +16,7 @@ const baseLead: Lead = {
   institutionName: 'Institut Exemple',
   role: 'Directrice',
   location: 'Paris, France',
-  modulesOfInterest: ['parcours-bts', 'campus-live'],
+  modulesOfInterest: ['ecoledigitale-higher', 'ecoledigitale-virtual'],
   consent: true,
   sourcePage: '/demander-demo',
 };
@@ -28,7 +28,11 @@ describe('ResendLeadSink', () => {
 
   it("log un warning et résout sans envoyer en l'absence de clé API", async () => {
     const { ResendLeadSink } = await import('@/lib/leads/sinks/resend.sink');
-    const sink = new ResendLeadSink({ apiKey: undefined, toEmail: 'a@b.com', fromEmail: 'c@d.com' });
+    const sink = new ResendLeadSink({
+      apiKey: undefined,
+      toEmail: 'a@b.com',
+      fromEmail: 'c@d.com',
+    });
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 
     await expect(sink.handle({ lead: baseLead, correlationId: 'lead_x' })).resolves.toBeUndefined();
@@ -55,8 +59,8 @@ describe('ResendLeadSink', () => {
     expect(payload.from).toBe('noreply@ecoledigitale.com');
     expect(payload.replyTo).toBe('m.dupont@example.com');
     expect(payload.subject).toContain('Institut Exemple');
-    expect(payload.subject).toContain('Parcours BTS');
-    expect(payload.subject).toContain('Campus Live');
+    expect(payload.subject).toContain('EcoleDigitale Higher');
+    expect(payload.subject).toContain('EcoleDigitale Virtual');
     expect(payload.html).toContain('Institut Exemple');
     expect(payload.html).toContain('lead_abc');
     expect(payload.text).toContain('m.dupont@example.com');

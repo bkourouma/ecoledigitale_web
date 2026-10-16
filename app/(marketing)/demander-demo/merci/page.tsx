@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ButtonLink } from '@/components/ui/Button';
 import { ContactChannels } from '@/components/marketing/ContactChannels';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { buildMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Merci pour votre demande',
   description: "Votre demande de démonstration a bien été transmise à l'équipe EcoleDigitale.",
   path: '/demander-demo/merci',
   noindex: true,
+  ogImage: DEFAULT_OG_IMAGE,
 });
 
 export default function MerciPage() {
@@ -44,7 +45,7 @@ export default function MerciPage() {
           <ButtonLink href="/" variant="secondary">
             Retour à l'accueil
           </ButtonLink>
-          <ButtonLink href="/modules">Explorer les modules</ButtonLink>
+          <ButtonLink href="/modules">Explorer les packs</ButtonLink>
         </div>
 
         <div className="border-line bg-surface-subtle shadow-card mt-12 rounded-md border p-6 text-left">

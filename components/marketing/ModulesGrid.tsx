@@ -11,13 +11,13 @@ export interface ModulesGridProps {
 const TILTS = [-0.5, 0.4, -0.3, 0.5];
 
 /**
- * Les 5 modules au tableau : le socle d'un côté, les modules optionnels qui
+ * Le socle et les 4 packs au tableau : le socle d'un côté, les packs par cycle qui
  * s'y ajoutent de l'autre. Source unique pour l'accueil et `/modules`.
  */
 export function ModulesGrid({ className, heading, lead }: ModulesGridProps) {
   const modules = loadModules();
   const socle = modules.find(({ frontmatter }) => frontmatter.type === 'socle');
-  const options = modules.filter(({ frontmatter }) => frontmatter.type !== 'socle');
+  const packs = modules.filter(({ frontmatter }) => frontmatter.type !== 'socle');
 
   return (
     <Board className={className} innerClassName="px-5 py-10 md:px-10 md:py-14">
@@ -39,7 +39,7 @@ export function ModulesGrid({ className, heading, lead }: ModulesGridProps) {
             </span>
           </li>
         )}
-        {options.map(({ frontmatter }, index) => (
+        {packs.map(({ frontmatter }, index) => (
           <li key={frontmatter.slug}>
             <ModuleCard module={frontmatter} tilt={TILTS[index % TILTS.length]} />
           </li>

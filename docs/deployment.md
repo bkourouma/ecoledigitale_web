@@ -18,9 +18,9 @@ Cible : **Vercel** (preview par PR + production sur `main`).
 | `RESEND_API_KEY`              | Production + Preview       | Clé API Resend (commence par `re_`)             | `re_aBcD_1234...`              |
 | `LEADS_TO_EMAIL`              | Production + Preview + Dev | Destinataire interne des leads                  | `commercial@ecoledigitale.com` |
 | `LEADS_FROM_EMAIL`            | Production + Preview + Dev | Expéditeur (domaine vérifié Resend)             | `noreply@ecoledigitale.com`    |
-| `NEXT_PUBLIC_CONTACT_EMAIL`   | Production + Preview + Dev | Email affiché en footer                         | `contact@ecoledigitale.com`    |
-| `NEXT_PUBLIC_CONTACT_PHONE`   | Production + Preview + Dev | Téléphone affiché en footer                     | `+33 1 23 45 67 89`            |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Production + Preview + Dev | WhatsApp au format international sans `+`       | `33123456789`                  |
+| `NEXT_PUBLIC_CONTACT_EMAIL`   | _(sans effet)_             | Remplacée par `lib/site/contact.ts`             | —                              |
+| `NEXT_PUBLIC_CONTACT_PHONE`   | _(sans effet)_             | Remplacée par `lib/site/contact.ts`             | —                              |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | _(sans effet)_             | Remplacée par `lib/site/contact.ts`             | —                              |
 | `RATE_LIMIT_ENABLED`          | Production uniquement      | Activer le rate limit `/api/leads`              | `true`                         |
 | `NEXT_PUBLIC_SITE_URL`        | Production                 | URL canonique du site (HTTPS, sans slash final) | `https://ecoledigitale.com`    |
 
@@ -64,7 +64,7 @@ Contrôles à effectuer après chaque publication de ressource :
 - [ ] Resend : domaine d'expédition vérifié (DKIM + SPF + DMARC recommandé)
 - [ ] Umami : site créé avec le domaine de `NEXT_PUBLIC_SITE_URL`, interface accessible à l'équipe (voir `docs/analytics-runbook.md`)
 - [ ] Test fonctionnel : soumettre un formulaire réel → vérifier réception email à `LEADS_TO_EMAIL` en moins de 5 minutes
-- [ ] Test SEO : `curl https://ecoledigitale.com/robots.txt` retourne `Allow: /`, `curl https://ecoledigitale.com/sitemap.xml` retourne 9 URLs
+- [ ] Test SEO : `curl https://ecoledigitale.com/robots.txt` retourne `Allow: /`, `curl https://ecoledigitale.com/sitemap.xml` liste les pages indexables (hors `/blog`, hors étude de cas fictive)
 - [ ] Test analytics : ouvrir la home, cliquer un CTA démo → vérifier l'event dans Umami (_Temps réel_)
 - [ ] Test mobile 3G simulé (Chrome DevTools → Network → Slow 3G + CPU 4×) : LCP < 4 s sur `/`
 - [ ] Test Lighthouse mobile : `pnpm test:lighthouse` → Performance ≥ 85 sur les 9 routes

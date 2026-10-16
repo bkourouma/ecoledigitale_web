@@ -10,7 +10,7 @@ const baseLead: Lead = {
   institutionName: 'Institut Exemple',
   role: 'Directrice',
   location: 'Paris, France',
-  modulesOfInterest: ['parcours-bts'],
+  modulesOfInterest: ['ecoledigitale-higher'],
   consent: true,
   sourcePage: '/demander-demo',
 };
@@ -48,7 +48,9 @@ describe('handleLead', () => {
     const critical = makeSink('critical', true, 'fail');
     const logger = makeSink('logger', false, 'ok');
 
-    await expect(handleLead(baseLead, [critical, logger])).rejects.toBeInstanceOf(LeadDispatchError);
+    await expect(handleLead(baseLead, [critical, logger])).rejects.toBeInstanceOf(
+      LeadDispatchError,
+    );
   });
 
   it("n'échoue pas si seul un sink non critique échoue", async () => {

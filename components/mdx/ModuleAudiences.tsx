@@ -16,7 +16,7 @@ const AUDIENCE_META: Record<Audience, { label: string; icon: LucideIcon }> = {
   academic: { label: 'Responsable pédagogique', icon: GraduationCap },
   admin: { label: 'Responsable administratif', icon: ClipboardList },
   teacher: { label: 'Enseignant', icon: Presentation },
-  student: { label: 'Étudiant', icon: UserRound },
+  student: { label: 'Élève ou étudiant', icon: UserRound },
   parent: { label: 'Parent', icon: Users },
   trainer: { label: 'Formateur', icon: Award },
   owner: { label: "Propriétaire d'établissement", icon: Building2 },

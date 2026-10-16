@@ -6,13 +6,14 @@ export interface ModuleBenefitsProps {
   module: ModuleFrontmatter;
 }
 
-/** Ce que le module apporte, écrit à la craie au tableau. */
+/** Ce que le socle ou le pack apporte, écrit à la craie au tableau. */
 export function ModuleBenefits({ module }: ModuleBenefitsProps) {
   return (
     <section className="container-content py-10 md:py-14">
       <Board innerClassName="px-6 py-10 md:px-12 md:py-14">
         <h2 className="chalk font-display text-display-sm max-w-2xl font-bold">
-          Ce que ce module apporte à votre établissement
+          {module.type === 'socle' ? 'Ce que le socle apporte' : 'Ce que ce pack apporte'} à votre
+          établissement
         </h2>
         <ul className="mt-8 grid gap-x-10 gap-y-5 md:grid-cols-2">
           {module.benefits.map((benefit) => (

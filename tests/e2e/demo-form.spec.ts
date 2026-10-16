@@ -16,7 +16,7 @@ test.describe('Formulaire de demande de démo', () => {
     await expect(page.getByLabel(/Ville et pays/i)).toBeVisible();
     // Le groupe de cases à cocher porte son intitulé via <fieldset>/<legend> ;
     // getByText résoudrait aussi le texte d'introduction de la page.
-    await expect(page.getByRole('group', { name: /Modules qui vous intéressent/i })).toBeVisible();
+    await expect(page.getByRole('group', { name: /Packs qui vous intéressent/i })).toBeVisible();
   });
 
   test('soumission vide → erreurs de validation sur les champs requis', async ({ page }) => {
@@ -35,11 +35,11 @@ test.describe('Formulaire de demande de démo', () => {
     await expect(emailField).toHaveAttribute('aria-invalid', 'true');
   });
 
-  test('aucun module sélectionné → erreur sur le groupe modules', async ({ page }) => {
+  test('aucun pack sélectionné → erreur sur le groupe des packs', async ({ page }) => {
     await fillRequiredFields(page, { skipModules: true, skipConsent: false });
     await page.getByRole('button', { name: /Envoyer ma demande/i }).click();
 
-    await expect(page.getByText(/Sélectionnez au moins un module/i)).toBeVisible();
+    await expect(page.getByText(/Sélectionnez au moins un pack/i)).toBeVisible();
   });
 
   test('soumission valide → redirection vers /merci', async ({ page }) => {
@@ -80,7 +80,7 @@ async function fillRequiredFields(
   await page.getByLabel(/Nom de l'établissement/i).fill('Institut Exemple');
   await page.getByLabel(/Ville et pays/i).fill('Paris, France');
   if (!options.skipModules) {
-    await page.getByLabel(/Parcours BTS/i).check();
+    await page.getByLabel(/EcoleDigitale Higher/i).check();
   }
   if (!options.skipConsent) {
     await page.getByLabel(/J'accepte d'être recontacté/i).check();

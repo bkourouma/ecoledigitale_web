@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'EcoleDigitale',
     short_name: 'EcoleDigitale',
     description:
-      'Plateforme SaaS modulaire pour digitaliser la gestion académique, pédagogique et financière des établissements de formation.',
+      'Logiciel de gestion scolaire pour les établissements de la maternelle au supérieur, en Côte d’Ivoire et en Afrique francophone.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fcfbf6',

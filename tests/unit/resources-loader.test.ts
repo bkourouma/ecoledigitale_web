@@ -54,7 +54,7 @@ function caseStudy(slug: string, over: Record<string, unknown> = {}) {
     status: 'published',
     publishedAt: '2026-01-10',
     author: 'marie-dupont',
-    personas: ['lycee-bts'],
+    personas: ['secondaire'],
     category: 'Test',
     caseStudy: {
       establishment: 'Institut Test',
@@ -281,11 +281,11 @@ describe('validateResourceCatalog — cross-références', () => {
 });
 
 describe('Auto-clean des personas', () => {
-  it('réduit ["tous", "lycee-bts"] à ["tous"] avec un warning', () => {
+  it('réduit ["tous", "secondaire"] à ["tous"] avec un warning', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const authorsDir = scaffoldAuthors();
     const dir = scaffoldResources({
-      'guides/guide-un.mdx': guide('guide-un', { personas: ['tous', 'lycee-bts'] }),
+      'guides/guide-un.mdx': guide('guide-un', { personas: ['tous', 'secondaire'] }),
     });
     const resources = loadResources({ dir, authorsDir });
     expect(resources[0]!.frontmatter.personas).toEqual(['tous']);
@@ -383,10 +383,10 @@ describe('filterResources()', () => {
     const authorsDir = scaffoldAuthors();
     const dir = scaffoldResources({
       'guides/transverse.mdx': guide('transverse', { personas: ['tous'] }),
-      'guides/cible-bts.mdx': guide('cible-bts', { personas: ['lycee-bts'] }),
+      'guides/cible-bts.mdx': guide('cible-bts', { personas: ['secondaire'] }),
       'guides/cible-pro.mdx': guide('cible-pro', { personas: ['formation-pro'] }),
     });
-    const forBts = filterResources({ persona: 'lycee-bts' }, { dir, authorsDir });
+    const forBts = filterResources({ persona: 'secondaire' }, { dir, authorsDir });
     const slugs = forBts.map((r) => r.frontmatter.slug).sort();
     expect(slugs).toEqual(['cible-bts', 'transverse']);
   });

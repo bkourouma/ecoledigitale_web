@@ -3,10 +3,10 @@ import type { ModuleSlug } from '@/lib/content/module.schema';
 
 const MODULE_LABELS: Record<ModuleSlug, string> = {
   'socle-ecoledigitale': 'Socle EcoleDigitale',
-  'parcours-bts': 'Parcours BTS',
-  'parcours-superieur': 'Parcours Supérieur',
-  proformation: 'ProFormation',
-  'campus-live': 'Campus Live',
+  'ecoledigitale-primary': 'EcoleDigitale Primary',
+  'ecoledigitale-secondary': 'EcoleDigitale Secondary',
+  'ecoledigitale-higher': 'EcoleDigitale Higher',
+  'ecoledigitale-virtual': 'EcoleDigitale Virtual',
 };
 
 export interface RenderedEmail {
@@ -45,12 +45,12 @@ function buildText(lead: Lead, correlationId: string): string {
     `  ${lead.email}`,
     `  ${lead.phone}`,
     ``,
-    `Modules d'intérêt :`,
+    `Packs d'intérêt :`,
     ...lead.modulesOfInterest.map((slug) => `  • ${MODULE_LABELS[slug]}`),
     ``,
   ];
 
-  if (lead.studentCount) lines.push(`Taille : ${lead.studentCount} étudiants/apprenants`);
+  if (lead.studentCount) lines.push(`Taille : ${lead.studentCount} élèves/étudiants`);
   if (lead.institutionType) lines.push(`Type : ${lead.institutionType}`);
   if (lead.preferredChannel) lines.push(`Canal préféré : ${lead.preferredChannel}`);
   if (lead.message) lines.push(``, `Message :`, lead.message);
@@ -91,7 +91,7 @@ function buildHtml(lead: Lead, correlationId: string): string {
         ${optionalRows.join('')}
       </table>
 
-      <h3 style="font:600 14px/1.4 sans-serif;color:#0f172a;margin:24px 0 8px;">Modules d’intérêt</h3>
+      <h3 style="font:600 14px/1.4 sans-serif;color:#0f172a;margin:24px 0 8px;">Packs d’intérêt</h3>
       <ul style="font:14px/1.6 sans-serif;color:#334155;margin:0;padding-left:20px;">${modulesList}</ul>
 
       ${messageBlock}

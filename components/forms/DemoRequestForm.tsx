@@ -16,15 +16,27 @@ import { ContactChannels } from '@/components/marketing/ContactChannels';
 import { track } from '@/lib/analytics/track';
 
 const MODULE_OPTIONS: ModuleOption[] = [
-  { slug: 'socle-ecoledigitale', label: 'Socle EcoleDigitale', description: 'Module de base' },
-  { slug: 'parcours-bts', label: 'Parcours BTS', description: 'Cycle BTS' },
+  { slug: 'socle-ecoledigitale', label: 'Socle EcoleDigitale', description: 'Socle commun' },
   {
-    slug: 'parcours-superieur',
-    label: 'Parcours Supérieur',
-    description: 'Post-BTS, bachelors, masters',
+    slug: 'ecoledigitale-primary',
+    label: 'EcoleDigitale Primary',
+    description: 'Maternelle et primaire',
   },
-  { slug: 'proformation', label: 'ProFormation', description: 'Formation professionnelle' },
-  { slug: 'campus-live', label: 'Campus Live', description: 'Cours en direct & hybride' },
+  {
+    slug: 'ecoledigitale-secondary',
+    label: 'EcoleDigitale Secondary',
+    description: 'Collège et lycée',
+  },
+  {
+    slug: 'ecoledigitale-higher',
+    label: 'EcoleDigitale Higher',
+    description: 'Supérieur, BTS, centres de formation',
+  },
+  {
+    slug: 'ecoledigitale-virtual',
+    label: 'EcoleDigitale Virtual',
+    description: 'Formation à distance',
+  },
 ];
 
 const GOOGLE_APPS_SCRIPT_ENDPOINT = process.env.NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL?.trim();
@@ -144,7 +156,7 @@ export function DemoRequestForm() {
         <FormField id="role" label="Votre rôle" required error={errors.role?.message}>
           <Input
             id="role"
-            placeholder="Directeur, responsable BTS…"
+            placeholder="Directeur, fondateur, responsable pédagogique…"
             invalid={Boolean(errors.role)}
             {...register('role')}
           />
@@ -209,7 +221,7 @@ export function DemoRequestForm() {
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <FormField
         id="modulesOfInterest"
-        label="Modules qui vous intéressent"
+        label="Packs qui vous intéressent"
         required
         as="group"
         error={errors.modulesOfInterest?.message as string | undefined}
@@ -237,7 +249,7 @@ export function DemoRequestForm() {
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <FormField
             id="studentCount"
-            label="Nombre d'étudiants ou apprenants"
+            label="Nombre d'élèves ou d'étudiants"
             error={errors.studentCount?.message}
           >
             <Input
@@ -262,7 +274,7 @@ export function DemoRequestForm() {
           >
             <Input
               id="institutionType"
-              placeholder="Institut privé post-bac, centre de formation…"
+              placeholder="École primaire privée, lycée, institut supérieur…"
               invalid={Boolean(errors.institutionType)}
               {...register('institutionType')}
             />

@@ -8,24 +8,24 @@ interface TrustItem {
 const ITEMS: TrustItem[] = [
   {
     title: 'Données sécurisées',
-    description: "Hébergement européen, contrôle d'accès par rôle, sauvegardes régulières.",
+    description: "Contrôle d'accès par rôle, sauvegardes régulières et chiffrement en transit.",
   },
   {
     title: 'Multi-établissement',
     description: 'Gérez plusieurs établissements et campus depuis une seule plateforme.',
   },
   {
-    title: 'Données centralisées',
+    title: 'Pensé pour la Côte d’Ivoire',
     description:
-      "Une source unique pour l'académique, l'administratif, le financier et le pédagogique.",
+      'Notes et bulletins selon les règles ivoiriennes, examens CEPE, BEPC et BAC, paiement des frais par Mobile Money.',
   },
   {
-    title: 'Plateforme modulaire',
-    description: 'Activez uniquement les modules pertinents pour votre activité.',
+    title: 'Un socle, quatre packs',
+    description: 'Primary, Secondary, Higher et Virtual : activez les packs de vos cycles.',
   },
 ];
 
-/** Le contenu du cartable : quatre engagements, écrits ligne à ligne comme dans un cahier. */
+/** Le contenu du cartable : quatre repères, écrits ligne à ligne comme dans un cahier. */
 export function TrustBand() {
   return (
     <section aria-labelledby="trust-heading" className="container-wide py-16 md:py-20">

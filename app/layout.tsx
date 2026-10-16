@@ -39,11 +39,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:4000'),
   title: {
-    default: 'EcoleDigitale — Plateforme de gestion d’établissements de formation',
+    default: 'EcoleDigitale | Logiciel de gestion scolaire en Côte d’Ivoire',
     template: '%s | EcoleDigitale',
   },
   description:
-    'Plateforme SaaS modulaire pour digitaliser la gestion académique, pédagogique et financière de votre établissement.',
+    'Notes, bulletins, absences, frais de scolarité et portail parents pour les établissements de la maternelle au supérieur, en Côte d’Ivoire et en Afrique francophone.',
   openGraph: {
     type: 'website',
     locale: 'fr_FR',

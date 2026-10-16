@@ -1,17 +1,20 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Check } from 'lucide-react';
 import { FinalCTA } from '@/components/marketing/FinalCTA';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { buildMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/metadata';
 import { buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Board } from '@/components/ui/Board';
 import { Reveal } from '@/components/ui/Reveal';
+import { PUBLISHER } from '@/lib/site/contact';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'À propos — EcoleDigitale',
+  title: 'À propos du logiciel de gestion scolaire',
   description:
-    'EcoleDigitale est une plateforme SaaS modulaire conçue pour digitaliser la gestion des écoles, instituts BTS, post-BTS et centres de formation professionnelle francophones.',
+    'Logiciel de gestion scolaire édité par Alliance Consultants à Abidjan, pour les établissements de la maternelle au supérieur en Afrique francophone.',
   path: '/a-propos',
+  ogImage: DEFAULT_OG_IMAGE,
 });
 
 const CONVICTIONS = [
@@ -22,24 +25,28 @@ const CONVICTIONS = [
 
 const AUDIENCE_TYPES = [
   {
-    title: 'Écoles privées',
+    title: 'Maternelle et primaire',
     description:
-      'Pour digitaliser la scolarité du primaire au secondaire — inscriptions, notes, présences, paiements, communications parents.',
+      'Pack Primary : classes, notes et bulletins selon les règles ivoiriennes, absences, portail parents et suivi de l’éligibilité au CEPE.',
+    href: '/modules/ecoledigitale-primary',
   },
   {
-    title: 'Instituts BTS et post-BTS',
+    title: 'Collèges et lycées',
     description:
-      'Pour piloter les cycles courts et longs avec bulletins automatisés, suivi des coefficients et reporting consolidé.',
+      'Pack Secondary : moyennes, conseils de classe, vie scolaire et suivi de l’éligibilité au BEPC et au BAC.',
+    href: '/modules/ecoledigitale-secondary',
   },
   {
-    title: 'Centres de formation professionnelle',
+    title: 'Supérieur, BTS et centres de formation',
     description:
-      'Pour vendre, organiser et suivre vos formations — catalogue public, sessions, inscriptions B2B, paiements en ligne.',
+      'Pack Higher : filières, programmes, évaluations, relevés de notes et frais de scolarité par programme.',
+    href: '/modules/ecoledigitale-higher',
   },
   {
-    title: 'Organismes de cours en ligne',
+    title: 'Formation à distance',
     description:
-      'Pour planifier des cours synchrones, hybrides ou distants avec visioconférence intégrée et trace pédagogique complète.',
+      'Pack Virtual : cours en ligne, devoirs, classes virtuelles et certificats, reliés à la gestion de l’établissement.',
+    href: '/modules/ecoledigitale-virtual',
   },
 ];
 
@@ -52,17 +59,17 @@ const VALUES: { title: string; description: string }[] = [
   {
     title: 'Modularité',
     description:
-      "Vous activez le socle d'abord, puis les modules selon vos besoins. Pas de plateforme monolithique qu'on adopte à 30 %.",
+      "Vous activez le socle d'abord, puis les packs de vos cycles. Pas de plateforme monolithique qu'on adopte à 30 %.",
   },
   {
     title: 'Confiance et durabilité',
     description:
-      "Données hébergées en Union Européenne, contrôle d'accès par rôle, sauvegardes régulières. Vos informations restent les vôtres.",
+      "Contrôle d'accès par rôle, sauvegardes régulières et chiffrement en transit. Vos informations restent les vôtres.",
   },
   {
-    title: 'Ancrage francophone',
+    title: 'Ancrage ivoirien et africain',
     description:
-      "Nous connaissons les spécificités des établissements d'Afrique francophone et de France — cycles BTS, formations professionnelles, paiements échelonnés, parcours hybrides.",
+      "EcoleDigitale est conçu pour les écoles d'Afrique francophone, avec la Côte d'Ivoire pour référence : cycles et examens ivoiriens, paiement des frais par Mobile Money, parents joignables par SMS et WhatsApp.",
   },
 ];
 
@@ -70,7 +77,7 @@ const COMMITMENTS: { title: string; description: string }[] = [
   {
     title: 'Accompagnement à la prise en main',
     description:
-      'Configuration de votre instance, import de vos données existantes et formation de vos équipes clés. Vous démarrez en moins de 3 semaines.',
+      'Configuration de votre instance, import de vos données existantes et formation de vos équipes clés. Comptez 1 à 3 semaines pour démarrer.',
   },
   {
     title: 'Support de proximité',
@@ -85,10 +92,11 @@ const COMMITMENTS: { title: string; description: string }[] = [
 ];
 
 const BRIEF = [
-  { term: 'Modèle', def: 'SaaS modulaire en français' },
-  { term: 'Hébergement', def: 'Union Européenne' },
-  { term: 'Profils couverts', def: 'Direction, enseignants, étudiants, parents, formateurs' },
-  { term: 'Modules disponibles', def: '5 (socle + 4 optionnels)' },
+  { term: 'Produit', def: 'Logiciel de gestion scolaire en ligne, en français' },
+  { term: 'Édité par', def: `${PUBLISHER.name}, ${PUBLISHER.city}, ${PUBLISHER.country}` },
+  { term: 'Marché de référence', def: "Côte d'Ivoire, puis l'Afrique francophone" },
+  { term: 'Cycles couverts', def: 'Maternelle, primaire, collège, lycée, supérieur, à distance' },
+  { term: 'Offre', def: 'Un socle et 4 packs, sur devis' },
   { term: 'Mise en service', def: '1 à 3 semaines' },
 ];
 
@@ -111,10 +119,15 @@ export default function AProposPage() {
             <span className="marker">tourner l&apos;éducation</span> au quotidien.
           </h1>
           <p className="text-ink-muted mt-6 max-w-2xl text-lg leading-relaxed">
-            EcoleDigitale centralise la gestion académique, pédagogique, administrative et
-            financière dans une seule plateforme SaaS modulaire. Nous équipons les écoles, instituts
-            BTS, établissements post-bac et centres de formation francophones qui veulent gagner du
-            temps et piloter sereinement leur activité.
+            EcoleDigitale est un logiciel de gestion scolaire : notes et bulletins, absences, frais
+            de scolarité et communication avec les parents dans une seule plateforme. Il est édité
+            par {PUBLISHER.name} à {PUBLISHER.city}, {PUBLISHER.country}, et équipe les écoles,
+            collèges, lycées, établissements supérieurs et centres de formation d&apos;Afrique
+            francophone.
+          </p>
+          <p className="text-ink-muted mt-4 max-w-2xl text-lg leading-relaxed">
+            Ne pas confondre avec une école du numérique : EcoleDigitale est un outil de gestion
+            pour les établissements, pas un établissement de formation.
           </p>
         </div>
 
@@ -147,10 +160,9 @@ export default function AProposPage() {
             Trois constats simples qui guident notre travail
           </h2>
           <p className="text-ink-muted mt-4 max-w-prose text-lg">
-            EcoleDigitale est né du constat que la majorité des établissements de formation
-            fonctionne encore avec une combinaison de tableurs, de groupes de messagerie et de
-            registres papier. Cette dispersion coûte cher en temps, en information perdue et en
-            opportunités commerciales.
+            EcoleDigitale est né du constat que beaucoup d&apos;établissements fonctionnent encore
+            avec une combinaison de tableurs, de groupes de messagerie et de registres papier. Cette
+            dispersion coûte cher en temps et en information perdue.
           </p>
         </div>
         <ul>
@@ -170,13 +182,13 @@ export default function AProposPage() {
         </h2>
         <div className="text-ink-muted space-y-4 text-lg leading-relaxed">
           <p>
-            Permettre aux établissements de formation de consacrer plus de temps à
-            l&apos;enseignement et au suivi des apprenants, et moins à la saisie, à la recherche
-            d&apos;information et au rapprochement administratif.
+            Permettre aux établissements de consacrer plus de temps à l&apos;enseignement et au
+            suivi des élèves, et moins à la saisie, à la recherche d&apos;information et au
+            rapprochement administratif.
           </p>
           <p>
             Nous remplaçons les tableurs, les outils dispersés et les ressaisies par une plateforme
-            unique où chaque profil (direction, enseignant, étudiant, parent, formateur) accède à ce
+            unique où chaque profil (direction, enseignant, élève, parent, formateur) accède à ce
             dont il a besoin, sans surcouche inutile.
           </p>
         </div>
@@ -187,14 +199,18 @@ export default function AProposPage() {
           À qui s&apos;adresse EcoleDigitale
         </h2>
         <p className="text-ink-muted mt-3 max-w-2xl text-lg">
-          Notre plateforme s&apos;adapte à des contextes variés : un seul socle, des modules
-          activables selon votre activité.
+          Un seul socle, quatre packs : chaque établissement active ceux de ses cycles.
         </p>
         <ul className="mt-8 grid gap-x-14 md:grid-cols-2">
           {AUDIENCE_TYPES.map((audience) => (
             <li key={audience.title} className={RULED_ITEM}>
               <h3 className="font-display text-primary-800 text-3xl leading-none font-bold">
-                {audience.title}
+                <Link
+                  href={audience.href}
+                  className="hover:text-primary-600 underline-offset-4 hover:underline"
+                >
+                  {audience.title}
+                </Link>
               </h3>
               <p className="text-ink-muted mt-2 text-base leading-relaxed">
                 {audience.description}
@@ -211,9 +227,9 @@ export default function AProposPage() {
           </h2>
           <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed">
             EcoleDigitale est pensé comme un socle qui s&apos;enrichit progressivement. Vous
-            commencez par les fonctions essentielles (utilisateurs, classes, notes, présences,
-            paiements) puis vous ajoutez les modules adaptés à votre activité : Parcours BTS,
-            Parcours Supérieur, ProFormation, Campus Live.
+            commencez par les fonctions essentielles (élèves, classes, notes, absences, frais de
+            scolarité) puis vous ajoutez les packs de vos cycles : Primary, Secondary, Higher,
+            Virtual.
           </p>
           <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed">
             Pas besoin de remplacer toute votre organisation d&apos;un coup. Pas besoin non plus de
@@ -223,7 +239,7 @@ export default function AProposPage() {
         </div>
         <ul className="text-ink space-y-3 self-center text-lg">
           {[
-            'Activation modulaire selon votre activité',
+            'Activation des packs selon vos cycles',
             'Aucun engagement à long terme imposé',
             'Évolution sans interruption de service',
             'Migration possible depuis Excel ou un autre outil',
@@ -281,7 +297,7 @@ export default function AProposPage() {
 
       <FinalCTA
         title="Discutons de votre établissement"
-        description="En 30 minutes, nous comprenons votre contexte et vous montrons EcoleDigitale en conditions réelles."
+        description="En 30 minutes, nous comprenons votre contexte et vous montrons EcoleDigitale en conditions réelles. Les offres sont établies sur devis."
         ctaLabel="Demander une démonstration"
       />
     </>

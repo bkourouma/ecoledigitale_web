@@ -19,10 +19,10 @@ test.describe('Sitemap', () => {
       '/',
       '/modules',
       '/modules/socle-ecoledigitale',
-      '/modules/parcours-bts',
-      '/modules/parcours-superieur',
-      '/modules/proformation',
-      '/modules/campus-live',
+      '/modules/ecoledigitale-primary',
+      '/modules/ecoledigitale-secondary',
+      '/modules/ecoledigitale-higher',
+      '/modules/ecoledigitale-virtual',
       '/demander-demo',
       '/confidentialite',
     ];
@@ -76,10 +76,10 @@ test.describe('Open Graph images', () => {
   test('opengraph-image accessible sur chacune des 5 pages module', async ({ request }) => {
     const slugs = [
       'socle-ecoledigitale',
-      'parcours-bts',
-      'parcours-superieur',
-      'proformation',
-      'campus-live',
+      'ecoledigitale-primary',
+      'ecoledigitale-secondary',
+      'ecoledigitale-higher',
+      'ecoledigitale-virtual',
     ];
     for (const slug of slugs) {
       const html = await (await request.get(`/modules/${slug}`)).text();

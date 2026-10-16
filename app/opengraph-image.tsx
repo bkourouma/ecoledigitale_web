@@ -1,8 +1,9 @@
 import { ImageResponse } from 'next/og';
+import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
-export const alt = 'EcoleDigitale — Plateforme de gestion d’établissements de formation';
+export const alt = 'EcoleDigitale — Logiciel de gestion scolaire en Côte d’Ivoire';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -55,10 +56,10 @@ export default function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          Plateforme de gestion d&apos;établissements de formation
+          Logiciel de gestion scolaire pour la Côte d&apos;Ivoire
         </div>
         <div style={{ fontSize: 28, color: '#ffe45c', fontWeight: 400, lineHeight: 1.4 }}>
-          Académique · Pédagogique · Financier · Formation pro
+          Maternelle · Primaire · Collège · Lycée · Supérieur · À distance
         </div>
       </div>
 
@@ -71,11 +72,11 @@ export default function OpengraphImage() {
           color: '#ffe45c',
         }}
       >
-        <span>5 modules</span>
+        <span>Un socle, 4 packs</span>
         <span style={{ opacity: 0.5 }}>·</span>
-        <span>Multi-établissement</span>
+        <span>Notes et bulletins</span>
         <span style={{ opacity: 0.5 }}>·</span>
-        <span>Espaces dédiés par profil</span>
+        <span>{getSiteHost()}</span>
       </div>
     </div>,
     { ...size },

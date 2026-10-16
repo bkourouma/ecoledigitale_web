@@ -1,3 +1,5 @@
+> **Note (octobre 2026).** Ce PRD décrit le cadrage initial (cinq modules : Parcours BTS, Parcours Supérieur, ProFormation, Campus Live). Le positionnement actuel est celui de [PRODUCT.md](../PRODUCT.md) : un socle et quatre packs (Primary, Secondary, Higher, Virtual) pour la Côte d'Ivoire et l'Afrique francophone, offres sur devis. Les anciennes pages module redirigent en 301 vers `ecoledigitale-higher` ou `ecoledigitale-virtual`.
+
 # PRD - Site internet marketing EcoleDigitale
 
 ## 1. Contexte
@@ -192,15 +194,19 @@ CTA recommandes :
 ## 8. Exigences fonctionnelles
 
 ### FR-001 - Navigation
+
 Le site doit proposer une navigation claire vers Accueil, Modules, chaque module, Contact/Demo.
 
 ### FR-002 - Presentation des modules
+
 Le site doit afficher les 5 modules de packaging avec nom, promesse, benefices, principales fonctionnalites et CTA.
 
 ### FR-003 - Demande de demonstration
+
 Le site doit proposer un formulaire de demande de demo accessible depuis toutes les pages importantes.
 
 ### FR-004 - Qualification commerciale
+
 Le formulaire doit permettre de selectionner un ou plusieurs modules d'interet :
 
 - Socle EcoleDigitale
@@ -210,18 +216,23 @@ Le formulaire doit permettre de selectionner un ou plusieurs modules d'interet :
 - Campus Live
 
 ### FR-005 - Capture des leads
+
 Chaque soumission de formulaire doit etre stockee ou envoyee a l'equipe commerciale par email. L'implementation doit prevoir une integration future CRM.
 
 ### FR-006 - Contenu SEO
+
 Chaque page module doit avoir un titre SEO, une meta description et une URL lisible.
 
 ### FR-007 - Responsive
+
 Le site doit etre parfaitement utilisable sur mobile, tablette et desktop.
 
 ### FR-008 - Performance
+
 Les pages doivent charger rapidement, avec un objectif Lighthouse Performance minimum de 85 sur mobile pour le MVP.
 
 ### FR-009 - Analytics
+
 Le site doit mesurer les evenements suivants :
 
 - Clic sur demande de demo.
@@ -231,6 +242,7 @@ Le site doit mesurer les evenements suivants :
 - Telechargement ou demande de brochure.
 
 ### FR-010 - Accessibilite
+
 Le site doit respecter les bonnes pratiques de lisibilite, contraste, navigation clavier, textes alternatifs et structure semantique.
 
 ## 9. Exigences editoriales
@@ -296,26 +308,31 @@ URLs recommandees :
 ## 12. User stories
 
 ### US-001 - Directeur d'etablissement
+
 En tant que directeur, je veux comprendre rapidement ce que couvre EcoleDigitale afin de savoir si la solution correspond a mon etablissement.
 
 Critere d'acceptation : depuis l'accueil, le visiteur identifie les principaux domaines couverts en moins de 30 secondes.
 
 ### US-002 - Responsable BTS
+
 En tant que responsable BTS, je veux voir une page dediee a la gestion du cycle BTS afin de verifier que mes besoins academiques et administratifs sont couverts.
 
 Critere d'acceptation : la page Parcours BTS presente cours, classes, evaluations, notes, presences, paiements et reporting.
 
 ### US-003 - Responsable formation professionnelle
+
 En tant que responsable formation professionnelle, je veux comprendre comment publier des formations, gerer des sessions, inscrire des apprenants et suivre les paiements.
 
 Critere d'acceptation : la page ProFormation presente le parcours catalogue -> session -> inscription -> paiement -> formateur.
 
 ### US-004 - Prospect interesse
+
 En tant que prospect, je veux demander une demonstration facilement depuis n'importe quelle page.
 
 Critere d'acceptation : un CTA demo est visible dans le header, le hero et les sections finales.
 
 ### US-005 - Commercial
+
 En tant que commercial, je veux recevoir des leads qualifies avec les modules d'interet afin de preparer une reponse adaptee.
 
 Critere d'acceptation : chaque demande inclut les modules selectionnes, la taille de l'etablissement et les coordonnees.
@@ -415,4 +432,3 @@ Objectifs initiaux :
 - Quels canaux de contact doivent etre prioritaires : email, telephone, WhatsApp, calendrier de rendez-vous ?
 - Dispose-t-on de captures produit exploitables pour chaque module ?
 - Le nom commercial global reste-t-il "EcoleDigitale" ou faut-il creer une marque produit distincte ?
-

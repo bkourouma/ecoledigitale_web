@@ -17,9 +17,6 @@ env:
   LEADS_TO_EMAIL: 'commercial@ecoledigitale.test'
   LEADS_FROM_EMAIL: 'noreply@ecoledigitale.test'
   NEXT_PUBLIC_SITE_URL: 'http://localhost:4000'
-  # Numéro factice : le pied de page n'affiche le lien WhatsApp que si cette variable
-  # est définie au build, et un test e2e (analytics) clique dessus.
-  NEXT_PUBLIC_WHATSAPP_NUMBER: '33123456789'
 
 jobs:
   lint-typecheck:

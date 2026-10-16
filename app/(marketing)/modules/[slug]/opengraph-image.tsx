@@ -1,26 +1,23 @@
 import { ImageResponse } from 'next/og';
 import { ModuleSlugSchema } from '@/lib/content/module.schema';
-import { getModuleBySlug, getAllModuleSlugs } from '@/lib/content/modules';
+import { getModuleBySlug } from '@/lib/content/modules';
+import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
-export const alt = 'Module EcoleDigitale';
+export const alt = 'Pack EcoleDigitale';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export function generateImageMetadata() {
-  return getAllModuleSlugs().map((slug) => ({
-    id: slug,
-    alt: `Module EcoleDigitale — ${slug}`,
-    size,
-    contentType,
-  }));
-}
-
-export default function ModuleOpengraphImage({ params }: { params: { slug: string } }) {
-  const parsedSlug = ModuleSlugSchema.safeParse(params.slug);
+export default async function ModuleOpengraphImage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const parsedSlug = ModuleSlugSchema.safeParse(slug);
   if (!parsedSlug.success) {
-    return defaultImage('Module EcoleDigitale', 'Plateforme de gestion d’établissements');
+    return defaultImage('EcoleDigitale', 'Logiciel de gestion scolaire');
   }
 
   const { frontmatter } = getModuleBySlug(parsedSlug.data);
@@ -82,7 +79,7 @@ function defaultImage(title: string, tagline: string, isSocle = false) {
             textTransform: 'uppercase',
           }}
         >
-          {isSocle ? 'Module socle' : 'Module optionnel'}
+          {isSocle ? 'Socle commun' : 'Pack'}
         </div>
       </div>
 
@@ -111,7 +108,7 @@ function defaultImage(title: string, tagline: string, isSocle = false) {
         </div>
       </div>
 
-      <div style={{ fontSize: 22, color: '#ffe45c' }}>ecoledigitale.com</div>
+      <div style={{ fontSize: 22, color: '#ffe45c' }}>{getSiteHost()}</div>
     </div>,
     { ...size },
   );

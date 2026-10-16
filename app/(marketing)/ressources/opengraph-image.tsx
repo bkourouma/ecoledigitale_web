@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
@@ -58,7 +59,7 @@ export default function ResourcesHubOpengraphImage() {
         </div>
       </div>
 
-      <div style={{ fontSize: 22, color: '#ffe45c' }}>ecoledigitale.com</div>
+      <div style={{ fontSize: 22, color: '#ffe45c' }}>{getSiteHost()}</div>
     </div>,
     { ...size },
   );
