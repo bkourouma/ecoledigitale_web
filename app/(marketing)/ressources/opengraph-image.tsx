@@ -3,7 +3,7 @@ import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
-export const alt = 'Ressources EcoleDigitale — guides, études de cas et glossaire';
+export const alt = 'Ressources EcoleDigitale — guides et glossaire';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

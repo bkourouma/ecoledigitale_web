@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ModulesGrid } from '@/components/marketing/ModulesGrid';
 import { ModulesCompareTable } from '@/components/marketing/ModulesCompareTable';
 import { FinalCTA } from '@/components/marketing/FinalCTA';
@@ -15,6 +16,9 @@ export const metadata: Metadata = buildMetadata({
   path: '/modules',
   ogImage: DEFAULT_OG_IMAGE,
 });
+
+const LINK_CLASS =
+  'text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4';
 
 export default function ModulesPage() {
   return (
@@ -34,7 +38,11 @@ export default function ModulesPage() {
           <p className="text-ink-muted mt-5 max-w-xl text-lg leading-relaxed">
             Le socle EcoleDigitale porte les élèves, les notes, les absences et les frais de
             scolarité. Ajoutez les packs de vos cycles : maternelle et primaire, collège et lycée,
-            supérieur et BTS, formation à distance. Les offres sont établies sur devis.
+            supérieur et BTS, formation à distance. Les offres sont établies sur devis : voir les{' '}
+            <Link href="/tarifs" className={LINK_CLASS}>
+              tarifs
+            </Link>
+            .
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <TrackedDemoCTA placement="hero" size="lg">
@@ -74,6 +82,24 @@ export default function ModulesPage() {
             <ModulesCompareTable />
           </Reveal>
         </div>
+      </section>
+
+      <section className="container-wide py-8">
+        <p className="text-ink-muted max-w-3xl text-lg leading-relaxed">
+          Pour aller plus loin :{' '}
+          <Link href="/fonctions" className={LINK_CLASS}>
+            les fonctions d&apos;EcoleDigitale
+          </Link>
+          ,{' '}
+          <Link href="/cote-d-ivoire" className={LINK_CLASS}>
+            le logiciel en Côte d&apos;Ivoire
+          </Link>{' '}
+          et{' '}
+          <Link href="/faq" className={LINK_CLASS}>
+            les questions fréquentes
+          </Link>
+          .
+        </p>
       </section>
 
       <FinalCTA

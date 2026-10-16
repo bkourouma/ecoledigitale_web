@@ -28,7 +28,7 @@ Le visiteur compare plusieurs solutions, souvent depuis un mobile, et se décide
 
 - Application Next.js 15 (App Router), TypeScript, Tailwind CSS 4, MDX ; emails via Resend ; analytics Umami. Le contenu vit dans `content/` (MDX) et doit rester éditable.
 - Un socle et quatre packs : Socle EcoleDigitale, EcoleDigitale Primary, Secondary, Higher, Virtual (slugs `socle-ecoledigitale`, `ecoledigitale-primary|secondary|higher|virtual`). Les anciens slugs (`parcours-bts`, `parcours-superieur`, `proformation`, `campus-live`) redirigent en 301.
-- Pages : accueil, packs (comparatif + 5 pages), ressources (guides, glossaire ivoirien, exemple illustratif), auteurs, à-propos, demander-démo (+ merci), confidentialité. `/blog` redirige en 301 vers `/ressources`.
+- Pages : accueil, packs (comparatif + 5 pages), Côte d'Ivoire (`/cote-d-ivoire`), fonctions (`/fonctions` + 4 pages : notes et bulletins, frais de scolarité, portail parents, emploi du temps et absences), FAQ, tarifs (sans montant), ressources (guides, glossaire ivoirien), auteurs, à-propos, demander-démo (+ merci), confidentialité (loi ivoirienne n° 2013-450). `/blog` redirige en 301 vers `/ressources`.
 - Vocabulaire : celui de la Côte d'Ivoire et de l'Afrique francophone (CEPE, BEPC, BAC, MGA, conseil de classe, bulletins). Pas de cadre français (Qualiopi, RNCP, alternance) ni de règle chiffrée inventée.
 - Le SEO technique (JSON-LD, métadonnées, Open Graph, sitemap) et le suivi d'événements des CTA doivent être conservés.
 - Thème clair/sombre existant (le mode sombre est le thème par défaut).
@@ -39,7 +39,7 @@ Nom : EcoleDigitale. Voix en français, professionnelle. Aucune identité visuel
 
 ## Evidence on Hand
 
-Contenu réel dans `content/` (packs, guides, glossaire). Une étude de cas existe mais elle est fictive : signalée « Exemple illustratif » (`FictionalCaseBanner`, titre, fiche du hub), en `noindex` et hors du sitemap. Aucun témoignage client réel, chiffre de référence ni logo client n'a été fourni : ne rien inventer.
+Contenu réel dans `content/` (packs, guides, glossaire). Aucune étude de cas n'est publiée : l'ancienne étude fictive a été supprimée (son URL redirige en 301 vers `/ressources`) et ne reviendra qu'avec l'accord d'un établissement réel. Aucun témoignage client réel, chiffre de référence ni logo client n'a été fourni : ne rien inventer.
 
 ## Product Principles
 

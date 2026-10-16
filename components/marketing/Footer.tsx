@@ -5,7 +5,9 @@ import { PUBLISHER_NOTICE } from '@/lib/site/contact';
 const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
   { href: '/modules', label: 'Packs' },
+  { href: '/tarifs', label: 'Tarifs' },
   { href: '/ressources', label: 'Ressources' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/demander-demo', label: 'Demander une démonstration' },
   { href: '/confidentialite', label: 'Confidentialité' },
@@ -17,6 +19,15 @@ const MODULE_LINKS = [
   { href: '/modules/ecoledigitale-secondary', label: 'Secondary : collège et lycée' },
   { href: '/modules/ecoledigitale-higher', label: 'Higher : supérieur et BTS' },
   { href: '/modules/ecoledigitale-virtual', label: 'Virtual : formation à distance' },
+];
+
+const FEATURE_LINKS = [
+  { href: '/cote-d-ivoire', label: "Logiciel en Côte d'Ivoire" },
+  { href: '/fonctions/bulletins-et-notes', label: 'Notes et bulletins' },
+  { href: '/fonctions/frais-de-scolarite', label: 'Frais de scolarité et Mobile Money' },
+  { href: '/fonctions/portail-parents', label: 'Portail parents' },
+  { href: '/fonctions/emploi-du-temps-et-absences', label: 'Emploi du temps et absences' },
+  { href: '/fonctions', label: 'Toutes les fonctions' },
 ];
 
 const LINK_CLASS =
@@ -40,7 +51,7 @@ export function Footer() {
         }}
       />
 
-      <div className="container-wide grid gap-12 pt-16 pb-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.9fr_1.1fr]">
+      <div className="container-wide grid gap-12 pt-16 pb-12 md:grid-cols-2 lg:grid-cols-[1.1fr_0.7fr_0.9fr_0.9fr_1fr]">
         <div>
           <div className="label-card max-w-xs rotate-[-1.5deg] p-5">
             <p className="font-hand text-ink-soft text-sm">Ce cahier appartient à</p>
@@ -77,6 +88,21 @@ export function Footer() {
           <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">Packs</p>
           <ul className="mt-4 space-y-2.5">
             {MODULE_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={LINK_CLASS}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Fonctions" className="text-base">
+          <p className="font-display text-chalk-yellow text-3xl leading-none font-bold">
+            Fonctions
+          </p>
+          <ul className="mt-4 space-y-2.5">
+            {FEATURE_LINKS.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={LINK_CLASS}>
                   {link.label}

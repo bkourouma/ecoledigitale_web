@@ -84,7 +84,7 @@ export const ResourceFrontmatterBaseSchema = z.object({
    */
   seoTitle: z.string().trim().min(10).max(44).optional(),
   description: z.string().trim().min(80).max(160),
-  /** Page hors de l'index Google et du sitemap (exemples illustratifs, brouillons publics). */
+  /** Page hors de l'index Google et du sitemap (brouillons publics). */
   noindex: z.boolean().default(false),
 
   type: ResourceTypeSchema,
@@ -122,7 +122,6 @@ export const CaseStudyDetailsSchema = z.object({
 
 export const CaseStudyFrontmatterSchema = ResourceFrontmatterBaseSchema.extend({
   type: z.literal('etudes-de-cas'),
-  isFictional: z.boolean().default(false),
   caseStudy: CaseStudyDetailsSchema,
 });
 

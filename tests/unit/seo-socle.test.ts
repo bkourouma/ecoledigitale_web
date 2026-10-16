@@ -110,11 +110,15 @@ describe('Ressources (SEO)', () => {
     }
   });
 
-  it("l'étude de cas fictive est marquée noindex", () => {
-    const study = loadResources().find((r) => r.frontmatter.type === 'etudes-de-cas');
-    expect(study).toBeTruthy();
-    expect(study!.frontmatter.noindex).toBe(true);
-    expect(study!.frontmatter.title).toMatch(/Exemple illustratif/);
+  it('chaque meta description de ressource tient en 155 caractères', () => {
+    for (const { frontmatter } of getAllResources()) {
+      expect(frontmatter.description.length, frontmatter.slug).toBeLessThanOrEqual(155);
+    }
+  });
+
+  it("aucune étude de cas n'est publiée (l'étude fictive a été supprimée)", () => {
+    const studies = loadResources().filter((r) => r.frontmatter.type === 'etudes-de-cas');
+    expect(studies).toHaveLength(0);
   });
 
   it('le glossaire ne contient plus le cadre français', () => {
@@ -132,7 +136,8 @@ describe('Ressources (SEO)', () => {
   it('le guide « Choisir un logiciel… » est accentué', () => {
     const guide = getResourceBySlug('guides', 'choisir-logiciel-gestion-ecole-privee');
     expect(guide).toBeTruthy();
-    const text = guide!.frontmatter.title + guide!.body;
+    // Les adresses des liens (ex. /fonctions/frais-de-scolarite) n'ont pas d'accents : on les retire.
+    const text = (guide!.frontmatter.title + guide!.body).replace(/\]\([^)]*\)/g, ']');
     expect(text).toContain('école');
     expect(text).not.toMatch(/\becole\b|\bprivee\b|\bdemonstration\b|\bscolarite\b/);
   });

@@ -23,7 +23,17 @@ const PUBLIC_PAGES = [
   '/ressources/guides/choisir-logiciel-gestion-ecole-privee',
   '/ressources/guides/digitaliser-institut-bts',
   '/ressources/glossaire/cepe',
+  '/ressources/guides/reduire-impayes-frais-de-scolarite',
+  '/ressources/guides/bulletins-sans-excel',
   '/auteurs/equipe-ecoledigitale',
+  '/cote-d-ivoire',
+  '/fonctions',
+  '/fonctions/bulletins-et-notes',
+  '/fonctions/frais-de-scolarite',
+  '/fonctions/portail-parents',
+  '/fonctions/emploi-du-temps-et-absences',
+  '/faq',
+  '/tarifs',
 ];
 
 async function jsonLdPayloads(page: Page): Promise<Record<string, unknown>[]> {
@@ -114,7 +124,7 @@ test.describe('Redirections', () => {
 });
 
 test.describe('Sitemap', () => {
-  test('exclut /blog et l’étude de cas fictive, garde les packs et le glossaire ivoirien', async ({
+  test('exclut /blog et l’étude de cas supprimée, garde les packs et le glossaire ivoirien', async ({
     request,
   }) => {
     const body = await (await request.get('/sitemap.xml')).text();

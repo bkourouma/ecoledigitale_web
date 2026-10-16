@@ -291,11 +291,6 @@ export interface ArticleInput {
   authorName?: string;
   /** `Organization` pour une signature d'équipe (par défaut `Person`). */
   authorType?: 'Person' | 'Organization';
-  /**
-   * Mention de désambiguïsation (Schema.org `disambiguatingDescription`).
-   * Utilisé notamment pour signaler une étude de cas illustrative/fictive.
-   */
-  disambiguatingDescription?: string;
 }
 
 export function buildArticle(input: ArticleInput) {
@@ -312,9 +307,6 @@ export function buildArticle(input: ArticleInput) {
     },
     datePublished: input.datePublished,
     dateModified: input.dateModified ?? input.datePublished,
-    ...(input.disambiguatingDescription
-      ? { disambiguatingDescription: input.disambiguatingDescription }
-      : {}),
     ...(input.image ? { image: absoluteUrl(input.image) } : {}),
     ...(input.authorName
       ? { author: { '@type': input.authorType ?? 'Person', name: input.authorName } }

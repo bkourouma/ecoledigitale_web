@@ -66,7 +66,7 @@ Les auteurs vivent dans `content/auteurs/{slug}.mdx`.
 
 ### Champs spécifiques — étude de cas
 
-`isFictional` (⬜, défaut `false`) + objet `caseStudy` :
+Objet `caseStudy` (une étude de cas ne se publie qu'avec l'accord de l'établissement cité ; aucune étude fictive) :
 `establishment`, `establishmentType`, `modulesActivated[]` (slugs de modules réels),
 `testimonialAuthor`, `testimonialRole`.
 

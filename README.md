@@ -50,9 +50,13 @@ app/                       # Routes Next.js (App Router)
     page.tsx               # /
     modules/page.tsx       # /modules (socle + 4 packs)
     modules/[slug]/        # /modules/<slug> (dynamique × 5 : socle + 4 packs)
-    ressources/            # /ressources (guides, glossaire, exemple illustratif)
+    ressources/            # /ressources (guides, glossaire)
+    cote-d-ivoire/         # /cote-d-ivoire (page locale)
+    fonctions/             # /fonctions + /fonctions/<slug> (pages par fonction)
+    faq/                   # /faq (FAQ générale)
+    tarifs/                # /tarifs (offres sur devis, aucun montant)
     demander-demo/         # /demander-demo + /merci
-    confidentialite/       # /confidentialite (RGPD)
+    confidentialite/       # /confidentialite (loi ivoirienne n° 2013-450)
   api/leads/route.ts       # POST endpoint formulaire
   opengraph-image.tsx      # OG image dynamique (next/og)
   sitemap.ts / robots.ts   # SEO infra (lastmod réels : voir lib/seo/lastmod.ts)
@@ -111,7 +115,12 @@ Le PRD de référence est dans [docs/PRD_SITE_MARKETING_ECOLEDIGITALE.md](docs/P
 
 ## Publier une ressource (hub /ressources)
 
-Le hub éditorial `/ressources` (guides, études de cas, glossaire) se met à jour
+Les pages « par sujet » (Côte d'Ivoire, fonctions, tarifs) ne sont pas en MDX : leur texte vit dans
+`lib/marketing/pages.ts` et un gabarit commun (`components/marketing/ContentPage.tsx`) les affiche, avec
+BreadcrumbList, WebPage et FAQPage. La FAQ générale vit dans `lib/marketing/faq.ts`. Mettre à jour
+`updatedAt` à chaque modification réelle : il alimente le `lastmod` du sitemap.
+
+Le hub éditorial `/ressources` (guides, glossaire) se met à jour
 sans toucher au code : il suffit d'ajouter un fichier MDX.
 
 1. Copier le template du bon type depuis `content/ressources/{type}/_TEMPLATE-*.mdx`.

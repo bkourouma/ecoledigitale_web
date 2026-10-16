@@ -11,7 +11,6 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ResourceMeta } from '@/components/ressources/ResourceMeta';
 import { RelatedResources } from '@/components/ressources/RelatedResources';
 import { DeprecatedBanner } from '@/components/ressources/DeprecatedBanner';
-import { FictionalCaseBanner } from '@/components/ressources/FictionalCaseBanner';
 import { CaseStudyAside } from '@/components/ressources/CaseStudyAside';
 import { ResourceCTA } from '@/components/ressources/ResourceCTA';
 import { resourceMdxComponents } from '@/components/ressources/resourceMdxComponents';
@@ -34,13 +33,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!bundle) return {};
 
   const { frontmatter } = bundle;
-  const isFictionalCase = frontmatter.type === 'etudes-de-cas' && frontmatter.isFictional;
   return buildMetadata({
     title: frontmatter.seoTitle ?? frontmatter.title,
     description: frontmatter.description,
     path: `/ressources/${frontmatter.type}/${frontmatter.slug}`,
-    // Un exemple illustratif (données fictives) ne doit pas être indexé.
-    noindex: frontmatter.noindex || isFictionalCase ? true : undefined,
+    noindex: frontmatter.noindex ? true : undefined,
     // ogImage explicite si fourni ; sinon la convention `opengraph-image.tsx`
     // au niveau de la route génère l'image dynamiquement.
     ogImage: frontmatter.seo.ogImage,
@@ -82,9 +79,6 @@ export default async function ResourcePage({ params }: PageProps) {
       image: frontmatter.seo.ogImage,
       authorName: author?.frontmatter.name,
       authorType: author?.frontmatter.kind === 'organization' ? 'Organization' : 'Person',
-      disambiguatingDescription: caseStudyFm?.isFictional
-        ? 'Étude de cas illustrative basée sur des données fictives.'
-        : undefined,
     }),
   ];
   if (frontmatter.faq && frontmatter.faq.length > 0) {
@@ -122,7 +116,6 @@ export default async function ResourcePage({ params }: PageProps) {
         </nav>
 
         {frontmatter.deprecated && <DeprecatedBanner className="mt-6" />}
-        {caseStudyFm?.isFictional && <FictionalCaseBanner className="mt-6" />}
 
         <header className="mt-6 max-w-3xl">
           <h1 className="font-display text-display-md text-primary-800 mt-3 font-bold">
