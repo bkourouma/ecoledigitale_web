@@ -1,6 +1,8 @@
 # EcoleDigitale — Site marketing
 
-Site marketing public d'EcoleDigitale (plateforme SaaS de gestion d'établissements de formation). Application Next.js 15 standalone, déployée sur Vercel.
+Site marketing public d'EcoleDigitale, logiciel de gestion scolaire pour les établissements de la maternelle au supérieur et la formation à distance, en Côte d'Ivoire et en Afrique francophone (un socle commun et quatre packs : Primary, Secondary, Higher, Virtual). EcoleDigitale est édité par Alliance Consultants (Abidjan, Côte d'Ivoire). Application Next.js 15 standalone.
+
+Positionnement, vocabulaire et fonctions affirmables : voir [PRODUCT.md](PRODUCT.md). Coordonnées publiques (téléphone et WhatsApp : un seul numéro, e-mail) : `lib/site/contact.ts`.
 
 ## Stack
 
@@ -46,13 +48,17 @@ Documentation complète : [specs/001-site-marketing/quickstart.md](specs/001-sit
 app/                       # Routes Next.js (App Router)
   (marketing)/             # Route group : layout marketing (header + footer)
     page.tsx               # /
-    modules/page.tsx       # /modules
-    modules/[slug]/        # /modules/<slug> (dynamique × 5 modules)
+    modules/page.tsx       # /modules (socle + 4 packs)
+    modules/[slug]/        # /modules/<slug> (dynamique × 5 : socle + 4 packs)
+    ressources/            # /ressources (guides, glossaire, exemple illustratif)
     demander-demo/         # /demander-demo + /merci
     confidentialite/       # /confidentialite (RGPD)
   api/leads/route.ts       # POST endpoint formulaire
   opengraph-image.tsx      # OG image dynamique (next/og)
-  sitemap.ts / robots.ts   # SEO infra
+  sitemap.ts / robots.ts   # SEO infra (lastmod réels : voir lib/seo/lastmod.ts)
+  not-found.tsx            # 404 en français
+
+(`/blog` n'existe plus : redirection 301 vers `/ressources`, voir `next.config.mjs`.)
 
 components/
   ui/                      # Primitives (Button, Input, Checkbox, ...)
@@ -62,7 +68,7 @@ components/
   analytics/               # UmamiScript, ModulePageView
 
 content/
-  modules/                 # 5 fichiers MDX — source unique du catalogue
+  modules/                 # 5 fichiers MDX (socle + 4 packs) — source unique du catalogue
   home.mdx
   confidentialite.mdx
 
@@ -70,7 +76,8 @@ lib/
   leads/                   # Schémas Zod, sinks (Resend, Log), handler, rate-limit
   content/                 # Loader MDX modules + schema
   analytics/               # Wrapper track() typé + catalogue events
-  seo/                     # Helper buildMetadata()
+  seo/                     # buildMetadata(), JSON-LD, lastmod du sitemap
+  site/contact.ts          # Coordonnées publiques et éditeur
   ui/cn.ts                 # clsx + tailwind-merge
 
 tests/

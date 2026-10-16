@@ -34,10 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!bundle) return {};
 
   const { frontmatter } = bundle;
+  const isFictionalCase = frontmatter.type === 'etudes-de-cas' && frontmatter.isFictional;
   return buildMetadata({
-    title: frontmatter.title,
+    title: frontmatter.seoTitle ?? frontmatter.title,
     description: frontmatter.description,
     path: `/ressources/${frontmatter.type}/${frontmatter.slug}`,
+    // Un exemple illustratif (données fictives) ne doit pas être indexé.
+    noindex: frontmatter.noindex || isFictionalCase ? true : undefined,
     // ogImage explicite si fourni ; sinon la convention `opengraph-image.tsx`
     // au niveau de la route génère l'image dynamiquement.
     ogImage: frontmatter.seo.ogImage,
@@ -78,6 +81,7 @@ export default async function ResourcePage({ params }: PageProps) {
       dateModified: frontmatter.updatedAt ?? frontmatter.publishedAt,
       image: frontmatter.seo.ogImage,
       authorName: author?.frontmatter.name,
+      authorType: author?.frontmatter.kind === 'organization' ? 'Organization' : 'Person',
       disambiguatingDescription: caseStudyFm?.isFictional
         ? 'Étude de cas illustrative basée sur des données fictives.'
         : undefined,

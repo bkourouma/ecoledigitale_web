@@ -8,7 +8,7 @@ const validBase = {
   institutionName: 'Institut Exemple',
   role: 'Directrice académique',
   location: 'Paris, France',
-  modulesOfInterest: ['parcours-bts'] as const,
+  modulesOfInterest: ['ecoledigitale-higher'] as const,
   consent: true,
   sourcePage: '/demander-demo',
 };
@@ -30,7 +30,7 @@ describe('LeadSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejette si fullName est trop court", () => {
+  it('rejette si fullName est trop court', () => {
     const result = LeadSchema.safeParse({ ...validBase, fullName: 'a' });
     expect(result.success).toBe(false);
   });
@@ -77,7 +77,7 @@ describe('LeadSchema', () => {
     expect(LeadSchema.safeParse({ ...validBase, studentCount: 1_000_000 }).success).toBe(false);
   });
 
-  it("rejette un message > 2000 caractères", () => {
+  it('rejette un message > 2000 caractères', () => {
     const longMessage = 'a'.repeat(2001);
     expect(LeadSchema.safeParse({ ...validBase, message: longMessage }).success).toBe(false);
   });

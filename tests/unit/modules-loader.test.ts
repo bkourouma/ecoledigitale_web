@@ -60,14 +60,14 @@ describe('getModuleBySlug()', () => {
     _resetModulesCacheForTests();
   });
 
-  it('retourne le module Parcours BTS', () => {
-    const mod = getModuleBySlug('parcours-bts');
-    expect(mod.frontmatter.name).toBe('Parcours BTS');
-    expect(mod.frontmatter.type).toBe('optionnel');
+  it('retourne le pack Higher', () => {
+    const mod = getModuleBySlug('ecoledigitale-higher');
+    expect(mod.frontmatter.name).toBe('EcoleDigitale Higher');
+    expect(mod.frontmatter.type).toBe('pack');
   });
 
-  it('retourne ProFormation avec ses audiences', () => {
-    const mod = getModuleBySlug('proformation');
+  it('retourne le pack Virtual avec ses audiences', () => {
+    const mod = getModuleBySlug('ecoledigitale-virtual');
     expect(mod.frontmatter.audiences).toContain('trainer');
   });
 });

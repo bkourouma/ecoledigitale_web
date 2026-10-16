@@ -17,7 +17,7 @@ Stack résumé : Next.js 15 (App Router) + TypeScript + Tailwind CSS 4 + MDX,
 Resend (email), Umami (analytics), Vercel (hosting). Application standalone.
 
 Sprint 1 SEO technique (mai 2026) livré entre la feature 001 et la 002 :
-helpers `lib/seo/jsonld.ts` (Organization, WebSite, BreadcrumbList, Course, FAQPage, Article),
+helpers `lib/seo/jsonld.ts` (Organization, WebSite, BreadcrumbList, WebPage, SoftwareApplication, FAQPage, Article),
 composant `components/seo/JsonLd.tsx`, icônes natives `app/icon.tsx`/`app/apple-icon.tsx`/`app/manifest.ts`.
 
 <!-- SPECKIT END -->

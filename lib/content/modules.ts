@@ -18,7 +18,7 @@ export interface ModuleBundle {
 let cachedModules: ModuleBundle[] | null = null;
 
 /**
- * Charge les 5 modules MDX depuis content/modules/, valide chaque frontmatter
+ * Charge les 5 modules MDX (socle + 4 packs) depuis content/modules/, valide chaque frontmatter
  * via Zod, et valide les invariants cross-modules.
  *
  * Cache en mémoire : un seul disk-read par process.

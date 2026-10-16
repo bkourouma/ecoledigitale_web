@@ -9,17 +9,81 @@ import { HowItWorks } from '@/components/marketing/HowItWorks';
 import { FAQ } from '@/components/marketing/FAQ';
 import { FinalCTA } from '@/components/marketing/FinalCTA';
 import { Reveal } from '@/components/ui/Reveal';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { buildMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/metadata';
 import { buildFaqPage } from '@/lib/seo/jsonld';
 import { HOME_FAQ } from '@/lib/marketing/faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'EcoleDigitale — gestion scolaire et formation',
+  // Titre absolu : il porte déjà la marque, le gabarit « | EcoleDigitale » ne s'ajoute pas.
+  title: "Logiciel de gestion scolaire Côte d'Ivoire | EcoleDigitale",
+  absoluteTitle: true,
   description:
-    'Plateforme SaaS modulaire pour digitaliser la gestion académique, pédagogique et financière de votre établissement, du cycle BTS à la formation professionnelle.',
+    'Notes, bulletins, absences, frais de scolarité et portail parents pour écoles, collèges, lycées et établissements supérieurs. Demandez une démonstration.',
   path: '/',
+  ogImage: DEFAULT_OG_IMAGE,
 });
+
+/** Fonctions livrées, présentées comme une liste du quotidien (aucune fonction non confirmée). */
+const DAILY_FEATURES: { title: string; description: string }[] = [
+  {
+    title: 'Notes et bulletins',
+    description: 'Notes, moyennes et bulletins calculés selon les règles ivoiriennes.',
+  },
+  {
+    title: 'Conseil de classe et examens',
+    description: "Conseil de classe et suivi de l'éligibilité au CEPE, au BEPC et au BAC.",
+  },
+  {
+    title: 'Emploi du temps',
+    description: 'Un emploi du temps partagé entre la direction, les enseignants et les élèves.',
+  },
+  {
+    title: 'Appel et absences',
+    description: "L'appel se fait depuis le téléphone ; les parents consultent les absences.",
+  },
+  {
+    title: 'Portail parents',
+    description: 'Résultats, absences et frais de scolarité dans un espace pour chaque famille.',
+  },
+  {
+    title: 'Frais par Mobile Money',
+    description: 'Le paiement des frais de scolarité par Mobile Money, intégré à la plateforme.',
+  },
+  {
+    title: 'SMS et WhatsApp',
+    description: "L'établissement écrit aux parents par SMS et par WhatsApp.",
+  },
+  {
+    title: 'Import Excel',
+    description: 'Vos listes existantes sont importées depuis Excel, sans tout ressaisir.',
+  },
+  {
+    title: 'LMS et classes virtuelles',
+    description: 'Cours en ligne, devoirs et classes virtuelles pour la formation à distance.',
+  },
+  {
+    title: 'Certificats et attestations',
+    description: 'Certificats et attestations délivrés depuis la plateforme.',
+  },
+  {
+    title: 'Assistant IA',
+    description: "Un assistant IA intégré pour accompagner les équipes de l'établissement.",
+  },
+];
+
+const RESOURCE_LINKS: { href: string; label: string }[] = [
+  {
+    href: '/ressources/guides/choisir-logiciel-gestion-ecole-privee',
+    label: "Guide : choisir un logiciel d'école en Côte d'Ivoire",
+  },
+  {
+    href: '/ressources?type=glossaire',
+    label: 'Glossaire : CEPE, BEPC, BAC, MGA, conseil de classe',
+  },
+  { href: '/ressources', label: 'Toutes les ressources' },
+  { href: '/a-propos', label: "À propos d'EcoleDigitale et d'Alliance Consultants" },
+];
 
 export default function HomePage() {
   return (
@@ -36,25 +100,26 @@ export default function HomePage() {
                 ['--write-delay' as string]: '0.15s',
               }}
             >
-              EcoleDigitale centralise la
+              Le logiciel de gestion scolaire{' '}
             </span>
             <span
               className="written block"
               style={{ ['--write-duration' as string]: '1.3s', ['--write-delay' as string]: '1s' }}
             >
-              <span className="marker">gestion académique, pédagogique et financière</span>
+              <span className="marker">des établissements</span>{' '}
             </span>
             <span
               className="written block"
               style={{ ['--write-duration' as string]: '1s', ['--write-delay' as string]: '2.3s' }}
             >
-              de votre établissement.
+              de Côte d&apos;Ivoire.
             </span>
           </h1>
 
           <p className="text-ink-muted mt-8 max-w-xl text-lg leading-relaxed">
-            Du cycle BTS à la formation professionnelle, une plateforme modulaire avec des espaces
-            dédiés pour chaque profil : direction, enseignants, étudiants, parents, formateurs.
+            De la maternelle au supérieur, et à distance : un socle commun et un pack par cycle,
+            avec un espace pour la direction, les enseignants, les parents et les élèves. Conçu pour
+            les écoles d&apos;Afrique francophone, avec la Côte d&apos;Ivoire pour référence.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-5">
@@ -62,7 +127,7 @@ export default function HomePage() {
               Demander une démonstration
             </TrackedDemoCTA>
             <TrackedModulesCTA placement="hero" size="lg" variant="ghost">
-              Voir les modules
+              Voir les packs
             </TrackedModulesCTA>
           </div>
 
@@ -70,7 +135,7 @@ export default function HomePage() {
             className="red-note note-in mt-7 inline-block text-2xl"
             style={{ ['--note-delay' as string]: '3s' }}
           >
-            Réponse sous 48 heures, pas de carte bancaire, pas d&apos;engagement.
+            Réponse sous 48 h ouvrées, sans engagement.
           </p>
         </div>
 
@@ -85,7 +150,7 @@ export default function HomePage() {
             <p className="text-ink-soft mt-1 text-sm">Exemple illustratif</p>
 
             <ul className="text-ink mt-6 space-y-[calc(var(--unit)-1.4rem)] text-base">
-              {['Inscriptions', 'Notes & bulletins', 'Paiements'].map((label) => (
+              {['Inscriptions', 'Notes & bulletins', 'Frais de scolarité'].map((label) => (
                 <li key={label} className="flex items-center gap-3 leading-7">
                   <Check
                     className="text-accent-600 h-5 w-5 shrink-0"
@@ -106,16 +171,16 @@ export default function HomePage() {
 
             <dl className="mt-6 space-y-2 text-base leading-7">
               <div className="flex gap-2">
-                <dt className="font-bold">Modules actifs</dt>
-                <dd className="text-ink-muted">Socle, Parcours BTS, Campus Live</dd>
+                <dt className="font-bold">Packs actifs</dt>
+                <dd className="text-ink-muted">Socle, Primary, Secondary</dd>
               </div>
               <div className="flex gap-2">
                 <dt className="font-bold">Cycles</dt>
-                <dd className="text-ink-muted">BTS &amp; Supérieur</dd>
+                <dd className="text-ink-muted">Maternelle au lycée</dd>
               </div>
               <div className="flex gap-2">
-                <dt className="font-bold">Pilotage</dt>
-                <dd className="text-ink-muted">En temps réel</dd>
+                <dt className="font-bold">Parents</dt>
+                <dd className="text-ink-muted">Informés par SMS et WhatsApp</dd>
               </div>
             </dl>
 
@@ -134,8 +199,8 @@ export default function HomePage() {
       <section className="container-wide py-12 md:py-16">
         <Reveal>
           <ModulesGrid
-            heading="5 modules pour s'adapter à votre activité"
-            lead="Commencez par le socle, ajoutez les modules selon vos besoins."
+            heading="Un socle commun et quatre packs par cycle"
+            lead="Commencez par le socle, ajoutez les packs de vos cycles : maternelle et primaire, collège et lycée, supérieur, formation à distance."
           />
         </Reveal>
         <div className="mt-8 flex justify-end">
@@ -143,15 +208,63 @@ export default function HomePage() {
             href="/modules"
             className="font-display text-primary-700 pen-underline hover:text-primary-900 inline-flex items-center gap-1.5 text-3xl leading-none font-bold"
           >
-            Comparer tous les modules
+            Comparer le socle et les packs
             <ArrowRight className="h-6 w-6" strokeWidth={3} aria-hidden="true" />
           </Link>
         </div>
       </section>
 
+      <section aria-labelledby="daily-heading" className="container-wide py-16 md:py-20">
+        <Reveal className="max-w-2xl">
+          <h2
+            id="daily-heading"
+            className="font-display text-display-sm text-primary-800 font-bold"
+          >
+            Ce que fait EcoleDigitale <span className="marker">chaque jour</span>
+          </h2>
+          <p className="text-ink-muted mt-3 text-lg leading-relaxed">
+            De la rentrée au dernier bulletin, les tâches de l&apos;établissement tiennent dans un
+            seul outil.
+          </p>
+        </Reveal>
+        <ul className="mt-10 grid gap-x-12 md:grid-cols-2">
+          {DAILY_FEATURES.map(({ title, description }) => (
+            <li key={title} className="border-primary-200 border-b-2 border-dashed py-5">
+              <h3 className="font-display text-primary-700 text-3xl leading-none font-bold">
+                {title}
+              </h3>
+              <p className="text-ink-muted mt-2 text-base leading-relaxed">{description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <BenefitsByRole />
       <HowItWorks />
       <FAQ />
+
+      <section aria-labelledby="resources-heading" className="container-wide py-12 md:py-16">
+        <h2
+          id="resources-heading"
+          className="font-display text-display-sm text-primary-800 font-bold"
+        >
+          Pour préparer votre <span className="marker">choix</span>
+        </h2>
+        <ul className="mt-6 space-y-3 text-lg">
+          {RESOURCE_LINKS.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className="text-primary-700 hover:bg-marker-soft inline-flex items-center gap-1.5 font-bold underline decoration-2 underline-offset-4"
+              >
+                {label}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <FinalCTA />
     </>
   );

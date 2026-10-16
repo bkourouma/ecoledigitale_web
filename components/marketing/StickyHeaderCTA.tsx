@@ -9,8 +9,8 @@ import { cn } from '@/lib/ui/cn';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Accueil' },
-  { href: '/modules', label: 'Modules' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/modules', label: 'Packs' },
+  { href: '/ressources', label: 'Ressources' },
   { href: '/a-propos', label: 'À propos' },
 ];
 

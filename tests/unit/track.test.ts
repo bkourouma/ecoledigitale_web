@@ -60,9 +60,9 @@ describe('track()', () => {
     const spy = vi.fn();
     (window as unknown as { umami: { track: typeof spy } }).umami = { track: spy };
 
-    track('Module Page Viewed', { moduleSlug: 'parcours-bts' });
+    track('Module Page Viewed', { moduleSlug: 'ecoledigitale-higher' });
 
-    expect(spy).toHaveBeenCalledWith('Module Page Viewed', { moduleSlug: 'parcours-bts' });
+    expect(spy).toHaveBeenCalledWith('Module Page Viewed', { moduleSlug: 'ecoledigitale-higher' });
   });
 
   it('transmet un canal pour Contact Channel Clicked', () => {

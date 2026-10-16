@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 import { ResourceTypeSchema, RESOURCE_TYPE_LABELS } from '@/lib/content/resource.schema';
 import { getResourceBySlug } from '@/lib/content/resources';
 import { getAuthor } from '@/lib/content/authors';
+import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
@@ -9,23 +10,24 @@ export const alt = 'Ressource EcoleDigitale';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function ResourceOpengraphImage({
+export default async function ResourceOpengraphImage({
   params,
 }: {
-  params: { type: string; slug: string };
+  params: Promise<{ type: string; slug: string }>;
 }) {
-  const parsedType = ResourceTypeSchema.safeParse(params.type);
-  const bundle = parsedType.success ? getResourceBySlug(parsedType.data, params.slug) : undefined;
+  const { type, slug } = await params;
+  const parsedType = ResourceTypeSchema.safeParse(type);
+  const bundle = parsedType.success ? getResourceBySlug(parsedType.data, slug) : undefined;
 
   if (!bundle) {
-    return renderImage('Ressource', 'EcoleDigitale', 'ecoledigitale.com');
+    return renderImage('Ressource', 'EcoleDigitale', getSiteHost());
   }
 
   const { frontmatter } = bundle;
   const badge = RESOURCE_TYPE_LABELS[frontmatter.type].singular;
   const title = frontmatter.type === 'glossaire' ? frontmatter.term : frontmatter.title;
   const author = getAuthor(frontmatter.author);
-  const footer = author?.frontmatter.name ?? 'ecoledigitale.com';
+  const footer = author?.frontmatter.name ?? getSiteHost();
 
   return renderImage(badge, title, footer);
 }

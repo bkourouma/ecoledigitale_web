@@ -49,7 +49,7 @@ export const ModuleMultiSelect = forwardRef<HTMLFieldSetElement, ModuleMultiSele
         aria-describedby={errorId}
         className={cn('rounded-md border p-3', invalid ? 'border-red-400' : 'border-line')}
       >
-        <legend className="sr-only">Modules qui vous intéressent</legend>
+        <legend className="sr-only">Packs qui vous intéressent</legend>
         <ul className="space-y-2">
           {options.map((opt) => {
             const checked = value.includes(opt.slug);

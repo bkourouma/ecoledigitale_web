@@ -24,6 +24,10 @@ export function ResourceCard({ bundle }: ResourceCardProps) {
           {frontmatter.description}
         </p>
 
+        {frontmatter.type === 'etudes-de-cas' && frontmatter.isFictional && (
+          <p className="text-ink mt-4 text-sm font-bold">Exemple illustratif, données fictives</p>
+        )}
+
         <ul className="mt-4 flex flex-wrap gap-2">
           {frontmatter.personas.map((persona) => (
             <li

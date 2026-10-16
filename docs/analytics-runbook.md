@@ -14,16 +14,16 @@ Référence opérationnelle pour l'équipe marketing/commerciale. Permet de vér
 
 ## Catalogue des événements
 
-| Event                         | Émis quand                                              | Propriétés clés                                                 | Couvre FR-013          |
-| ----------------------------- | ------------------------------------------------------- | --------------------------------------------------------------- | ---------------------- |
-| `Demo CTA Clicked`            | Clic sur un CTA `Demander une démonstration`            | `placement`, `sourcePage`                                       | ✅ Clic démo           |
-| `Modules CTA Clicked`         | Clic sur `Voir les modules` / `Voir le module` (cartes) | `placement`, `sourcePage`                                       | —                      |
-| `Module Page Viewed`          | Chargement d'une page `/modules/<slug>`                 | `moduleSlug`                                                    | ✅ Modules consultés   |
-| `Module Selected In Form`     | Cochage d'un module dans le formulaire de démo          | `moduleSlug`, `sourcePage`                                      | ✅ Sélection module    |
-| `Demo Form Submitted`         | Soumission valide du formulaire (200 OK)                | `modulesCount`, `hasMessage`, `hasStudentCount`, `sourcePage`   | ✅ Soumission          |
-| `Demo Form Submission Failed` | Erreur lors de la soumission                            | `reason: validation\|rate_limit\|server\|network`, `sourcePage` | —                      |
-| `Contact Channel Clicked`     | Clic sur WhatsApp / Email / Téléphone                   | `channel`, `placement`, `sourcePage`                            | ✅ Clic WhatsApp/email |
-| `Brochure Requested`          | Clic sur "Recevoir la brochure" (Phase 2)               | `sourcePage`                                                    | ✅ Brochure            |
+| Event                         | Émis quand                                               | Propriétés clés                                                 | Couvre FR-013          |
+| ----------------------------- | -------------------------------------------------------- | --------------------------------------------------------------- | ---------------------- |
+| `Demo CTA Clicked`            | Clic sur un CTA `Demander une démonstration`             | `placement`, `sourcePage`                                       | ✅ Clic démo           |
+| `Modules CTA Clicked`         | Clic sur `Voir les packs` / `Découvrir le pack` (cartes) | `placement`, `sourcePage`                                       | —                      |
+| `Module Page Viewed`          | Chargement d'une page `/modules/<slug>`                  | `moduleSlug`                                                    | ✅ Modules consultés   |
+| `Module Selected In Form`     | Cochage d'un module dans le formulaire de démo           | `moduleSlug`, `sourcePage`                                      | ✅ Sélection module    |
+| `Demo Form Submitted`         | Soumission valide du formulaire (200 OK)                 | `modulesCount`, `hasMessage`, `hasStudentCount`, `sourcePage`   | ✅ Soumission          |
+| `Demo Form Submission Failed` | Erreur lors de la soumission                             | `reason: validation\|rate_limit\|server\|network`, `sourcePage` | —                      |
+| `Contact Channel Clicked`     | Clic sur WhatsApp / Email / Téléphone                    | `channel`, `placement`, `sourcePage`                            | ✅ Clic WhatsApp/email |
+| `Brochure Requested`          | Clic sur "Recevoir la brochure" (Phase 2)                | `sourcePage`                                                    | ✅ Brochure            |
 
 **Couverture FR-013 : 100 %.**
 
@@ -37,7 +37,7 @@ Ouvre Umami (voir « Où regarder » ci-dessus), site **EcoleDigitale**, vue _Te
 
 - [ ] Ouvre `/` → un pageview `/` apparaît.
 - [ ] Clique sur **Demander une démonstration** (hero) → event `Demo CTA Clicked` avec `placement=hero`, `sourcePage=/`.
-- [ ] Clique sur **Voir les modules** (hero) → event `Modules CTA Clicked` avec `placement=hero`.
+- [ ] Clique sur **Voir les packs** (hero) → event `Modules CTA Clicked` avec `placement=hero`.
 
 ### 2. Catalogue modules (`/modules`)
 
@@ -46,8 +46,8 @@ Ouvre Umami (voir « Où regarder » ci-dessus), site **EcoleDigitale**, vue _Te
 
 ### 3. Pages module (`/modules/<slug>`)
 
-- [ ] Charge `/modules/parcours-bts` → pageview + event `Module Page Viewed` avec `moduleSlug=parcours-bts`.
-- [ ] Répète pour les 5 modules — chacun émet un event avec son slug.
+- [ ] Charge `/modules/ecoledigitale-higher` → pageview + event `Module Page Viewed` avec `moduleSlug=ecoledigitale-higher`.
+- [ ] Répète pour le socle et les 4 packs (`ecoledigitale-primary`, `-secondary`, `-higher`, `-virtual`) — chacun émet un event avec son slug.
 
 ### 4. Formulaire de démo (`/demander-demo`)
 

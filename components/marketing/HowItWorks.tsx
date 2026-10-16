@@ -12,21 +12,21 @@ const STEPS: Step[] = [
     index: 1,
     title: 'Échange de qualification',
     description:
-      "Un conseiller analyse votre contexte avec vous : type d'établissement, modules pertinents, contraintes spécifiques. Nous validons ensemble la configuration cible.",
+      'Un conseiller analyse votre contexte avec vous : cycles accueillis, packs pertinents, contraintes spécifiques. Nous validons ensemble la configuration cible.',
     duration: '30 minutes',
   },
   {
     index: 2,
     title: 'Configuration et import',
     description:
-      'Nous paramétrons votre instance EcoleDigitale, importons vos données existantes (étudiants, classes, programmes) et formons vos équipes clés.',
+      'Nous paramétrons votre instance EcoleDigitale, importons vos données existantes (élèves, classes, programmes) et formons vos équipes clés.',
     duration: '1 à 3 semaines',
   },
   {
     index: 3,
     title: 'Lancement et suivi',
     description:
-      'Vos équipes utilisent la plateforme au quotidien. Notre support reste accessible et nous activons de nouveaux modules au fil de vos besoins.',
+      'Vos équipes utilisent la plateforme au quotidien. Notre support reste accessible et nous activons de nouveaux packs au fil de vos besoins.',
     duration: 'Continu',
   },
 ];

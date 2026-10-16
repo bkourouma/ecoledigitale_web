@@ -33,7 +33,7 @@ jobs:
             --collect.url=$PREVIEW_URL/ \
             --collect.url=$PREVIEW_URL/modules \
             --collect.url=$PREVIEW_URL/modules/socle-ecoledigitale \
-            --collect.url=$PREVIEW_URL/modules/parcours-bts \
+            --collect.url=$PREVIEW_URL/modules/ecoledigitale-higher \
             --collect.url=$PREVIEW_URL/demander-demo \
             --collect.url=$PREVIEW_URL/confidentialite \
             --collect.numberOfRuns=1 \

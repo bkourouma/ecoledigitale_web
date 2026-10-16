@@ -29,7 +29,7 @@ export function FinalCTA({
             </TrackedDemoCTA>
           </div>
           <p className="font-display text-chalk-yellow mt-5 text-2xl font-bold">
-            Réponse sous 48 h, sans engagement
+            Réponse sous 48 h ouvrées, sans engagement
           </p>
         </Board>
       </Reveal>

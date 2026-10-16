@@ -14,9 +14,9 @@ interface PageProps {
 
 export function generateMetadata(): Metadata {
   return buildMetadata({
-    title: 'Ressources : guides, études de cas et glossaire',
+    title: 'Ressources : guides et glossaire scolaire',
     description:
-      'Guides, cas pratiques et glossaire pour digitaliser la gestion scolaire et la formation avec EcoleDigitale.',
+      'Guides et glossaire pour choisir et utiliser un logiciel de gestion scolaire : CEPE, BEPC, BAC, MGA, conseil de classe, bulletins.',
     path: '/ressources',
   });
 }
@@ -43,11 +43,12 @@ export default async function ResourcesHubPage({ searchParams }: PageProps) {
       <section className="relative">
         <div className="container-content py-16 md:py-20">
           <h1 className="font-display text-display-md text-primary-800 mt-3 font-bold">
-            Guides, études de cas et glossaire
+            Guides et glossaire de la gestion scolaire
           </h1>
           <p className="text-ink-muted mt-5 max-w-prose text-lg leading-relaxed">
-            Des repères concrets pour digitaliser la gestion académique, pédagogique et
-            administrative de votre établissement — sans jargon et sans promesse exagérée.
+            Des repères concrets pour choisir un logiciel de gestion scolaire et digitaliser la
+            gestion de votre établissement en Côte d&apos;Ivoire — sans jargon et sans promesse
+            exagérée.
           </p>
         </div>
       </section>

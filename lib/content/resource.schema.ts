@@ -9,10 +9,11 @@ import { MODULE_SLUGS } from './module.schema';
 
 export const RESOURCE_PERSONAS = [
   'ecole-privee',
-  'lycee-bts',
+  'primaire',
+  'secondaire',
   'superieur',
   'formation-pro',
-  'campus-live',
+  'a-distance',
   'tous',
 ] as const;
 
@@ -22,10 +23,11 @@ export type Persona = z.infer<typeof PersonaSchema>;
 /** Libellés d'affichage des personas — badges, filtres du hub. */
 export const RESOURCE_PERSONA_LABELS: Record<Persona, string> = {
   'ecole-privee': 'École privée',
-  'lycee-bts': 'Institut BTS',
-  superieur: 'Supérieur',
-  'formation-pro': 'Formation pro',
-  'campus-live': 'Cours en ligne',
+  primaire: 'Maternelle et primaire',
+  secondaire: 'Collège et lycée',
+  superieur: 'Supérieur et BTS',
+  'formation-pro': 'Centre de formation',
+  'a-distance': 'Formation à distance',
   tous: 'Tous publics',
 };
 
@@ -76,7 +78,14 @@ const RelatedRefSchema = z.object({
 export const ResourceFrontmatterBaseSchema = z.object({
   slug: ResourceSlugSchema,
   title: z.string().trim().min(20).max(80),
+  /**
+   * Titre de l'onglet et des résultats Google, sans la marque (le gabarit ajoute ` | EcoleDigitale`,
+   * soit 16 caractères : 44 au plus pour rester sous 60). Par défaut, `title` (ou `term`).
+   */
+  seoTitle: z.string().trim().min(10).max(44).optional(),
   description: z.string().trim().min(80).max(160),
+  /** Page hors de l'index Google et du sitemap (exemples illustratifs, brouillons publics). */
+  noindex: z.boolean().default(false),
 
   type: ResourceTypeSchema,
   status: ResourceStatusSchema.default('draft'),

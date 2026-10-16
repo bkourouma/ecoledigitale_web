@@ -46,10 +46,10 @@ test.describe('Analytics — Demo CTA Clicked', () => {
 });
 
 test.describe('Analytics — Modules CTA Clicked', () => {
-  test('clic sur "Voir les modules" du hero accueil → placement=hero', async ({ page }) => {
+  test('clic sur "Voir les packs" du hero accueil → placement=hero', async ({ page }) => {
     await page.goto('/');
     await page
-      .getByRole('link', { name: /Voir les modules/i })
+      .getByRole('link', { name: /Voir les packs/i })
       .first()
       .click();
 
@@ -60,7 +60,7 @@ test.describe('Analytics — Modules CTA Clicked', () => {
   test('clic sur une carte module → placement=card', async ({ page }) => {
     await page.goto('/modules');
     await page
-      .getByRole('link', { name: /Voir le module/i })
+      .getByRole('link', { name: /Découvrir (le pack|le socle)/i })
       .first()
       .click();
 
@@ -70,8 +70,8 @@ test.describe('Analytics — Modules CTA Clicked', () => {
 });
 
 test.describe('Analytics — Module Page Viewed', () => {
-  test('chargement de /modules/parcours-bts → event avec slug', async ({ page }) => {
-    await page.goto('/modules/parcours-bts');
+  test('chargement de /modules/ecoledigitale-higher → event avec slug', async ({ page }) => {
+    await page.goto('/modules/ecoledigitale-higher');
 
     // Le useEffect doit avoir tourné après navigation
     await page.waitForFunction(() =>
@@ -80,16 +80,16 @@ test.describe('Analytics — Module Page Viewed', () => {
 
     const events = await getEventsByName(page, 'Module Page Viewed');
     expect(events).toHaveLength(1);
-    expect(events[0]!.props).toEqual({ moduleSlug: 'parcours-bts' });
+    expect(events[0]!.props).toEqual({ moduleSlug: 'ecoledigitale-higher' });
   });
 
   test('chacune des 5 pages module émet un event avec son slug', async ({ page }) => {
     const slugs = [
       'socle-ecoledigitale',
-      'parcours-bts',
-      'parcours-superieur',
-      'proformation',
-      'campus-live',
+      'ecoledigitale-primary',
+      'ecoledigitale-secondary',
+      'ecoledigitale-higher',
+      'ecoledigitale-virtual',
     ];
 
     for (const slug of slugs) {
@@ -111,16 +111,18 @@ test.describe('Analytics — Module Page Viewed', () => {
 test.describe('Analytics — Module Selected In Form', () => {
   test('cocher un module dans le formulaire → event avec moduleSlug', async ({ page }) => {
     await page.goto('/demander-demo');
-    await page.getByLabel(/Parcours BTS/i).check();
+    await page.getByLabel(/EcoleDigitale Higher/i).check();
 
     const events = await getEventsByName(page, 'Module Selected In Form');
     expect(events).toHaveLength(1);
-    expect(events[0]!.props).toEqual(expect.objectContaining({ moduleSlug: 'parcours-bts' }));
+    expect(events[0]!.props).toEqual(
+      expect.objectContaining({ moduleSlug: 'ecoledigitale-higher' }),
+    );
   });
 
   test("décocher un module n'émet PAS d'event (seul le toggle ON est tracé)", async ({ page }) => {
     await page.goto('/demander-demo');
-    const checkbox = page.getByLabel(/Parcours BTS/i);
+    const checkbox = page.getByLabel(/EcoleDigitale Higher/i);
     await checkbox.check();
     await clearCapturedEvents(page);
     await checkbox.uncheck();
@@ -141,8 +143,8 @@ test.describe('Analytics — Demo Form Submitted / Failed', () => {
     await page.getByLabel(/Téléphone/i).fill('+33 1 23 45 67 89');
     await page.getByLabel(/Nom de l'établissement/i).fill('Institut Exemple');
     await page.getByLabel(/Ville et pays/i).fill('Paris, France');
-    await page.getByLabel(/Parcours BTS/i).check();
-    await page.getByLabel(/Campus Live/i).check();
+    await page.getByLabel(/EcoleDigitale Higher/i).check();
+    await page.getByLabel(/EcoleDigitale Virtual/i).check();
     await page.getByLabel(/J'accepte d'être recontacté/i).check();
     await page.getByRole('button', { name: /Envoyer ma demande/i }).click();
 
@@ -195,7 +197,7 @@ test('catalogue complet : aucun event hors-whitelist émis sur le golden path', 
 
   await page.goto('/');
   await page
-    .getByRole('link', { name: /Voir les modules/i })
+    .getByRole('link', { name: /Voir les packs/i })
     .first()
     .click();
   await page.waitForURL('**/modules');

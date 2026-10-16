@@ -8,10 +8,12 @@
  *  - Organization      → identité de l'entreprise (root layout)
  *  - WebSite           → identité du site + SearchAction future (root layout)
  *  - BreadcrumbList    → fil d'Ariane (toutes pages internes)
- *  - Course            → pages modules (rich results "cours" Google)
+ *  - WebPage + SoftwareApplication → pages modules (packs)
  *  - FAQPage           → home + futures pages produit avec FAQ
  *  - Article           → futur hub /ressources
  */
+
+import { CONTACT_EMAIL, CONTACT_PHONE_E164, PUBLISHER } from '@/lib/site/contact';
 
 const SITE_NAME = 'EcoleDigitale';
 const ORGANIZATION_ID = '#organization';
@@ -31,38 +33,59 @@ function absoluteUrl(path: string): string {
 // ---------------------------------------------------------------------------
 
 export interface OrganizationInput {
-  /** Liens vers les profils sociaux officiels (LinkedIn, X, YouTube…). */
+  /** Liens vers les profils sociaux officiels (LinkedIn, X, YouTube…). Aucun n'est confirmé à ce jour. */
   sameAs?: readonly string[];
-  /** Numéro de téléphone au format international (+33…). */
+  /** Numéro de téléphone au format international (+225…). Par défaut : le numéro public du site. */
   telephone?: string;
-  /** Email de contact général. */
+  /** E-mail de contact général. Par défaut : l'adresse publique du site. */
   email?: string;
 }
 
+/**
+ * Logo : une image qui répond 200. `/apple-icon` est générée par `app/apple-icon.tsx`
+ * (PNG 180×180) ; l'ancien `/icon.svg` n'existait pas et répondait 404.
+ */
+export const ORGANIZATION_LOGO_PATH = '/apple-icon';
+
 export function buildOrganization(input: OrganizationInput = {}) {
   const url = getSiteUrl();
+  const telephone = input.telephone ?? CONTACT_PHONE_E164;
+  const email = input.email ?? CONTACT_EMAIL;
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${url}/${ORGANIZATION_ID}`,
     name: SITE_NAME,
     url,
-    logo: absoluteUrl('/icon.svg'),
+    logo: absoluteUrl(ORGANIZATION_LOGO_PATH),
     description:
-      'Plateforme SaaS modulaire pour digitaliser la gestion académique, pédagogique et financière des établissements de formation.',
+      "Logiciel de gestion scolaire pour les établissements d'Afrique francophone, de la maternelle au supérieur, avec la Côte d'Ivoire pour marché de référence.",
+    // Siège limité à la ville et au pays : aucune adresse postale publiée.
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: PUBLISHER.city,
+      addressCountry: PUBLISHER.countryCode,
+    },
+    areaServed: { '@type': 'Country', name: PUBLISHER.country },
+    parentOrganization: {
+      '@type': 'Organization',
+      name: PUBLISHER.name,
+      url: PUBLISHER.url,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: PUBLISHER.city,
+        addressCountry: PUBLISHER.countryCode,
+      },
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      areaServed: PUBLISHER.countryCode,
+      availableLanguage: ['French'],
+      telephone,
+      email,
+    },
     ...(input.sameAs && input.sameAs.length > 0 ? { sameAs: [...input.sameAs] } : {}),
-    ...(input.telephone || input.email
-      ? {
-          contactPoint: {
-            '@type': 'ContactPoint',
-            contactType: 'sales',
-            areaServed: 'FR',
-            availableLanguage: ['French'],
-            ...(input.telephone ? { telephone: input.telephone } : {}),
-            ...(input.email ? { email: input.email } : {}),
-          },
-        }
-      : {}),
   } as const;
 }
 
@@ -107,34 +130,63 @@ export function buildBreadcrumbList(items: readonly BreadcrumbItem[]) {
 }
 
 // ---------------------------------------------------------------------------
-// Course (pages modules)
+// WebPage + SoftwareApplication (pages modules / packs)
 // ---------------------------------------------------------------------------
 
-export interface CourseInput {
+export interface SoftwareApplicationInput {
   name: string;
   description: string;
   /** Path relatif (commence par /). */
   path: string;
-  /** Image OG ou illustration du module. */
+  /** Image OG ou illustration du pack (URL absolue ou path relatif). */
   image?: string;
 }
 
-export function buildCourse(input: CourseInput) {
+/**
+ * Un pack est un logiciel, pas un cours : `SoftwareApplication` (l'ancien type `Course`
+ * n'était pas adapté). Aucun `offers`, `aggregateRating` ni `review` : les offres sont
+ * sur devis et aucun avis réel n'existe.
+ */
+export function buildSoftwareApplication(input: SoftwareApplicationInput) {
   const url = getSiteUrl();
   return {
     '@context': 'https://schema.org',
-    '@type': 'Course',
+    '@type': 'SoftwareApplication',
+    '@id': `${absoluteUrl(input.path)}#software`,
     name: input.name,
     description: input.description,
     url: absoluteUrl(input.path),
-    inLanguage: 'fr-FR',
-    provider: {
-      '@type': 'Organization',
-      '@id': `${url}/${ORGANIZATION_ID}`,
-      name: SITE_NAME,
-      sameAs: url,
-    },
-    ...(input.image ? { image: absoluteUrl(input.image) } : {}),
+    applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'fr',
+    publisher: { '@id': `${url}/${ORGANIZATION_ID}` },
+    ...(input.image
+      ? { image: input.image.startsWith('http') ? input.image : absoluteUrl(input.image) }
+      : {}),
+  } as const;
+}
+
+export interface WebPageInput {
+  name: string;
+  description: string;
+  /** Path relatif (commence par /). */
+  path: string;
+  /** Si fourni, la page a pour sujet principal ce `SoftwareApplication` (`@id` de la même page). */
+  mainEntityId?: string;
+}
+
+export function buildWebPage(input: WebPageInput) {
+  const url = getSiteUrl();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${absoluteUrl(input.path)}#webpage`,
+    url: absoluteUrl(input.path),
+    name: input.name,
+    description: input.description,
+    inLanguage: 'fr',
+    isPartOf: { '@id': `${url}/${WEBSITE_ID}` },
+    ...(input.mainEntityId ? { mainEntity: { '@id': input.mainEntityId } } : {}),
   } as const;
 }
 
@@ -198,6 +250,33 @@ export function buildPerson(input: PersonInput) {
 }
 
 // ---------------------------------------------------------------------------
+// Signature d'équipe (page auteur de type « équipe éditoriale »)
+// ---------------------------------------------------------------------------
+
+export interface EditorialTeamInput {
+  name: string;
+  description?: string;
+  /** Path relatif à la page auteur, ex. /auteurs/equipe-ecoledigitale. */
+  path: string;
+}
+
+/**
+ * Une équipe n'est pas une personne : `Organization` rattachée à l'organisation
+ * EcoleDigitale (`Person` serait un type incorrect pour une signature collective).
+ */
+export function buildEditorialTeam(input: EditorialTeamInput) {
+  const url = getSiteUrl();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: input.name,
+    ...(input.description ? { description: input.description } : {}),
+    url: absoluteUrl(input.path),
+    parentOrganization: { '@id': `${url}/${ORGANIZATION_ID}` },
+  } as const;
+}
+
+// ---------------------------------------------------------------------------
 // Article (pour /ressources futur)
 // ---------------------------------------------------------------------------
 
@@ -210,6 +289,8 @@ export interface ArticleInput {
   datePublished: string;
   dateModified?: string;
   authorName?: string;
+  /** `Organization` pour une signature d'équipe (par défaut `Person`). */
+  authorType?: 'Person' | 'Organization';
   /**
    * Mention de désambiguïsation (Schema.org `disambiguatingDescription`).
    * Utilisé notamment pour signaler une étude de cas illustrative/fictive.
@@ -236,7 +317,7 @@ export function buildArticle(input: ArticleInput) {
       : {}),
     ...(input.image ? { image: absoluteUrl(input.image) } : {}),
     ...(input.authorName
-      ? { author: { '@type': 'Person', name: input.authorName } }
+      ? { author: { '@type': input.authorType ?? 'Person', name: input.authorName } }
       : {}),
     publisher: {
       '@type': 'Organization',

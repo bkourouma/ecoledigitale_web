@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getAuthor, getAllAuthorSlugs } from '@/lib/content/authors';
 import { getResourcesByAuthor } from '@/lib/content/resources';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { buildPerson, buildBreadcrumbList } from '@/lib/seo/jsonld';
+import { buildPerson, buildEditorialTeam, buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { AuthorBio } from '@/components/auteurs/AuthorBio';
 import { ResourceCard } from '@/components/ressources/ResourceCard';
@@ -17,10 +17,10 @@ export function generateStaticParams() {
   return getAllAuthorSlugs().map((slug) => ({ slug }));
 }
 
-/** Tronque une bio au mot près pour servir de meta description (~155 car.). */
+/** Tronque une bio au mot près pour servir de meta description (155 car. au plus). */
 function toDescription(bio: string): string {
-  if (bio.length <= 160) return bio;
-  return `${bio.slice(0, 157).replace(/\s+\S*$/, '')}…`;
+  if (bio.length <= 155) return bio;
+  return `${bio.slice(0, 152).replace(/\s+\S*$/, '')}…`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -29,7 +29,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!author) return {};
 
   return buildMetadata({
-    title: author.frontmatter.name,
+    // Le gabarit de titre ajoute déjà « | EcoleDigitale » : on retire la marque du nom de l'équipe.
+    title: author.frontmatter.name.replace(/\s*EcoleDigitale\s*/, ' ').trim(),
     description: toDescription(author.frontmatter.bio),
     path: `/auteurs/${slug}`,
   });
@@ -51,14 +52,20 @@ export default async function AuthorPage({ params }: PageProps) {
             { name: 'Accueil', url: '/' },
             { name: frontmatter.name, url: `/auteurs/${slug}` },
           ]),
-          buildPerson({
-            name: frontmatter.name,
-            jobTitle: frontmatter.role,
-            description: frontmatter.bio,
-            path: `/auteurs/${slug}`,
-            image: frontmatter.photo,
-            sameAs: frontmatter.linkedinUrl ? [frontmatter.linkedinUrl] : undefined,
-          }),
+          frontmatter.kind === 'organization'
+            ? buildEditorialTeam({
+                name: frontmatter.name,
+                description: frontmatter.bio,
+                path: `/auteurs/${slug}`,
+              })
+            : buildPerson({
+                name: frontmatter.name,
+                jobTitle: frontmatter.role,
+                description: frontmatter.bio,
+                path: `/auteurs/${slug}`,
+                image: frontmatter.photo,
+                sameAs: frontmatter.linkedinUrl ? [frontmatter.linkedinUrl] : undefined,
+              }),
         ]}
       />
 

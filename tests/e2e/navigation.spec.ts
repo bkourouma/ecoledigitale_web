@@ -3,12 +3,12 @@ import { test, expect } from '@playwright/test';
 const MVP_ROUTES = [
   '/',
   '/modules',
-  '/blog',
+  '/ressources',
   '/modules/socle-ecoledigitale',
-  '/modules/parcours-bts',
-  '/modules/parcours-superieur',
-  '/modules/proformation',
-  '/modules/campus-live',
+  '/modules/ecoledigitale-primary',
+  '/modules/ecoledigitale-secondary',
+  '/modules/ecoledigitale-higher',
+  '/modules/ecoledigitale-virtual',
   '/demander-demo',
   '/confidentialite',
 ];
@@ -57,7 +57,9 @@ test.describe('Navigation au clavier', () => {
     await page.keyboard.press('Tab');
     // Passer au header logo + nav + CTA — on tabe jusqu'à trouver "Demander une démonstration"
     for (let i = 0; i < 15; i++) {
-      const text = await page.evaluate(() => (document.activeElement as HTMLElement)?.textContent ?? '');
+      const text = await page.evaluate(
+        () => (document.activeElement as HTMLElement)?.textContent ?? '',
+      );
       if (/Demander une démonstration/i.test(text)) break;
       await page.keyboard.press('Tab');
     }
@@ -82,17 +84,42 @@ test.describe('Navigation links — toutes les routes répondent 200', () => {
 });
 
 test.describe('Liens du header et footer', () => {
+  test('le menu principal expose Ressources et n’expose plus Blog', async ({ page, isMobile }) => {
+    await page.goto('/');
+    if (isMobile) {
+      await page
+        .locator('header')
+        .getByRole('button', { name: /Ouvrir le menu/i })
+        .click();
+    }
+    const nav = page.locator('header').getByRole('navigation').first();
+    const mobileNav = page.locator('header nav[aria-label="Navigation mobile"]');
+    const scope = isMobile ? mobileNav : nav;
+    await expect(scope.getByRole('link', { name: 'Ressources' })).toBeVisible();
+    await expect(scope.getByRole('link', { name: 'Blog' })).toHaveCount(0);
+  });
+
   test('le logo header ramène à l’accueil depuis n’importe quelle page', async ({ page }) => {
-    await page.goto('/modules/parcours-bts');
-    await page.locator('header').getByRole('link', { name: /EcoleDigitale/i }).first().click();
+    await page.goto('/modules/ecoledigitale-higher');
+    await page
+      .locator('header')
+      .getByRole('link', { name: /EcoleDigitale/i })
+      .first()
+      .click();
     await page.waitForURL('**/');
     expect(new URL(page.url()).pathname).toBe('/');
   });
 
-  test('le footer expose les 4 liens de navigation', async ({ page }) => {
+  test('le footer expose les liens de navigation, dont Ressources', async ({ page }) => {
     await page.goto('/');
     const footerNav = page.locator('footer').getByRole('navigation', { name: /Pages/i });
-    for (const label of ['Accueil', 'Modules', 'Demander une démonstration', 'Confidentialité']) {
+    for (const label of [
+      'Accueil',
+      'Packs',
+      'Ressources',
+      'Demander une démonstration',
+      'Confidentialité',
+    ]) {
       await expect(footerNav.getByRole('link', { name: label })).toBeVisible();
     }
   });

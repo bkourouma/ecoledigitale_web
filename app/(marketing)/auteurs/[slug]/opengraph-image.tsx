@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { getAuthor } from '@/lib/content/authors';
+import { getSiteHost } from '@/lib/seo/site';
 
 export const runtime = 'nodejs';
 
@@ -7,8 +8,13 @@ export const alt = 'Auteur EcoleDigitale';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function AuthorOpengraphImage({ params }: { params: { slug: string } }) {
-  const author = getAuthor(params.slug);
+export default async function AuthorOpengraphImage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const author = getAuthor(slug);
   const name = author?.frontmatter.name ?? 'Auteur EcoleDigitale';
   const role = author?.frontmatter.role ?? 'Rédaction EcoleDigitale';
 
@@ -74,7 +80,7 @@ export default function AuthorOpengraphImage({ params }: { params: { slug: strin
         </div>
       </div>
 
-      <div style={{ fontSize: 22, color: '#ffe45c' }}>ecoledigitale.com</div>
+      <div style={{ fontSize: 22, color: '#ffe45c' }}>{getSiteHost()}</div>
     </div>,
     { ...size },
   );

@@ -8,10 +8,10 @@ export function ModulesCompareTable() {
   return (
     <div className="border-primary-700/70 shadow-card overflow-x-auto border-2 bg-white">
       <table className="w-full text-left text-base">
-        <caption className="sr-only">Vue comparative des modules EcoleDigitale</caption>
+        <caption className="sr-only">Vue comparative du socle et des packs EcoleDigitale</caption>
         <thead>
           <tr className="border-primary-700/70 bg-marker-soft/70 border-b-2">
-            {['Module', 'Type', 'Positionnement', 'Détails'].map((heading) => (
+            {['Pack', 'Type', 'Pour qui', 'Détails'].map((heading) => (
               <th
                 key={heading}
                 scope="col"
@@ -42,7 +42,7 @@ export function ModulesCompareTable() {
                       : 'text-accent-700 font-bold'
                   }
                 >
-                  {frontmatter.type === 'socle' ? 'Socle de base' : 'Activable en option'}
+                  {frontmatter.type === 'socle' ? 'Socle de base' : 'Pack à ajouter'}
                 </span>
               </td>
               <td className="text-ink-muted min-w-72 px-5 py-4">{frontmatter.tagline}</td>
@@ -51,7 +51,7 @@ export function ModulesCompareTable() {
                   href={`/modules/${frontmatter.slug}`}
                   className="text-primary-700 hover:bg-marker-soft inline-flex items-center gap-1 font-bold underline decoration-2 underline-offset-4"
                 >
-                  Voir
+                  Voir la fiche
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </td>
