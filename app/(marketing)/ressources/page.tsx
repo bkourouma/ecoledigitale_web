@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ResourceTypeSchema } from '@/lib/content/resource.schema';
 import { getAllResources, filterResources } from '@/lib/content/resources';
+import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -49,6 +50,30 @@ export default async function ResourcesHubPage({ searchParams }: PageProps) {
             Des repères concrets pour choisir un logiciel de gestion scolaire et digitaliser la
             gestion de votre établissement en Côte d&apos;Ivoire — sans jargon et sans promesse
             exagérée.
+          </p>
+          <p className="text-ink-muted mt-4 max-w-prose text-lg leading-relaxed">
+            Vous préférez voir le produit ? Parcourez{' '}
+            <Link
+              href="/fonctions"
+              className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+            >
+              les fonctions
+            </Link>
+            ,{' '}
+            <Link
+              href="/cote-d-ivoire"
+              className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+            >
+              la page Côte d&apos;Ivoire
+            </Link>{' '}
+            ou{' '}
+            <Link
+              href="/faq"
+              className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+            >
+              la FAQ
+            </Link>
+            .
           </p>
         </div>
       </section>

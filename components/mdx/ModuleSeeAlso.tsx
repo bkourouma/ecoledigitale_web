@@ -57,6 +57,30 @@ export function ModuleSeeAlso({ packs, resources }: ModuleSeeAlsoProps) {
               </li>
             ))}
             <li>
+              <Link href="/fonctions" className={LINK_CLASS}>
+                Les fonctions : notes, frais, parents, emploi du temps
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/cote-d-ivoire" className={LINK_CLASS}>
+                Logiciel de gestion scolaire en Côte d&apos;Ivoire
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/faq" className={LINK_CLASS}>
+                Questions fréquentes
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/tarifs" className={LINK_CLASS}>
+                Tarifs : des offres sur devis
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+            <li>
               <Link href="/ressources" className={LINK_CLASS}>
                 Toutes les ressources
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

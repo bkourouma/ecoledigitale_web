@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { getAllResources } from '@/lib/content/resources';
 import {
   RESOURCE_TYPES,
   RESOURCE_TYPE_LABELS,
@@ -23,6 +24,9 @@ const SELECT_CLASSES =
  */
 export function ResourceFilters({ currentPersona, currentType }: ResourceFiltersProps) {
   const hasActiveFilter = Boolean(currentPersona || currentType);
+  // Un type sans aucune ressource publiée n'est pas proposé dans le filtre.
+  const publishedTypes = new Set(getAllResources().map((bundle) => bundle.frontmatter.type));
+  const availableTypes = RESOURCE_TYPES.filter((type) => publishedTypes.has(type));
 
   return (
     <form method="GET" action="/ressources" className="flex flex-wrap items-end gap-4">
@@ -56,7 +60,7 @@ export function ResourceFilters({ currentPersona, currentType }: ResourceFilters
           className={SELECT_CLASSES}
         >
           <option value="">Tous les types</option>
-          {RESOURCE_TYPES.map((type) => (
+          {availableTypes.map((type) => (
             <option key={type} value={type}>
               {RESOURCE_TYPE_LABELS[type].plural}
             </option>

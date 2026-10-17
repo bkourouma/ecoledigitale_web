@@ -11,7 +11,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 export const metadata: Metadata = buildMetadata({
   title: 'Confidentialité et protection des données',
   description:
-    'Comment EcoleDigitale collecte, conserve et protège vos données personnelles. Mention RGPD et droits utilisateur.',
+    'Comment EcoleDigitale collecte, conserve et protège vos données personnelles. Vos droits au titre de la loi ivoirienne n° 2013-450.',
   path: '/confidentialite',
   ogImage: DEFAULT_OG_IMAGE,
 });

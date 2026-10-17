@@ -21,8 +21,8 @@ export function EmptyState({ variant }: EmptyStateProps) {
           Le hub se construit
         </h2>
         <p className="text-ink-muted mx-auto mt-2 max-w-prose">
-          Les premières ressources — guides, études de cas et glossaire — arrivent très
-          prochainement. En attendant, échangeons sur votre établissement.
+          Les premières ressources — guides et glossaire — arrivent très prochainement. En
+          attendant, échangeons sur votre établissement.
         </p>
         <div className="mt-6 flex justify-center">
           <TrackedDemoCTA placement="inline">Demander une démonstration</TrackedDemoCTA>

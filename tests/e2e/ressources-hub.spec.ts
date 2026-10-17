@@ -42,8 +42,8 @@ test.describe('Hub /ressources', () => {
   test('une combinaison de filtres sans résultat affiche un état vide explicite', async ({
     page,
   }) => {
-    // Aucune étude de cas ne cible le public « a-distance » → aucun résultat.
-    await page.goto('/ressources?type=etudes-de-cas&persona=a-distance');
+    // Aucun guide ne cible le public « a-distance » → aucun résultat.
+    await page.goto('/ressources?type=guides&persona=a-distance');
     await expect(page.getByText(/Aucune ressource pour ces filtres/i)).toBeVisible();
   });
 
@@ -63,40 +63,21 @@ test.describe('Hub /ressources', () => {
   });
 });
 
-test.describe('Étude de cas', () => {
-  const CASE_STUDY_URL = '/ressources/etudes-de-cas/exemple-institut-bts';
-
-  test('une étude de cas fictive affiche le bandeau FictionalCaseBanner', async ({ page }) => {
-    await page.goto(CASE_STUDY_URL);
-    await expect(page.getByText(/données fictives/i)).toBeVisible();
-    await expect(page.getByText(/Exemple illustratif/i).first()).toBeVisible();
+test.describe('Étude de cas supprimée', () => {
+  test('l’ancienne étude de cas fictive redirige en 301 vers /ressources', async ({ request }) => {
+    const response = await request.get('/ressources/etudes-de-cas/exemple-institut-bts', {
+      maxRedirects: 0,
+    });
+    expect(response.status()).toBe(301);
+    expect(response.headers()['location']).toMatch(/\/ressources$/);
   });
 
-  test('une étude de cas fictive est en noindex', async ({ page }) => {
-    await page.goto(CASE_STUDY_URL);
-    const robots = await page.locator('meta[name="robots"]').first().getAttribute('content');
-    expect(robots).toMatch(/noindex/);
-  });
-
-  test('l’étude de cas fictive est signalée comme exemple dans le hub', async ({ page }) => {
-    await page.goto('/ressources?type=etudes-de-cas');
-    await expect(page.getByText(/Exemple illustratif, données fictives/i)).toBeVisible();
-  });
-
-  test('le JSON-LD Article d’une étude fictive porte disambiguatingDescription', async ({
+  test('le hub ne propose plus de filtre « Études de cas » et n’affiche aucun exemple fictif', async ({
     page,
   }) => {
-    await page.goto(CASE_STUDY_URL);
-    const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
-    const payloads = scripts.map((s) => JSON.parse(s) as Record<string, unknown>);
-    const article = payloads.find((p) => p['@type'] === 'Article');
-    expect(article, 'un JSON-LD Article doit être présent').toBeTruthy();
-    expect(article?.disambiguatingDescription).toBeTruthy();
-  });
-
-  test('l’étude de cas expose un CTA vers /demander-demo', async ({ page }) => {
-    await page.goto(CASE_STUDY_URL);
-    const cta = page.getByRole('link', { name: /Demander une démonstration/i }).first();
-    await expect(cta).toHaveAttribute('href', '/demander-demo');
+    await page.goto('/ressources');
+    await expect(page.locator('select[name="type"] option[value="etudes-de-cas"]')).toHaveCount(0);
+    await expect(page.getByText(/données fictives|Exemple illustratif/i)).toHaveCount(0);
+    await expect(page.getByText(/Institut Bellevue|Camille Renard/i)).toHaveCount(0);
   });
 });

@@ -25,33 +25,40 @@ export const metadata: Metadata = buildMetadata({
 });
 
 /** Fonctions livrées, présentées comme une liste du quotidien (aucune fonction non confirmée). */
-const DAILY_FEATURES: { title: string; description: string }[] = [
+const DAILY_FEATURES: { title: string; description: string; href?: string }[] = [
   {
     title: 'Notes et bulletins',
+    href: '/fonctions/bulletins-et-notes',
     description: 'Notes, moyennes et bulletins calculés selon les règles ivoiriennes.',
   },
   {
     title: 'Conseil de classe et examens',
+    href: '/fonctions/bulletins-et-notes',
     description: "Conseil de classe et suivi de l'éligibilité au CEPE, au BEPC et au BAC.",
   },
   {
     title: 'Emploi du temps',
+    href: '/fonctions/emploi-du-temps-et-absences',
     description: 'Un emploi du temps partagé entre la direction, les enseignants et les élèves.',
   },
   {
     title: 'Appel et absences',
+    href: '/fonctions/emploi-du-temps-et-absences',
     description: "L'appel se fait depuis le téléphone ; les parents consultent les absences.",
   },
   {
     title: 'Portail parents',
+    href: '/fonctions/portail-parents',
     description: 'Résultats, absences et frais de scolarité dans un espace pour chaque famille.',
   },
   {
     title: 'Frais par Mobile Money',
+    href: '/fonctions/frais-de-scolarite',
     description: 'Le paiement des frais de scolarité par Mobile Money, intégré à la plateforme.',
   },
   {
     title: 'SMS et WhatsApp',
+    href: '/fonctions/portail-parents',
     description: "L'établissement écrit aux parents par SMS et par WhatsApp.",
   },
   {
@@ -73,6 +80,9 @@ const DAILY_FEATURES: { title: string; description: string }[] = [
 ];
 
 const RESOURCE_LINKS: { href: string; label: string }[] = [
+  { href: '/cote-d-ivoire', label: "Logiciel de gestion scolaire en Côte d'Ivoire" },
+  { href: '/tarifs', label: 'Tarifs : des offres sur devis' },
+  { href: '/faq', label: 'Questions fréquentes' },
   {
     href: '/ressources/guides/choisir-logiciel-gestion-ecole-privee',
     label: "Guide : choisir un logiciel d'école en Côte d'Ivoire",
@@ -224,14 +234,29 @@ export default function HomePage() {
           </h2>
           <p className="text-ink-muted mt-3 text-lg leading-relaxed">
             De la rentrée au dernier bulletin, les tâches de l&apos;établissement tiennent dans un
-            seul outil.
+            seul outil.{' '}
+            <Link
+              href="/fonctions"
+              className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+            >
+              Voir toutes les fonctions
+            </Link>
           </p>
         </Reveal>
         <ul className="mt-10 grid gap-x-12 md:grid-cols-2">
-          {DAILY_FEATURES.map(({ title, description }) => (
+          {DAILY_FEATURES.map(({ title, description, href }) => (
             <li key={title} className="border-primary-200 border-b-2 border-dashed py-5">
               <h3 className="font-display text-primary-700 text-3xl leading-none font-bold">
-                {title}
+                {href ? (
+                  <Link
+                    href={href}
+                    className="hover:text-primary-900 underline-offset-4 hover:underline"
+                  >
+                    {title}
+                  </Link>
+                ) : (
+                  title
+                )}
               </h3>
               <p className="text-ink-muted mt-2 text-base leading-relaxed">{description}</p>
             </li>

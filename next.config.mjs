@@ -40,6 +40,12 @@ const nextConfig = {
         destination: '/modules/ecoledigitale-virtual',
         statusCode: 301,
       },
+      // Ancienne étude de cas fictive, supprimée : aucune étude de cas n'est publiée.
+      {
+        source: '/ressources/etudes-de-cas/exemple-institut-bts',
+        destination: '/ressources',
+        statusCode: 301,
+      },
       // Définitions du cadre français (Qualiopi, RNCP, alternance), retirées du glossaire.
       ...['qualiopi', 'referentiel-rncp', 'alternance'].map((slug) => ({
         source: `/ressources/glossaire/${slug}`,

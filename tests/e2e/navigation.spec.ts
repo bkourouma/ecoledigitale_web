@@ -11,6 +11,14 @@ const MVP_ROUTES = [
   '/modules/ecoledigitale-virtual',
   '/demander-demo',
   '/confidentialite',
+  '/cote-d-ivoire',
+  '/fonctions',
+  '/fonctions/bulletins-et-notes',
+  '/fonctions/frais-de-scolarite',
+  '/fonctions/portail-parents',
+  '/fonctions/emploi-du-temps-et-absences',
+  '/faq',
+  '/tarifs',
 ];
 
 test.describe('Navigation au clavier', () => {
