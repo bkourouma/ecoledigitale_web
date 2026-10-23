@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Andika, Caveat, La_Belle_Aurore } from 'next/font/google';
 import { UmamiScript } from '@/components/analytics/UmamiScript';
+import { GoogleAnalytics } from '@/components/consent/GoogleAnalytics';
+import { CookieConsent } from '@/components/consent/CookieConsent';
 import { InkTrail } from '@/components/ui/InkTrail';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { buildOrganization, buildWebSite } from '@/lib/seo/jsonld';
@@ -61,6 +63,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <InkTrail />
         <UmamiScript />
+        <GoogleAnalytics />
+        <CookieConsent />
       </body>
     </html>
   );
