@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ManageCookiesButton } from '@/components/consent/ManageCookiesButton';
 import { ContactChannels } from '@/components/marketing/ContactChannels';
 import { PUBLISHER_NOTICE } from '@/lib/site/contact';
 
@@ -127,9 +128,12 @@ export function Footer() {
           <p>
             © {year} EcoleDigitale. {PUBLISHER_NOTICE}. Tous droits réservés.
           </p>
-          <Link href="/confidentialite" className={LINK_CLASS}>
-            Politique de confidentialité
-          </Link>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/confidentialite" className={LINK_CLASS}>
+              Politique de confidentialité
+            </Link>
+            <ManageCookiesButton className={LINK_CLASS} />
+          </div>
         </div>
       </div>
     </footer>

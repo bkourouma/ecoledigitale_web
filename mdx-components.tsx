@@ -4,6 +4,20 @@ const proseText = 'max-w-prose text-lg leading-8 text-ink-muted';
 const proseLink =
   'font-bold text-primary-700 underline decoration-primary-300 decoration-2 underline-offset-4 transition-colors hover:bg-marker-soft';
 
+/** Ancre lisible dérivée du texte du titre (« Cookies et traceurs » → « cookies-traceurs »). */
+function headingId(children: unknown): string | undefined {
+  if (typeof children !== 'string') return undefined;
+  const stop = new Set(['et', 'de', 'des', 'du', 'la', 'le', 'les', 'un', 'une', 'a', 'au', 'aux']);
+  const slug = children
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w && !stop.has(w))
+    .join('-');
+  return slug || undefined;
+}
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children, ...props }) => (
@@ -13,7 +27,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     h2: ({ children, ...props }) => (
       <h2
-        className="font-display text-primary-800 mt-12 text-4xl leading-none font-bold"
+        id={headingId(children)}
+        className="font-display text-primary-800 mt-12 scroll-mt-24 text-4xl leading-none font-bold"
         {...props}
       >
         {children}
