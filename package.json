@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "@eslint/eslintrc": "3.3.5",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.48.0",
     "@tailwindcss/postcss": "^4.0.0",
