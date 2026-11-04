@@ -35,7 +35,7 @@ const MODULES: ModuleExpectation[] = [
   {
     slug: 'ecoledigitale-higher',
     name: 'EcoleDigitale Higher',
-    h1: /école supérieure, institut BTS et centre de formation/i,
+    h1: /école supérieure et institut BTS/i,
     badge: 'Pack à ajouter au socle',
     keywords: ['filières', 'évaluations', 'relevés'],
   },
