@@ -563,7 +563,7 @@ export const FEATURE_LABELS: Record<string, string> = {
 export const FONCTIONS_HUB_PAGE: ContentPageData = {
   path: '/fonctions',
   kicker: 'Fonctions',
-  h1: 'Les fonctions d’EcoleDigitale, de la saisie des notes au paiement des frais',
+  h1: 'Les fonctions d’EcoleDigitale, des notes au paiement des frais',
   lead: "EcoleDigitale réunit dans un seul logiciel ce qu'un établissement scolaire fait chaque jour : notes et bulletins, absences, frais de scolarité, communication avec les parents. Chaque fonction a sa page, avec ce qu'elle couvre et les cycles concernés.",
   seo: {
     title: 'Fonctions du logiciel de gestion scolaire',
