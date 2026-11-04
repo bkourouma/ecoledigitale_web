@@ -19,15 +19,19 @@ const FEATURE_MENU = [
 
 const FEATURE_PATHS = ['/fonctions', '/cote-d-ivoire'];
 
+/** Pages regroupées sous « Ressources » : le blog, les guides, le glossaire et le hub. */
+const RESOURCE_MENU = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/ressources?type=guides', label: 'Guides pratiques' },
+  { href: '/ressources?type=glossaire', label: 'Glossaire' },
+  { href: '/ressources', label: 'Toutes les ressources' },
+];
+
+const RESOURCE_PATHS = ['/ressources', '/blog'];
+
 const NAV_BEFORE = [
   { href: '/', label: 'Accueil', hideOnDesktop: true },
   { href: '/modules', label: 'Packs' },
-];
-
-const NAV_AFTER = [
-  { href: '/tarifs', label: 'Tarifs' },
-  { href: '/ressources', label: 'Ressources' },
-  { href: '/a-propos', label: 'À propos' },
 ];
 
 const DESKTOP_LINK =
@@ -37,8 +41,10 @@ export function StickyHeaderCTA() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const featuresRef = useRef<HTMLLIElement>(null);
+  const resourcesRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 12);
@@ -47,20 +53,27 @@ export function StickyHeaderCTA() {
     return () => window.removeEventListener('scroll', updateScrolled);
   }, []);
 
-  // Le menu « Fonctions » se ferme à chaque navigation, à Échap et au clic à l'extérieur.
+  // Les menus se ferment à chaque navigation, à Échap et au clic à l'extérieur.
   useEffect(() => {
     setFeaturesOpen(false);
+    setResourcesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (!featuresOpen) return;
+    if (!featuresOpen && !resourcesOpen) return;
     const onPointerDown = (event: MouseEvent) => {
       if (featuresRef.current && !featuresRef.current.contains(event.target as Node)) {
         setFeaturesOpen(false);
       }
+      if (resourcesRef.current && !resourcesRef.current.contains(event.target as Node)) {
+        setResourcesOpen(false);
+      }
     };
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setFeaturesOpen(false);
+      if (event.key === 'Escape') {
+        setFeaturesOpen(false);
+        setResourcesOpen(false);
+      }
     };
     document.addEventListener('mousedown', onPointerDown);
     document.addEventListener('keydown', onKeyDown);
@@ -68,7 +81,7 @@ export function StickyHeaderCTA() {
       document.removeEventListener('mousedown', onPointerDown);
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, [featuresOpen]);
+  }, [featuresOpen, resourcesOpen]);
 
   const handleDemoClick = () => {
     setMobileOpen(false);
@@ -81,6 +94,7 @@ export function StickyHeaderCTA() {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname?.startsWith(href));
   const featuresActive = FEATURE_PATHS.some((path) => isActive(path));
+  const resourcesActive = RESOURCE_PATHS.some((path) => isActive(path));
 
   return (
     <header
@@ -131,7 +145,10 @@ export function StickyHeaderCTA() {
                 type="button"
                 aria-expanded={featuresOpen}
                 aria-controls="features-menu"
-                onClick={() => setFeaturesOpen((open) => !open)}
+                onClick={() => {
+                  setFeaturesOpen((open) => !open);
+                  setResourcesOpen(false);
+                }}
                 className={cn(
                   DESKTOP_LINK,
                   'gap-1',
@@ -170,22 +187,83 @@ export function StickyHeaderCTA() {
               )}
             </li>
 
-            {NAV_AFTER.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
-                  className={cn(
-                    DESKTOP_LINK,
-                    isActive(item.href)
-                      ? 'pen-underline text-primary-800'
-                      : 'text-ink-muted hover:text-primary-700',
-                  )}
+            <li>
+              <Link
+                href="/tarifs"
+                aria-current={isActive('/tarifs') ? 'page' : undefined}
+                className={cn(
+                  DESKTOP_LINK,
+                  isActive('/tarifs')
+                    ? 'pen-underline text-primary-800'
+                    : 'text-ink-muted hover:text-primary-700',
+                )}
+              >
+                Tarifs
+              </Link>
+            </li>
+
+            {/* Menu déroulant Ressources */}
+            <li ref={resourcesRef} className="relative">
+              <button
+                type="button"
+                aria-expanded={resourcesOpen}
+                aria-controls="resources-menu"
+                onClick={() => {
+                  setResourcesOpen((open) => !open);
+                  setFeaturesOpen(false);
+                }}
+                className={cn(
+                  DESKTOP_LINK,
+                  'gap-1',
+                  resourcesActive
+                    ? 'pen-underline text-primary-800'
+                    : 'text-ink-muted hover:text-primary-700',
+                )}
+              >
+                Ressources
+                <ChevronDown
+                  className={cn('h-5 w-5 transition-transform', resourcesOpen && 'rotate-180')}
+                  strokeWidth={3}
+                  aria-hidden="true"
+                />
+              </button>
+              {resourcesOpen && (
+                <ul
+                  id="resources-menu"
+                  className="border-primary-700 bg-paper shadow-elevated absolute top-full left-0 z-50 mt-2 w-80 rounded-md border-2 py-2"
                 >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+                  {RESOURCE_MENU.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        aria-current={pathname === item.href ? 'page' : undefined}
+                        className={cn(
+                          'font-display hover:bg-marker-soft block px-4 py-2 text-2xl leading-tight font-bold transition-colors',
+                          pathname === item.href ? 'text-primary-800' : 'text-ink-muted',
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <Link
+                href="/a-propos"
+                aria-current={isActive('/a-propos') ? 'page' : undefined}
+                className={cn(
+                  DESKTOP_LINK,
+                  isActive('/a-propos')
+                    ? 'pen-underline text-primary-800'
+                    : 'text-ink-muted hover:text-primary-700',
+                )}
+              >
+                À propos
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -223,10 +301,17 @@ export function StickyHeaderCTA() {
             {[
               ...NAV_BEFORE,
               { href: '/fonctions', label: 'Fonctions', children: FEATURE_MENU },
-              ...NAV_AFTER,
+              { href: '/tarifs', label: 'Tarifs' },
+              { href: '/ressources', label: 'Ressources', children: RESOURCE_MENU },
+              { href: '/a-propos', label: 'À propos' },
             ].map((item) => {
               const children = 'children' in item ? item.children : undefined;
-              const active = children ? featuresActive : isActive(item.href);
+              const active =
+                item.href === '/fonctions'
+                  ? featuresActive
+                  : item.href === '/ressources'
+                    ? resourcesActive
+                    : isActive(item.href);
               return (
                 <li key={item.href}>
                   <Link
@@ -250,7 +335,7 @@ export function StickyHeaderCTA() {
                   {children && (
                     <ul className="border-primary-200 mt-1 mb-2 ml-4 border-l-2 border-dashed pl-4">
                       {children
-                        .filter((child) => child.href !== '/fonctions')
+                        .filter((child) => child.href !== item.href)
                         .map((child) => (
                           <li key={child.href}>
                             <Link

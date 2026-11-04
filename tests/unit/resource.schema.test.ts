@@ -17,6 +17,7 @@ const BASE = {
   category: 'Test',
 };
 
+const VALID_BLOG = { ...BASE, slug: 'mon-article', type: 'blog' };
 const VALID_GUIDE = { ...BASE, slug: 'mon-guide', type: 'guides' };
 
 const VALID_CASE_STUDY = {
@@ -42,6 +43,11 @@ const VALID_GLOSSARY = {
 };
 
 describe('ResourceFrontmatterSchema — union discriminée', () => {
+  it('résout le sous-type blog', () => {
+    const result = ResourceFrontmatterSchema.safeParse(VALID_BLOG);
+    expect(result.success).toBe(true);
+  });
+
   it('résout le sous-type guides', () => {
     const result = ResourceFrontmatterSchema.safeParse(VALID_GUIDE);
     expect(result.success).toBe(true);
