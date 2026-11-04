@@ -1,0 +1,37 @@
+{
+  "downloaded": "2026-11-04",
+  "fonts": [
+    {
+      "file": "andika-latin-400.woff2",
+      "weight": "400",
+      "css": "https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap",
+      "url": "https://fonts.gstatic.com/s/andika/v27/mem_Ya6iyW-LwqgwarYQeL8WVQ.woff2",
+      "bytes": 12768,
+      "sha256": "50841fc9db96758f504a1776c700a585a774d172ac172e97b77fff5b75deff7b"
+    },
+    {
+      "file": "andika-latin-700.woff2",
+      "weight": "700",
+      "css": "https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap",
+      "url": "https://fonts.gstatic.com/s/andika/v27/mem8Ya6iyW-Lwqg40ZMFVZ0bf8pkAg.woff2",
+      "bytes": 12780,
+      "sha256": "6b73917d10eda36aa87b423b05100dd461ea23f88882edabcb8e5001fde80f2b"
+    },
+    {
+      "file": "la-belle-aurore-latin-400.woff2",
+      "weight": "400",
+      "css": "https://fonts.googleapis.com/css2?family=La+Belle+Aurore:wght@400&display=swap",
+      "url": "https://fonts.gstatic.com/s/labelleaurore/v23/RrQIbot8-mNYKnGNDkWlocovHeI4HO2EF1qELw.woff2",
+      "bytes": 17776,
+      "sha256": "33620d56cabf74d6d54905b300e52ba10d05c0420fb817590946a7d6489b8e01"
+    },
+    {
+      "file": "caveat-latin-500-700.woff2",
+      "weight": "500 700",
+      "css": "https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap",
+      "url": "https://fonts.gstatic.com/s/caveat/v23/Wnz6HAc5bAfYB2Q7ZjYYiAzcPA.woff2",
+      "bytes": 74572,
+      "sha256": "7a0049db01fdd8fc7af7ef36675862a72a5c76d0cb45ae63c9f5b6f1b769dac7"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Andika, Caveat, La_Belle_Aurore } from 'next/font/google';
+import localFont from 'next/font/local';
 import { UmamiScript } from '@/components/analytics/UmamiScript';
 import { GoogleAnalytics } from '@/components/consent/GoogleAnalytics';
 import { CookieConsent } from '@/components/consent/CookieConsent';
@@ -8,22 +8,24 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { buildOrganization, buildWebSite } from '@/lib/seo/jsonld';
 import './globals.css';
 
-const andika = Andika({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+const andika = localFont({
+  src: [
+    { path: './fonts/andika-latin-400.woff2', weight: '400' },
+    { path: './fonts/andika-latin-700.woff2', weight: '700' },
+  ],
   display: 'swap',
   variable: '--font-andika',
 });
 
-const caveat = Caveat({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
+const caveat = localFont({
+  src: './fonts/caveat-latin-500-700.woff2',
+  weight: '500 700',
   display: 'swap',
   variable: '--font-caveat',
 });
 
-const aurore = La_Belle_Aurore({
-  subsets: ['latin'],
+const aurore = localFont({
+  src: './fonts/la-belle-aurore-latin-400.woff2',
   weight: '400',
   display: 'swap',
   variable: '--font-aurore',
