@@ -6,7 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   // Standalone output for Docker self-hosted deployment. Vercel ignores this.
-  output: 'standalone',
+  output: process.platform === 'win32' && !process.env.CI ? undefined : 'standalone',
   experimental: {
     mdxRs: true,
   },
@@ -16,9 +16,6 @@ const nextConfig = {
   // Redirections permanentes en 301 (et non 308, valeur par défaut de `permanent: true`).
   async redirects() {
     return [
-      // /blog n'avait aucun article propre : il doublait /ressources.
-      { source: '/blog', destination: '/ressources', statusCode: 301 },
-      { source: '/blog/:path*', destination: '/ressources', statusCode: 301 },
       // Anciens modules, remplacés par le socle et les 4 packs.
       {
         source: '/modules/parcours-bts',
