@@ -78,7 +78,8 @@ jobs:
 
   e2e:
     name: E2E tests (Playwright)
-    runs-on: ubuntu-latest
+    # Playwright 1.60.0 du lockfile ne prend pas en charge Ubuntu 26.04.
+    runs-on: ubuntu-24.04
     needs: build
     steps:
       - uses: actions/checkout@v4
