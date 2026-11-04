@@ -69,6 +69,12 @@ export function ModuleSeeAlso({ packs, resources }: ModuleSeeAlsoProps) {
               </Link>
             </li>
             <li>
+              <Link href="/logiciel-gestion-ecole-abidjan" className={LINK_CLASS}>
+                Logiciel de gestion d&apos;école à Abidjan
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+            <li>
               <Link href="/faq" className={LINK_CLASS}>
                 Questions fréquentes
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

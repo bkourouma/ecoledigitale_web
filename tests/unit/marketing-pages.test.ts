@@ -8,6 +8,7 @@ import {
   stripInlineLinks,
 } from '@/lib/marketing/inline-links';
 import {
+  ABIDJAN_PAGE,
   COTE_D_IVOIRE_PAGE,
   DESCRIPTION_MAX,
   FEATURE_PAGES,
@@ -20,6 +21,7 @@ import {
 
 const CONTENT_PAGES: readonly ContentPageData[] = [
   COTE_D_IVOIRE_PAGE,
+  ABIDJAN_PAGE,
   FONCTIONS_HUB_PAGE,
   ...FEATURE_PAGES,
   TARIFS_PAGE,

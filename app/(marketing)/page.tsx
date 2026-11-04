@@ -81,6 +81,7 @@ const DAILY_FEATURES: { title: string; description: string; href?: string }[] = 
 
 const RESOURCE_LINKS: { href: string; label: string }[] = [
   { href: '/cote-d-ivoire', label: "Logiciel de gestion scolaire en Côte d'Ivoire" },
+  { href: '/logiciel-gestion-ecole-abidjan', label: "Logiciel de gestion d'école à Abidjan" },
   { href: '/tarifs', label: 'Tarifs : des offres sur devis' },
   { href: '/faq', label: 'Questions fréquentes' },
   {

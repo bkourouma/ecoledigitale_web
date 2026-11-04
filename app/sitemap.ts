@@ -5,6 +5,7 @@ import { getAllAuthorSlugs } from '@/lib/content/authors';
 import { STATIC_PAGE_LASTMOD, readContentUpdatedAt } from '@/lib/seo/lastmod';
 import { FAQ_PAGE } from '@/lib/marketing/faq';
 import {
+  ABIDJAN_PAGE,
   COTE_D_IVOIRE_PAGE,
   FEATURE_PAGES,
   FONCTIONS_HUB_PAGE,
@@ -69,6 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     contentRoute(base, COTE_D_IVOIRE_PAGE, 'monthly', 0.9),
+    contentRoute(base, ABIDJAN_PAGE, 'monthly', 0.8),
     contentRoute(base, FONCTIONS_HUB_PAGE, 'monthly', 0.8),
     ...FEATURE_PAGES.map((page) => contentRoute(base, page, 'monthly', 0.8)),
     contentRoute(base, TARIFS_PAGE, 'monthly', 0.8),

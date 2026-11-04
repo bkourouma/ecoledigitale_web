@@ -123,7 +123,14 @@ export default function AProposPage() {
             de scolarité et communication avec les parents dans une seule plateforme. Il est édité
             par {PUBLISHER.name} à {PUBLISHER.city}, {PUBLISHER.country}, et équipe les écoles,
             collèges, lycées, établissements supérieurs et centres de formation d&apos;Afrique
-            francophone.
+            francophone. Les écoles d&apos;Abidjan trouveront le détail sur la page{' '}
+            <Link
+              href="/logiciel-gestion-ecole-abidjan"
+              className="text-primary-700 hover:bg-marker-soft font-bold underline decoration-2 underline-offset-4"
+            >
+              logiciel de gestion d&apos;école à Abidjan
+            </Link>
+            .
           </p>
           <p className="text-ink-muted mt-4 max-w-2xl text-lg leading-relaxed">
             Ne pas confondre avec une école du numérique : EcoleDigitale est un outil de gestion

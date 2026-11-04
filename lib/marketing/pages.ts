@@ -164,12 +164,101 @@ export const COTE_D_IVOIRE_PAGE: ContentPageData = {
   seeAlso: [
     { href: '/fonctions', label: 'Toutes les fonctions' },
     { href: '/faq', label: 'Questions fréquentes' },
+    { href: '/logiciel-gestion-ecole-abidjan', label: "Logiciel de gestion d'école à Abidjan" },
     { href: '/tarifs', label: 'Tarifs : des offres sur devis' },
     {
       href: '/ressources/guides/choisir-logiciel-gestion-ecole-privee',
       label: "Guide : choisir un logiciel d'école en Côte d'Ivoire",
     },
     { href: '/ressources', label: 'Guides et glossaire' },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Abidjan
+// ---------------------------------------------------------------------------
+
+export const ABIDJAN_PAGE: ContentPageData = {
+  path: '/logiciel-gestion-ecole-abidjan',
+  kicker: 'Logiciel de gestion scolaire à Abidjan',
+  h1: "Un logiciel de gestion d'école pour les établissements d'Abidjan",
+  lead: "EcoleDigitale est édité par Alliance Consultants, à Abidjan. Notes et bulletins, examens nationaux, frais de scolarité par Mobile Money et portail parents : une seule plateforme pour une école privée ou un groupe scolaire.",
+  seo: {
+    title: "Logiciel de gestion d'école à Abidjan",
+    description:
+      "Logiciel de gestion d'école privée à Abidjan : bulletins, CEPE, BEPC, BAC, frais par Mobile Money et portail parents. Édité à Abidjan. Demandez une démo.",
+  },
+  updatedAt: '2026-11-04',
+  sections: [
+    {
+      heading: "Ce dont une école d'Abidjan a besoin",
+      paragraphs: [
+        "Une école privée d'Abidjan jongle avec les notes, les absences, les frais de scolarité et les échanges avec les familles, souvent dans des tableurs et des groupes de messagerie séparés. EcoleDigitale réunit ces tâches dans un socle commun, auquel s'ajoutent les packs des cycles de votre établissement.",
+        "Un groupe scolaire gère plusieurs établissements depuis un seul compte et combine les packs selon les cycles de chaque site. Une école seule peut démarrer avec le socle, et vos listes d'élèves et de classes s'importent depuis Excel.",
+      ],
+    },
+    {
+      heading: 'Bulletins et examens',
+      paragraphs: [
+        "Les enseignants saisissent leurs notes ; les moyennes et les bulletins sont calculés selon les règles ivoiriennes, sans tableur à rapprocher en fin de période. Le [conseil de classe](/ressources/glossaire/conseil-de-classe) retrouve les résultats et les absences déjà saisis.",
+        "EcoleDigitale suit aussi l'éligibilité des élèves au [CEPE](/ressources/glossaire/cepe), au [BEPC](/ressources/glossaire/bepc) et au [BAC](/ressources/glossaire/bac). Le détail est sur la page [notes, moyennes et bulletins](/fonctions/bulletins-et-notes).",
+      ],
+    },
+    {
+      heading: 'Frais de scolarité par Mobile Money',
+      paragraphs: [
+        "Les parents règlent les frais de scolarité par Mobile Money, directement depuis la plateforme : le paiement est intégré à EcoleDigitale. L'établissement suit ce qui est payé, ce qui reste dû et les retards, élève par élève, et peut écrire aux familles par SMS et par WhatsApp.",
+        'Voir la page [frais de scolarité et Mobile Money](/fonctions/frais-de-scolarite) et le [portail parents](/fonctions/portail-parents).',
+      ],
+    },
+    {
+      heading: 'Un démarrage en 1 à 3 semaines',
+      paragraphs: [
+        'Comptez 1 à 3 semaines entre la signature et la mise en service. Nous paramétrons votre instance, importons vos données existantes et formons vos équipes clés.',
+        'Les offres sont établies sur devis : voir la page [tarifs](/tarifs).',
+      ],
+    },
+    {
+      heading: 'Un support de proximité',
+      paragraphs: [
+        "Alliance Consultants, qui édite EcoleDigitale, est à Abidjan. L'équipe est joignable en français par e-mail, WhatsApp ou téléphone selon votre préférence, sans chatbot intermédiaire avant de parler à un humain. Toute demande reçoit une réponse sous 48 h ouvrées. Pour en savoir plus sur l'éditeur, voir la page [à propos](/a-propos).",
+      ],
+    },
+  ],
+  packs: ['socle-ecoledigitale', 'ecoledigitale-primary', 'ecoledigitale-secondary'],
+  faq: [
+    {
+      question: 'Quel logiciel de gestion choisir pour une école privée à Abidjan ?',
+      answer:
+        "EcoleDigitale est conçu pour les écoles privées de Côte d'Ivoire : notes et bulletins selon les règles ivoiriennes, suivi de l'éligibilité au CEPE, au BEPC et au BAC, frais de scolarité par Mobile Money et portail parents. Notre [guide pour choisir un logiciel](/ressources/guides/choisir-logiciel-gestion-ecole-privee) détaille les critères.",
+    },
+    {
+      question: 'EcoleDigitale convient-il à un groupe scolaire ?',
+      answer:
+        'Oui. Un groupe scolaire gère plusieurs établissements depuis un seul compte et combine les packs selon les cycles de chaque site.',
+    },
+    {
+      question: 'Combien de temps faut-il pour démarrer ?',
+      answer:
+        'Comptez 1 à 3 semaines entre la signature et la mise en service : paramétrage de votre instance, import de vos données existantes et formation de vos équipes clés.',
+    },
+    {
+      question: 'Les parents peuvent-ils payer la scolarité par Mobile Money ?',
+      answer:
+        "Oui. Le paiement des frais de scolarité par Mobile Money est intégré à EcoleDigitale, et l'établissement suit les paiements et les retards.",
+    },
+    {
+      question: 'Qui répond à nos questions après la mise en service ?',
+      answer:
+        "Alliance Consultants, l'éditeur, basé à Abidjan. L'équipe est joignable en français par e-mail, WhatsApp ou téléphone.",
+    },
+  ],
+  seeAlso: [
+    { href: '/cote-d-ivoire', label: "Logiciel de gestion scolaire en Côte d'Ivoire" },
+    { href: '/modules/socle-ecoledigitale', label: 'Le socle EcoleDigitale' },
+    { href: '/fonctions', label: 'Toutes les fonctions' },
+    { href: '/a-propos', label: "À propos d'EcoleDigitale et d'Alliance Consultants" },
+    { href: '/faq', label: 'Questions fréquentes' },
   ],
 };
 
