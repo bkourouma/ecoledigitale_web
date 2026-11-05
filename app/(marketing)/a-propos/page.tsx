@@ -115,8 +115,8 @@ export default function AProposPage() {
       <section className="container-wide grid gap-14 pt-12 pb-12 md:pt-16 lg:grid-cols-[1.4fr_0.6fr] lg:items-start lg:gap-12">
         <div>
           <h1 className="font-display text-display-md text-primary-800 font-bold">
-            Une plateforme pensée pour celles et ceux qui font{' '}
-            <span className="marker">tourner l&apos;éducation</span> au quotidien.
+            Une plateforme pour celles et ceux qui font{' '}
+            <span className="marker">tourner l&apos;éducation</span>.
           </h1>
           <p className="text-ink-muted mt-6 max-w-2xl text-lg leading-relaxed">
             EcoleDigitale est un logiciel de gestion scolaire : notes et bulletins, absences, frais

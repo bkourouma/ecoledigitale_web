@@ -414,9 +414,9 @@ export const PORTAIL_PARENTS_PAGE: ContentPageData = {
       ],
     },
     {
-      heading: 'Payer les frais de scolarité par Mobile Money',
+      heading: 'Les frais de scolarité dans le portail',
       paragraphs: [
-        'Les parents règlent les frais de scolarité par Mobile Money, directement depuis la plateforme, et retrouvent dans le portail ce qui reste dû. Voir la page [frais de scolarité et Mobile Money](/fonctions/frais-de-scolarite).',
+        'Les parents retrouvent dans le portail ce qui reste dû et peuvent régler par Mobile Money, directement depuis la plateforme. Le détail du paiement se lit sur la page [frais de scolarité et Mobile Money](/fonctions/frais-de-scolarite).',
       ],
     },
     {
@@ -563,7 +563,7 @@ export const FEATURE_LABELS: Record<string, string> = {
 export const FONCTIONS_HUB_PAGE: ContentPageData = {
   path: '/fonctions',
   kicker: 'Fonctions',
-  h1: 'Les fonctions d’EcoleDigitale, de la saisie des notes au paiement des frais',
+  h1: 'Les fonctions d’EcoleDigitale, des notes au paiement des frais',
   lead: "EcoleDigitale réunit dans un seul logiciel ce qu'un établissement scolaire fait chaque jour : notes et bulletins, absences, frais de scolarité, communication avec les parents. Chaque fonction a sa page, avec ce qu'elle couvre et les cycles concernés.",
   seo: {
     title: 'Fonctions du logiciel de gestion scolaire',

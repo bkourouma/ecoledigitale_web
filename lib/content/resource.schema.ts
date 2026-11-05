@@ -31,12 +31,13 @@ export const RESOURCE_PERSONA_LABELS: Record<Persona, string> = {
   tous: 'Tous publics',
 };
 
-export const RESOURCE_TYPES = ['guides', 'etudes-de-cas', 'glossaire'] as const;
+export const RESOURCE_TYPES = ['blog', 'guides', 'etudes-de-cas', 'glossaire'] as const;
 export const ResourceTypeSchema = z.enum(RESOURCE_TYPES);
 export type ResourceType = z.infer<typeof ResourceTypeSchema>;
 
 /** Libellés d'affichage par type — badges, fil d'Ariane, titres de section. */
 export const RESOURCE_TYPE_LABELS: Record<ResourceType, { singular: string; plural: string }> = {
+  blog: { singular: 'Article', plural: 'Blog' },
   guides: { singular: 'Guide', plural: 'Guides' },
   'etudes-de-cas': { singular: 'Étude de cas', plural: 'Études de cas' },
   glossaire: { singular: 'Définition', plural: 'Glossaire' },
@@ -108,6 +109,10 @@ export const ResourceFrontmatterBaseSchema = z.object({
 // Sous-types discriminés
 // ---------------------------------------------------------------------------
 
+export const BlogFrontmatterSchema = ResourceFrontmatterBaseSchema.extend({
+  type: z.literal('blog'),
+});
+
 export const GuideFrontmatterSchema = ResourceFrontmatterBaseSchema.extend({
   type: z.literal('guides'),
 });
@@ -132,11 +137,13 @@ export const GlossaryFrontmatterSchema = ResourceFrontmatterBaseSchema.extend({
 });
 
 export const ResourceFrontmatterSchema = z.discriminatedUnion('type', [
+  BlogFrontmatterSchema,
   GuideFrontmatterSchema,
   CaseStudyFrontmatterSchema,
   GlossaryFrontmatterSchema,
 ]);
 
+export type BlogFrontmatter = z.infer<typeof BlogFrontmatterSchema>;
 export type GuideFrontmatter = z.infer<typeof GuideFrontmatterSchema>;
 export type CaseStudyFrontmatter = z.infer<typeof CaseStudyFrontmatterSchema>;
 export type GlossaryFrontmatter = z.infer<typeof GlossaryFrontmatterSchema>;

@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/modules', label: 'Packs' },
   { href: '/tarifs', label: 'Tarifs' },
   { href: '/ressources', label: 'Ressources' },
+  { href: '/blog', label: 'Blog' },
   { href: '/faq', label: 'FAQ' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/demander-demo', label: 'Demander une démonstration' },

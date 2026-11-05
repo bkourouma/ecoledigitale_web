@@ -97,6 +97,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${base}/blog`,
+      lastModified: toDate(hubLastmod),
+      changeFrequency: 'weekly',
+      priority: 0.75,
+    },
+    {
       url: `${base}/confidentialite`,
       lastModified: toDate(readContentUpdatedAt('confidentialite.mdx')),
       changeFrequency: 'yearly',
