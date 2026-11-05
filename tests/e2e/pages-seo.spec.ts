@@ -171,7 +171,16 @@ test.describe('Navigation et pied de page', () => {
     } else {
       const nav = page.locator('header').getByRole('navigation', { name: 'Navigation principale' });
       await expect(nav.getByRole('link', { name: 'Tarifs' })).toBeVisible();
-      await expect(nav.getByRole('link', { name: 'Ressources' })).toBeVisible();
+      const resTrigger = nav.getByRole('button', { name: 'Ressources' });
+      await expect(resTrigger).toBeVisible();
+      await expect(resTrigger).toHaveAttribute('aria-expanded', 'false');
+      await resTrigger.click();
+      await expect(resTrigger).toHaveAttribute('aria-expanded', 'true');
+      for (const label of ['Blog', 'Guides pratiques', 'Glossaire', 'Toutes les ressources']) {
+        await expect(nav.getByRole('link', { name: label })).toBeVisible();
+      }
+      await page.keyboard.press('Escape');
+      await expect(resTrigger).toHaveAttribute('aria-expanded', 'false');
       const trigger = nav.getByRole('button', { name: 'Fonctions' });
       await expect(trigger).toHaveAttribute('aria-expanded', 'false');
       await trigger.click();
