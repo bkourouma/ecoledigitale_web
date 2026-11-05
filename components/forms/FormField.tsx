@@ -42,7 +42,7 @@ export function FormField({
     <>
       {label}
       {required && (
-        <span className="ml-1 text-red-600" aria-hidden="true">
+        <span className="ml-1 text-red-700" aria-hidden="true">
           *
         </span>
       )}
@@ -68,7 +68,7 @@ export function FormField({
       <div data-described-by={describedBy}>{children}</div>
 
       {error && (
-        <p id={errorId} role="alert" className="text-sm text-red-600">
+        <p id={errorId} role="alert" className="text-sm text-red-700">
           {error}
         </p>
       )}
