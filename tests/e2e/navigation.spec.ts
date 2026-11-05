@@ -92,7 +92,7 @@ test.describe('Navigation links — toutes les routes répondent 200', () => {
 });
 
 test.describe('Liens du header et footer', () => {
-  test('le menu principal expose Ressources et n’expose plus Blog', async ({ page, isMobile }) => {
+  test('le menu principal expose Ressources et donne accès au Blog', async ({ page, isMobile }) => {
     await page.goto('/');
     if (isMobile) {
       await page
@@ -103,8 +103,12 @@ test.describe('Liens du header et footer', () => {
     const nav = page.locator('header').getByRole('navigation').first();
     const mobileNav = page.locator('header nav[aria-label="Navigation mobile"]');
     const scope = isMobile ? mobileNav : nav;
-    await expect(scope.getByRole('link', { name: 'Ressources' })).toBeVisible();
-    await expect(scope.getByRole('link', { name: 'Blog' })).toHaveCount(0);
+    if (isMobile) {
+      await expect(scope.getByRole('link', { name: 'Ressources' })).toBeVisible();
+    } else {
+      await scope.getByRole('button', { name: 'Ressources' }).click();
+    }
+    await expect(scope.getByRole('link', { name: 'Blog' })).toBeVisible();
   });
 
   test('le logo header ramène à l’accueil depuis n’importe quelle page', async ({ page }) => {

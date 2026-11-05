@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { spawn } = require('node:child_process');
 const { existsSync, rmSync } = require('node:fs');
 const { join } = require('node:path');
@@ -24,7 +25,9 @@ function findChrome() {
         ? ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']
         : ['google-chrome', 'chromium-browser', 'chromium'];
 
-  return candidates.find((candidate) => candidate && (process.platform !== 'win32' || existsSync(candidate)));
+  return candidates.find(
+    (candidate) => candidate && (process.platform !== 'win32' || existsSync(candidate)),
+  );
 }
 
 async function waitForChrome() {
@@ -87,6 +90,9 @@ async function main() {
       '--disable-gpu',
       '--no-first-run',
       '--no-default-browser-check',
+      ...(process.platform === 'linux'
+        ? ['--no-sandbox', '--disable-dev-shm-usage', '--disable-setuid-sandbox']
+        : []),
     ],
     { stdio: 'ignore' },
   );
