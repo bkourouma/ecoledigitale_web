@@ -414,9 +414,9 @@ export const PORTAIL_PARENTS_PAGE: ContentPageData = {
       ],
     },
     {
-      heading: 'Payer les frais de scolarité par Mobile Money',
+      heading: 'Les frais de scolarité dans le portail',
       paragraphs: [
-        'Les parents règlent les frais de scolarité par Mobile Money, directement depuis la plateforme, et retrouvent dans le portail ce qui reste dû. Voir la page [frais de scolarité et Mobile Money](/fonctions/frais-de-scolarite).',
+        'Les parents retrouvent dans le portail ce qui reste dû et peuvent régler par Mobile Money, directement depuis la plateforme. Le détail du paiement se lit sur la page [frais de scolarité et Mobile Money](/fonctions/frais-de-scolarite).',
       ],
     },
     {
