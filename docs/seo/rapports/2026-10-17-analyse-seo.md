@@ -1,16 +1,16 @@
 ---
 type: rapport-seo
-site: "ecoledigitale.allianceconsultants.net"
-nom: "EcoleDigitale"
+site: 'ecoledigitale.allianceconsultants.net'
+nom: 'EcoleDigitale'
 date: 2026-10-17
 source: agent-seo-dashboard
-auteur: "Claude (claude-sonnet-5-5) via Mission Control"
+auteur: 'Claude (claude-sonnet-5-5) via Mission Control'
 search_console: false
 recommandations: 15
 priorite_haute: 5
 priorite_moyenne: 7
 priorite_basse: 3
-run: "https://dashboard.allianceconsultants.net/runs/cmvczy8cf002x21pgqkzgazpz"
+run: 'https://dashboard.allianceconsultants.net/runs/cmvczy8cf002x21pgqkzgazpz'
 ---
 
 # Rapport SEO · ecoledigitale.allianceconsultants.net · 17 octobre 2026
@@ -44,23 +44,23 @@ Le site est récent et n'a aucune donnée Search Console (0 clic, 0 affichage), 
 
 Toutes les recommandations, les plus prioritaires d'abord. Le détail de chacune est dans la section indiquée.
 
-| N° | Priorité | Action | Recommandation | Page | Effort | Section |
-| --- | --- | --- | --- | --- | --- | --- |
-| R1 | haute | Ajouter du contenu | Ajouter des preuves et des visuels sur l'accueil | https://ecoledigitale.allianceconsultants.net/ | moyen | 4.1 |
-| R3 | haute | Réécrire | Afficher des ordres de grandeur en FCFA | https://ecoledigitale.allianceconsultants.net/tarifs | petit | 4.2 |
-| R10 | haute | Nouvelle page | Créer une page « Logiciel de gestion scolaire à Abidjan » | nouvelle page / site | moyen | 5 |
-| R11 | haute | Nouvelle page | Créer un guide « Prix d'un logiciel de gestion scolaire en FCFA » | nouvelle page / site | moyen | 5 |
-| R14 | haute | Technique | Ajouter des images avec alt et créer de l'autorité externe | nouvelle page / site | moyen | 5 |
-| R2 | moyenne | Réécrire | Réécrire title et meta avec Abidjan et la valeur concrète | https://ecoledigitale.allianceconsultants.net/ | petit | 4.1 |
-| R4 | moyenne | Ajouter du contenu | Étoffer la page packs avec un guide de choix | https://ecoledigitale.allianceconsultants.net/modules | petit | 4.3 |
-| R5 | moyenne | Réécrire | Clarifier la cible de la page socle et différencier de l'accueil | https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale | petit | 4.4 |
-| R8 | moyenne | Réécrire | Différencier la page pays de l'accueil et ajouter Abidjan | https://ecoledigitale.allianceconsultants.net/cote-d-ivoire | petit | 4.7 |
-| R12 | moyenne | Ajouter du contenu | Donner une page de contenu aux fonctions bulletins et frais | https://ecoledigitale.allianceconsultants.net/fonctions/frais-de-scolarite | moyen | 5 |
-| R13 | moyenne | Technique | Alléger le maillage et ajouter des liens contextuels | nouvelle page / site | petit | 5 |
-| R15 | moyenne | Technique | Brancher Search Console et Bing, et soumettre le sitemap | nouvelle page / site | petit | 5 |
-| R6 | basse | Ajouter du contenu | Ajouter des éléments de réassurance au formulaire | https://ecoledigitale.allianceconsultants.net/demander-demo | petit | 4.5 |
-| R7 | basse | Réécrire | Structurer le hub avec des H2 par thème | https://ecoledigitale.allianceconsultants.net/ressources | petit | 4.6 |
-| R9 | basse | Retirer du contenu | Réduire la section paiement du portail parents | https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents | petit | 4.8 |
+| N°  | Priorité | Action             | Recommandation                                                    | Page                                                                       | Effort | Section |
+| --- | -------- | ------------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------- | ------ | ------- |
+| R1  | haute    | Ajouter du contenu | Ajouter des preuves et des visuels sur l'accueil                  | https://ecoledigitale.allianceconsultants.net/                             | moyen  | 4.1     |
+| R3  | haute    | Réécrire           | Afficher des ordres de grandeur en FCFA                           | https://ecoledigitale.allianceconsultants.net/tarifs                       | petit  | 4.2     |
+| R10 | haute    | Nouvelle page      | Créer une page « Logiciel de gestion scolaire à Abidjan »         | nouvelle page / site                                                       | moyen  | 5       |
+| R11 | haute    | Nouvelle page      | Créer un guide « Prix d'un logiciel de gestion scolaire en FCFA » | nouvelle page / site                                                       | moyen  | 5       |
+| R14 | haute    | Technique          | Ajouter des images avec alt et créer de l'autorité externe        | nouvelle page / site                                                       | moyen  | 5       |
+| R2  | moyenne  | Réécrire           | Réécrire title et meta avec Abidjan et la valeur concrète         | https://ecoledigitale.allianceconsultants.net/                             | petit  | 4.1     |
+| R4  | moyenne  | Ajouter du contenu | Étoffer la page packs avec un guide de choix                      | https://ecoledigitale.allianceconsultants.net/modules                      | petit  | 4.3     |
+| R5  | moyenne  | Réécrire           | Clarifier la cible de la page socle et différencier de l'accueil  | https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale  | petit  | 4.4     |
+| R8  | moyenne  | Réécrire           | Différencier la page pays de l'accueil et ajouter Abidjan         | https://ecoledigitale.allianceconsultants.net/cote-d-ivoire                | petit  | 4.7     |
+| R12 | moyenne  | Ajouter du contenu | Donner une page de contenu aux fonctions bulletins et frais       | https://ecoledigitale.allianceconsultants.net/fonctions/frais-de-scolarite | moyen  | 5       |
+| R13 | moyenne  | Technique          | Alléger le maillage et ajouter des liens contextuels              | nouvelle page / site                                                       | petit  | 5       |
+| R15 | moyenne  | Technique          | Brancher Search Console et Bing, et soumettre le sitemap          | nouvelle page / site                                                       | petit  | 5       |
+| R6  | basse    | Ajouter du contenu | Ajouter des éléments de réassurance au formulaire                 | https://ecoledigitale.allianceconsultants.net/demander-demo                | petit  | 4.5     |
+| R7  | basse    | Réécrire           | Structurer le hub avec des H2 par thème                           | https://ecoledigitale.allianceconsultants.net/ressources                   | petit  | 4.6     |
+| R9  | basse    | Retirer du contenu | Réduire la section paiement du portail parents                    | https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents    | petit  | 4.8     |
 
 ## 4. Analyse page par page
 
@@ -329,35 +329,35 @@ Aucune donnée de suivi n'existe (0 objectif suivi, pas de part de visibilité).
 
 Propositions de Claude, à valider ou écarter sur la page du site dans le dashboard (10 objectifs suivis au maximum).
 
-| Mot-clé | Pourquoi | Page qui le portera |
-| --- | --- | --- |
-| logiciel de gestion scolaire Côte d'Ivoire | Requête centrale de l'offre, déjà portée par le title et le H1 de l'accueil, et concurrence surtout composée de blogs et d'annuaires. | https://ecoledigitale.allianceconsultants.net/ |
-| logiciel gestion école Abidjan | Intention d'achat locale, très visée par kolonell.com. Nécessite une page dédiée. | à créer |
-| prix logiciel gestion école Côte d'Ivoire | Les résultats montrent que les internautes cherchent des fourchettes en FCFA. La page /tarifs n'affiche aucun prix, d'où un écart à combler. | https://ecoledigitale.allianceconsultants.net/tarifs |
-| logiciel gestion école privée | Cible précise (directeurs d'écoles privées, groupes scolaires), directement liée à la page socle. | https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale |
-| paiement frais de scolarité Mobile Money | Fonction différenciante du produit et sujet de forte demande (usage massif du mobile money pour les frais scolaires selon la GSMA). | https://ecoledigitale.allianceconsultants.net/fonctions/frais-de-scolarite |
-| logiciel bulletins scolaires Côte d'Ivoire | Fonction centrale pour les enseignants et directeurs, avec règles ivoiriennes (MGA, conseil de classe). | https://ecoledigitale.allianceconsultants.net/fonctions/bulletins-et-notes |
-| portail parents d'élèves | Fonction dédiée avec page complète. Concurrence à vérifier, car l'expression est générique. | https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents |
-| MGA moyenne annuelle Côte d'Ivoire | Requête informationnelle ivoirienne peu disputée, avec une fiche glossaire déjà publiée. Attire des directeurs d'école et des enseignants. | https://ecoledigitale.allianceconsultants.net/ressources/glossaire/mga |
-| logiciel gestion institut BTS | Segment spécifique (supérieur, BTS) avec un guide existant et un pack Higher. | https://ecoledigitale.allianceconsultants.net/ressources/guides/digitaliser-institut-bts |
-| logiciel gestion groupe scolaire multi-établissements | Cible à forte valeur (contrats plus élevés), argument multi-établissement du produit, peu de pages dédiées observées. | à créer |
+| Mot-clé                                               | Pourquoi                                                                                                                                     | Page qui le portera                                                                      |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| logiciel de gestion scolaire Côte d'Ivoire            | Requête centrale de l'offre, déjà portée par le title et le H1 de l'accueil, et concurrence surtout composée de blogs et d'annuaires.        | https://ecoledigitale.allianceconsultants.net/                                           |
+| logiciel gestion école Abidjan                        | Intention d'achat locale, très visée par kolonell.com. Nécessite une page dédiée.                                                            | à créer                                                                                  |
+| prix logiciel gestion école Côte d'Ivoire             | Les résultats montrent que les internautes cherchent des fourchettes en FCFA. La page /tarifs n'affiche aucun prix, d'où un écart à combler. | https://ecoledigitale.allianceconsultants.net/tarifs                                     |
+| logiciel gestion école privée                         | Cible précise (directeurs d'écoles privées, groupes scolaires), directement liée à la page socle.                                            | https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale                |
+| paiement frais de scolarité Mobile Money              | Fonction différenciante du produit et sujet de forte demande (usage massif du mobile money pour les frais scolaires selon la GSMA).          | https://ecoledigitale.allianceconsultants.net/fonctions/frais-de-scolarite               |
+| logiciel bulletins scolaires Côte d'Ivoire            | Fonction centrale pour les enseignants et directeurs, avec règles ivoiriennes (MGA, conseil de classe).                                      | https://ecoledigitale.allianceconsultants.net/fonctions/bulletins-et-notes               |
+| portail parents d'élèves                              | Fonction dédiée avec page complète. Concurrence à vérifier, car l'expression est générique.                                                  | https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents                  |
+| MGA moyenne annuelle Côte d'Ivoire                    | Requête informationnelle ivoirienne peu disputée, avec une fiche glossaire déjà publiée. Attire des directeurs d'école et des enseignants.   | https://ecoledigitale.allianceconsultants.net/ressources/glossaire/mga                   |
+| logiciel gestion institut BTS                         | Segment spécifique (supérieur, BTS) avec un guide existant et un pack Higher.                                                                | https://ecoledigitale.allianceconsultants.net/ressources/guides/digitaliser-institut-bts |
+| logiciel gestion groupe scolaire multi-établissements | Cible à forte valeur (contrats plus élevés), argument multi-établissement du produit, peu de pages dédiées observées.                        | à créer                                                                                  |
 
 ## 8. Annexes : pages lues, robots.txt, sitemap, mots-clés
 
-| Page | Statut | Title | Meta description | H1 | Mots | Images sans alt | Données structurées |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| https://ecoledigitale.allianceconsultants.net/ | 200 | Logiciel de gestion scolaire Côte d'Ivoire \| EcoleDigitale | 153 car. | Le logiciel de gestion scolaire des établissements de Côte d'Ivoire. | 1 134 | 0 | Organization, WebSite, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/faq | 200 | FAQ du logiciel de gestion scolaire \| EcoleDigitale | 148 car. | Questions fréquentes sur EcoleDigitale | 905 | 0 | Organization, WebSite, BreadcrumbList, WebPage, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/tarifs | 200 | Tarifs du logiciel de gestion scolaire \| EcoleDigitale | 149 car. | Tarifs : des offres sur devis, adaptées à votre établissement | 658 | 0 | Organization, WebSite, BreadcrumbList, WebPage, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/modules | 200 | Packs : primaire, secondaire, supérieur, LMS \| EcoleDigitale | 141 car. | Un socle commun et quatre packs par cycle | 378 | 0 | Organization, WebSite, BreadcrumbList |
-| https://ecoledigitale.allianceconsultants.net/a-propos | 200 | À propos du logiciel de gestion scolaire \| EcoleDigitale | 148 car. | Une plateforme pensée pour celles et ceux qui font tourner l'éducation au quotidien. | 721 | 0 | Organization, WebSite, BreadcrumbList |
-| https://ecoledigitale.allianceconsultants.net/fonctions | 200 | Fonctions du logiciel de gestion scolaire \| EcoleDigitale | 151 car. | Les fonctions d’EcoleDigitale, de la saisie des notes au paiement des frais | 565 | 0 | Organization, WebSite, BreadcrumbList, WebPage, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/ressources | 200 | Ressources : guides et glossaire scolaire \| EcoleDigitale | 130 car. | Guides et glossaire de la gestion scolaire | 501 | 0 | Organization, WebSite, BreadcrumbList |
-| https://ecoledigitale.allianceconsultants.net/cote-d-ivoire | 200 | Logiciel de gestion d'école en Côte d'Ivoire \| EcoleDigitale | 146 car. | Un logiciel de gestion scolaire conçu pour les écoles de Côte d'Ivoire | 977 | 0 | Organization, WebSite, BreadcrumbList, WebPage, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/demander-demo | 200 | Demander une démonstration du logiciel \| EcoleDigitale | 148 car. | Découvrez EcoleDigitale avec un conseiller | 80 | 0 | Organization, WebSite, BreadcrumbList |
-| https://ecoledigitale.allianceconsultants.net/confidentialite | 200 | Confidentialité et protection des données \| EcoleDigitale | 131 car. | Confidentialité et protection des données | 343 | 0 | Organization, WebSite, BreadcrumbList |
-| https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents | 200 | Portail parents d'élèves : notes et absences \| EcoleDigitale | 149 car. | Un espace parents pour suivre résultats, absences et frais | 575 | 0 | Organization, WebSite, BreadcrumbList, WebPage, FAQPage |
-| https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale | 200 | Logiciel de gestion d'école privée \| EcoleDigitale | 146 car. | Logiciel de gestion d'école privée et de groupe scolaire | 776 | 0 | Organization, WebSite, BreadcrumbList, WebPage, SoftwareApplication, FAQPage |
+| Page                                                                      | Statut | Title                                                         | Meta description | H1                                                                                   | Mots  | Images sans alt | Données structurées                                                          |
+| ------------------------------------------------------------------------- | ------ | ------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------ | ----- | --------------- | ---------------------------------------------------------------------------- |
+| https://ecoledigitale.allianceconsultants.net/                            | 200    | Logiciel de gestion scolaire Côte d'Ivoire \| EcoleDigitale   | 153 car.         | Le logiciel de gestion scolaire des établissements de Côte d'Ivoire.                 | 1 134 | 0               | Organization, WebSite, FAQPage                                               |
+| https://ecoledigitale.allianceconsultants.net/faq                         | 200    | FAQ du logiciel de gestion scolaire \| EcoleDigitale          | 148 car.         | Questions fréquentes sur EcoleDigitale                                               | 905   | 0               | Organization, WebSite, BreadcrumbList, WebPage, FAQPage                      |
+| https://ecoledigitale.allianceconsultants.net/tarifs                      | 200    | Tarifs du logiciel de gestion scolaire \| EcoleDigitale       | 149 car.         | Tarifs : des offres sur devis, adaptées à votre établissement                        | 658   | 0               | Organization, WebSite, BreadcrumbList, WebPage, FAQPage                      |
+| https://ecoledigitale.allianceconsultants.net/modules                     | 200    | Packs : primaire, secondaire, supérieur, LMS \| EcoleDigitale | 141 car.         | Un socle commun et quatre packs par cycle                                            | 378   | 0               | Organization, WebSite, BreadcrumbList                                        |
+| https://ecoledigitale.allianceconsultants.net/a-propos                    | 200    | À propos du logiciel de gestion scolaire \| EcoleDigitale     | 148 car.         | Une plateforme pensée pour celles et ceux qui font tourner l'éducation au quotidien. | 721   | 0               | Organization, WebSite, BreadcrumbList                                        |
+| https://ecoledigitale.allianceconsultants.net/fonctions                   | 200    | Fonctions du logiciel de gestion scolaire \| EcoleDigitale    | 151 car.         | Les fonctions d’EcoleDigitale, de la saisie des notes au paiement des frais          | 565   | 0               | Organization, WebSite, BreadcrumbList, WebPage, FAQPage                      |
+| https://ecoledigitale.allianceconsultants.net/ressources                  | 200    | Ressources : guides et glossaire scolaire \| EcoleDigitale    | 130 car.         | Guides et glossaire de la gestion scolaire                                           | 501   | 0               | Organization, WebSite, BreadcrumbList                                        |
+| https://ecoledigitale.allianceconsultants.net/cote-d-ivoire               | 200    | Logiciel de gestion d'école en Côte d'Ivoire \| EcoleDigitale | 146 car.         | Un logiciel de gestion scolaire conçu pour les écoles de Côte d'Ivoire               | 977   | 0               | Organization, WebSite, BreadcrumbList, WebPage, FAQPage                      |
+| https://ecoledigitale.allianceconsultants.net/demander-demo               | 200    | Demander une démonstration du logiciel \| EcoleDigitale       | 148 car.         | Découvrez EcoleDigitale avec un conseiller                                           | 80    | 0               | Organization, WebSite, BreadcrumbList                                        |
+| https://ecoledigitale.allianceconsultants.net/confidentialite             | 200    | Confidentialité et protection des données \| EcoleDigitale    | 131 car.         | Confidentialité et protection des données                                            | 343   | 0               | Organization, WebSite, BreadcrumbList                                        |
+| https://ecoledigitale.allianceconsultants.net/fonctions/portail-parents   | 200    | Portail parents d'élèves : notes et absences \| EcoleDigitale | 149 car.         | Un espace parents pour suivre résultats, absences et frais                           | 575   | 0               | Organization, WebSite, BreadcrumbList, WebPage, FAQPage                      |
+| https://ecoledigitale.allianceconsultants.net/modules/socle-ecoledigitale | 200    | Logiciel de gestion d'école privée \| EcoleDigitale           | 146 car.         | Logiciel de gestion d'école privée et de groupe scolaire                             | 776   | 0               | Organization, WebSite, BreadcrumbList, WebPage, SoftwareApplication, FAQPage |
 
 - **robots.txt** : HTTP 200
 - **Sitemap** : https://ecoledigitale.allianceconsultants.net/sitemap.xml — 31 adresse(s)
