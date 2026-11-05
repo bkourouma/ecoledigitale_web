@@ -7,7 +7,7 @@ import { buildBreadcrumbList } from '@/lib/seo/jsonld';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Blog EcoleDigitale : actualités et conseils en gestion scolaire',
+  title: 'Blog : conseils en gestion scolaire',
   description:
     'Articles, conseils et analyses pour réussir la digitalisation de votre établissement scolaire, du primaire à l’enseignement supérieur.',
   path: '/blog',
