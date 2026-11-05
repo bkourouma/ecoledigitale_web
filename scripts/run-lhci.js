@@ -32,7 +32,7 @@ function findChrome() {
 
 async function waitForChrome() {
   const endpoint = `http://127.0.0.1:${debugPort}/json/version`;
-  for (let i = 0; i < 40; i += 1) {
+  for (let i = 0; i < 160; i += 1) {
     try {
       const response = await fetch(endpoint);
       if (response.ok) return;
