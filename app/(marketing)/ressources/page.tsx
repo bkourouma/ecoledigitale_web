@@ -30,6 +30,8 @@ export default async function ResourcesHubPage({ searchParams }: PageProps) {
 
   const publishedCount = getAllResources().length;
   const resources = filterResources({ persona, type });
+  const guides = resources.filter((b) => b.frontmatter.type !== 'glossaire');
+  const glossaire = resources.filter((b) => b.frontmatter.type === 'glossaire');
 
   return (
     <>
@@ -88,14 +90,46 @@ export default async function ResourcesHubPage({ searchParams }: PageProps) {
           ) : resources.length === 0 ? (
             <EmptyState variant="no-results" />
           ) : (
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {resources.map((bundle) => (
-                <ResourceCard
-                  key={`${bundle.frontmatter.type}/${bundle.frontmatter.slug}`}
-                  bundle={bundle}
-                />
-              ))}
-            </ul>
+            <div className="space-y-14">
+              {guides.length > 0 && (
+                <div>
+                  <h2 className="font-display text-primary-800 text-3xl font-bold">
+                    Guides pratiques
+                  </h2>
+                  <p className="text-ink-muted mt-3 max-w-prose text-lg leading-relaxed">
+                    Des guides pour choisir et utiliser un logiciel de gestion scolaire dans votre
+                    établissement.
+                  </p>
+                  <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {guides.map((bundle) => (
+                      <ResourceCard
+                        key={`${bundle.frontmatter.type}/${bundle.frontmatter.slug}`}
+                        bundle={bundle}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {glossaire.length > 0 && (
+                <div>
+                  <h2 className="font-display text-primary-800 text-3xl font-bold">
+                    Glossaire scolaire ivoirien
+                  </h2>
+                  <p className="text-ink-muted mt-3 max-w-prose text-lg leading-relaxed">
+                    Les termes de la vie scolaire en Côte d&apos;Ivoire (CEPE, BEPC, BAC, MGA,
+                    conseil de classe) expliqués simplement.
+                  </p>
+                  <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {glossaire.map((bundle) => (
+                      <ResourceCard
+                        key={`${bundle.frontmatter.type}/${bundle.frontmatter.slug}`}
+                        bundle={bundle}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </section>
