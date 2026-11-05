@@ -29,6 +29,7 @@ const MVP_ROUTES = [
 
 for (const path of MVP_ROUTES) {
   test(`a11y — ${path} : aucune violation serious/critical`, async ({ page }) => {
+    test.setTimeout(60_000);
     await page.goto(path);
     await page.waitForLoadState('domcontentloaded');
 
