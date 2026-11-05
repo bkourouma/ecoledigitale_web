@@ -103,18 +103,6 @@ test.describe('JSON-LD Organization', () => {
 });
 
 test.describe('Redirections', () => {
-  test('/blog → 301 vers /ressources', async ({ request }) => {
-    const response = await request.get('/blog', { maxRedirects: 0 });
-    expect(response.status()).toBe(301);
-    expect(response.headers()['location']).toMatch(/\/ressources$/);
-  });
-
-  test('/blog/un-article → 301 vers /ressources', async ({ request }) => {
-    const response = await request.get('/blog/un-article', { maxRedirects: 0 });
-    expect(response.status()).toBe(301);
-    expect(response.headers()['location']).toMatch(/\/ressources$/);
-  });
-
   for (const slug of ['qualiopi', 'referentiel-rncp', 'alternance']) {
     test(`/ressources/glossaire/${slug} (cadre français retiré) → 301`, async ({ request }) => {
       const response = await request.get(`/ressources/glossaire/${slug}`, { maxRedirects: 0 });
@@ -124,11 +112,11 @@ test.describe('Redirections', () => {
 });
 
 test.describe('Sitemap', () => {
-  test('exclut /blog et l’étude de cas supprimée, garde les packs et le glossaire ivoirien', async ({
+  test('inclut /blog, exclut l’étude de cas supprimée, garde les packs et le glossaire ivoirien', async ({
     request,
   }) => {
     const body = await (await request.get('/sitemap.xml')).text();
-    expect(body).not.toContain('/blog');
+    expect(body).toContain('/blog</loc>');
     expect(body).not.toContain('exemple-institut-bts');
     expect(body).toContain('/modules/ecoledigitale-primary</loc>');
     expect(body).toContain('/ressources/glossaire/cepe</loc>');
