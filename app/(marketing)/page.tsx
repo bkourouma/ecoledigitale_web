@@ -15,11 +15,11 @@ import { HOME_FAQ } from '@/lib/marketing/faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = buildMetadata({
-  // Titre absolu : il porte déjà la marque, le gabarit « | EcoleDigitale » ne s'ajoute pas.
-  title: "Logiciel de gestion scolaire Côte d'Ivoire | EcoleDigitale",
+  // Titre absolu (moins de 65 caractères) : le gabarit « | EcoleDigitale » ne s'ajoute pas.
+  title: "Logiciel de gestion scolaire Côte d'Ivoire : Mobile Money",
   absoluteTitle: true,
   description:
-    'Notes, bulletins, absences, frais de scolarité et portail parents pour écoles, collèges, lycées et établissements supérieurs. Demandez une démonstration.',
+    "Bulletins aux normes ivoiriennes, frais de scolarité par Mobile Money, portail parents. Écoles d'Abidjan et de toute la Côte d'Ivoire. Demandez une démo.",
   path: '/',
   ogImage: DEFAULT_OG_IMAGE,
 });
