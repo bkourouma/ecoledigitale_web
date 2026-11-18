@@ -20,6 +20,11 @@ interface PageProps {
   params: Promise<{ type: string; slug: string }>;
 }
 
+// Contenu MDX local : la page est prérendue au build puis servie depuis le cache,
+// sans rendu à la requête (évite les temps de réponse > 3 s).
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 export function generateStaticParams() {
   return getStaticResourceParams();
 }
