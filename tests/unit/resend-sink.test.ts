@@ -51,7 +51,7 @@ describe('ResendLeadSink', () => {
       fromEmail: 'noreply@ecoledigitale.com',
     });
 
-    await sink.handle({ lead: baseLead, correlationId: 'lead_abc' });
+    await expect(sink.handle({ lead: baseLead, correlationId: 'lead_abc' })).resolves.toEqual({ delivered: true });
 
     expect(sendMock).toHaveBeenCalledOnce();
     const payload = sendMock.mock.calls[0]![0];
@@ -64,6 +64,13 @@ describe('ResendLeadSink', () => {
     expect(payload.html).toContain('Institut Exemple');
     expect(payload.html).toContain('lead_abc');
     expect(payload.text).toContain('m.dupont@example.com');
+  });
+
+  it('ne confirme aucune mesure sans reçu effectif du fournisseur', async () => {
+    sendMock.mockResolvedValueOnce({ data: null, error: null });
+    const { ResendLeadSink } = await import('@/lib/leads/sinks/resend.sink');
+    const sink = new ResendLeadSink({ apiKey: 'test-key', toEmail: 'a@b.test', fromEmail: 'c@d.test' });
+    await expect(sink.handle({ lead: baseLead, correlationId: 'no-receipt' })).resolves.toBeUndefined();
   });
 
   it("propage une erreur si l'API Resend renvoie une erreur", async () => {
@@ -80,3 +87,4 @@ describe('ResendLeadSink', () => {
     );
   });
 });
+

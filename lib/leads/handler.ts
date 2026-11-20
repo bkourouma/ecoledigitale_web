@@ -71,7 +71,8 @@ export async function handleLead(
     throw new LeadDispatchError(criticalFailures, correlationId);
   }
 
-  await confirmBusinessSubmission(measurement, correlationId);
+  const delivered = results.some((result, index) => sinks[index]!.critical && result.status === 'fulfilled' && result.value?.delivered === true);
+  if (delivered) await confirmBusinessSubmission(measurement, correlationId);
   return { correlationId };
 }
 
