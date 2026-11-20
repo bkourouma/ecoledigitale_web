@@ -35,11 +35,16 @@ ENV LEADS_FROM_EMAIL=build-stub@example.com
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p /app/public
+ARG APP_COMMIT_SHA
+ENV APP_COMMIT_SHA=$APP_COMMIT_SHA
+RUN node -e 'if (process.env.APP_COMMIT_SHA?.length !== 40 || !/^[0-9a-f]{40}$/.test(process.env.APP_COMMIT_SHA)) throw new Error("APP_COMMIT_SHA must be a full commit SHA")'
 RUN pnpm build
 
 # ── Stage 3 : image de production (standalone) ────────────────────────────────
 FROM node:20-alpine AS runner
 WORKDIR /app
+ARG APP_COMMIT_SHA
+LABEL org.opencontainers.image.revision=$APP_COMMIT_SHA
 
 ENV NODE_ENV=production
 # Voir l'étape builder : le code lit VERCEL_ENV (ressources, noindex) aussi à l'exécution.
