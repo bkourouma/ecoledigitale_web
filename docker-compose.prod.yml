@@ -8,7 +8,15 @@ services:
     container_name: ecoledigitale-site
     restart: unless-stopped
     env_file: .env.production
+    environment:
+      MC_SEO_BUSINESS_OUTBOX_DIR: /app/data/seo-business-outbox
+    volumes:
+      - seo_business_outbox:/app/data/seo-business-outbox
     # Port hôte local → conteneur Next.js (PORT=3000 dans le Dockerfile).
     # Le nginx système (hôte) proxie https://... vers ce port (infra/nginx/ecoledigitale-site.conf).
     ports:
       - '127.0.0.1:3021:3000'
+
+
+volumes:
+  seo_business_outbox:

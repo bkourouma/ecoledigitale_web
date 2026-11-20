@@ -1,3 +1,4 @@
+import { prepareBusinessSubmission, confirmBusinessSubmission, type SubmissionDimensions } from '@/lib/seo-business-outbox.mjs';
 import type { Lead } from '@/lib/leads/lead.schema';
 import { LeadDispatchError, type LeadSink } from '@/lib/leads/sinks';
 import { LogLeadSink } from '@/lib/leads/sinks/log.sink';
@@ -49,8 +50,10 @@ export interface HandleLeadResult {
 export async function handleLead(
   lead: Lead,
   sinks: LeadSink[] = getDefaultSinks(),
+  dimensions: Pick<SubmissionDimensions, 'device'> = {},
 ): Promise<HandleLeadResult> {
   const correlationId = newCorrelationId();
+  const measurement = await prepareBusinessSubmission({ pagePath: lead.sourcePage, device: dimensions.device });
 
   const results = await Promise.allSettled(
     sinks.map((sink) => sink.handle({ lead, correlationId })),
@@ -68,6 +71,7 @@ export async function handleLead(
     throw new LeadDispatchError(criticalFailures, correlationId);
   }
 
+  await confirmBusinessSubmission(measurement, correlationId);
   return { correlationId };
 }
 
@@ -75,3 +79,4 @@ export async function handleLead(
 export function _resetSinksCacheForTests(): void {
   cachedSinks = null;
 }
+

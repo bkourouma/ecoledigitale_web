@@ -49,6 +49,8 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: bash scripts/test-deployment-sha.sh
+      - name: Durable business measurement regressions
+        run: node --test scripts/test-seo-business-outbox.mjs scripts/test-seo-business-hooks.mjs
       - run: pnpm test:unit -- --coverage
       - uses: actions/upload-artifact@v4
         if: always()
@@ -131,3 +133,4 @@ jobs:
           name: lighthouse-report
           path: .lighthouseci/
           retention-days: 14
+

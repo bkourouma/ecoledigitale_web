@@ -1,3 +1,4 @@
+import { submissionDevice } from '@/lib/seo-business-outbox.mjs';
 import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import { LeadSubmissionSchema } from '@/lib/leads/lead.schema';
@@ -77,7 +78,7 @@ export async function POST(request: Request) {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { website, ...lead } = submission;
-    const { correlationId } = await handleLead(lead);
+    const { correlationId } = await handleLead(lead, undefined, { device: submissionDevice(request.headers.get('user-agent')) });
     return NextResponse.json(
       {
         ok: true,
@@ -99,3 +100,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
