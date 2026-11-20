@@ -9,6 +9,11 @@ on:
     branches: ['main']
   workflow_dispatch:
 
+# Serialize this site: one run cannot replace another while its public version is verified.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
   APP_NAME: ecoledigitale-site
@@ -39,6 +44,7 @@ jobs:
         run: |
           docker build \
             -f infra/Dockerfile \
+            --build-arg APP_COMMIT_SHA="$GITHUB_SHA" \
             --build-arg NEXT_PUBLIC_SITE_URL=https://${{ env.APP_DOMAIN }} \
             --build-arg NEXT_PUBLIC_CONTACT_EMAIL=${{ secrets.NEXT_PUBLIC_CONTACT_EMAIL }} \
             --build-arg NEXT_PUBLIC_CONTACT_PHONE=${{ secrets.NEXT_PUBLIC_CONTACT_PHONE }} \
@@ -105,7 +111,9 @@ jobs:
           cp docker-compose.prod.yml "$APP_DIR/docker-compose.prod.yml"
           cp docker/nginx/nginx.conf "$APP_DIR/docker/nginx/nginx.conf"
           cd "$APP_DIR"
-          docker pull "${{ env.APP_IMAGE }}:latest"
+          docker pull "${{ env.APP_IMAGE }}:$GITHUB_SHA"
+          # Select the exact image just built; compose keeps its existing local :latest tag.
+          docker tag "${{ env.APP_IMAGE }}:$GITHUB_SHA" "${{ env.APP_IMAGE }}:latest"
           # -p : projet compose explicite, donc `down` ne peut concerner que ce site.
           dc() {
             docker compose -p ecoledigitale-site --env-file .env.production -f docker-compose.prod.yml "$@"
@@ -147,3 +155,10 @@ jobs:
             exit 1
           fi
           echo "OK : https://${DOMAIN} sert bien le site marketing (conteneur ${{ env.APP_NAME }}, port ${PORT})."
+
+      - name: Verify exact deployed commit
+        shell: bash
+        run: |
+          bash scripts/verify-deployment-sha.sh \
+            "$GITHUB_SHA" "${{ env.APP_IMAGE }}" "ecoledigitale-site" \
+            "http://127.0.0.1:3021/" "https://${{ env.APP_DOMAIN }}/"

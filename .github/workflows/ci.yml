@@ -48,6 +48,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - run: bash scripts/test-deployment-sha.sh
       - run: pnpm test:unit -- --coverage
       - uses: actions/upload-artifact@v4
         if: always()
@@ -70,6 +71,11 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+        env:
+          APP_COMMIT_SHA: ${{ github.sha }}
+      - run: node scripts/test-commit-artifact.mjs
+        env:
+          APP_COMMIT_SHA: ${{ github.sha }}
       - uses: actions/upload-artifact@v4
         with:
           name: next-build
