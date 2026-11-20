@@ -33,6 +33,13 @@ for (const path of MVP_ROUTES) {
     await page.goto(path);
     await page.waitForLoadState('domcontentloaded');
 
+    if (path === '/demander-demo') {
+      // Axe scrolls lower controls into view: let their existing reveal finish before measuring contrast.
+      const formReveal = page.locator('[data-reveal]').filter({ has: page.locator('form') });
+      await formReveal.scrollIntoViewIfNeeded();
+      await expect(formReveal).toHaveCSS('opacity', '1');
+    }
+
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
