@@ -14,7 +14,7 @@ export interface LeadSink {
    * Traite un lead validé. Doit être idempotent si possible.
    * Lever une erreur en cas d'échec — sera capturée par le dispatcher.
    */
-  handle(input: { lead: Lead; correlationId: string }): Promise<void>;
+  handle(input: { lead: Lead; correlationId: string }): Promise<void | { delivered: true }>;
 }
 
 export class LeadDispatchError extends Error {
@@ -30,3 +30,4 @@ export class LeadDispatchError extends Error {
     this.name = 'LeadDispatchError';
   }
 }
+

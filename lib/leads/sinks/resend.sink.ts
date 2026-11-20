@@ -25,7 +25,7 @@ export class ResendLeadSink implements LeadSink {
     this.client = options.apiKey ? new Resend(options.apiKey) : null;
   }
 
-  async handle({ lead, correlationId }: { lead: Lead; correlationId: string }): Promise<void> {
+  async handle({ lead, correlationId }: { lead: Lead; correlationId: string }): Promise<void | { delivered: true }> {
     if (!this.client) {
       console.warn(
         `[ResendLeadSink] RESEND_API_KEY not set — skipping email (correlationId: ${correlationId})`,
@@ -35,7 +35,7 @@ export class ResendLeadSink implements LeadSink {
 
     const { subject, html, text } = renderDemoNotification(lead, correlationId);
 
-    const { error } = await this.client.emails.send({
+    const { data, error } = await this.client.emails.send({
       from: this.options.fromEmail,
       to: this.options.toEmail,
       subject,
@@ -47,5 +47,7 @@ export class ResendLeadSink implements LeadSink {
     if (error) {
       throw new Error(`Resend error: ${error.message}`);
     }
+    if (data && typeof data.id === 'string' && data.id.length > 0) return { delivered: true };
   }
 }
+
