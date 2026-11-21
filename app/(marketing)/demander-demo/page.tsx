@@ -92,6 +92,46 @@ export default function DemanderDemoPage() {
             </Reveal>
           </aside>
         </div>
+
+        <Reveal className="mt-12 grid gap-8 lg:grid-cols-2">
+          <div className="sheet p-6">
+            <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+              Votre démonstration, en pratique
+            </h2>
+            <p className="text-ink-muted mt-3 text-sm leading-relaxed">
+              En 30 minutes, nous comprenons votre contexte et vous montrons EcoleDigitale en
+              conditions réelles, selon les packs qui vous intéressent. Un membre de l'équipe vous
+              répond sous 48 heures ouvrées. Les offres sont établies sur devis.
+            </p>
+          </div>
+
+          <div className="sheet p-6">
+            <h2 className="font-display text-primary-800 text-3xl leading-none font-bold">
+              Questions courantes
+            </h2>
+            <dl className="text-ink-muted mt-3 space-y-4 text-sm leading-relaxed">
+              {[
+                {
+                  q: 'Comment demander une démonstration ?',
+                  a: 'Remplissez le formulaire, ou écrivez-nous par WhatsApp, par téléphone ou par e-mail. Nous répondons sous 48 h ouvrées, sans engagement.',
+                },
+                {
+                  q: 'Faut-il activer tous les packs ?',
+                  a: "Non. Le socle couvre l'essentiel (élèves, notes, absences, frais, parents). Vous ajoutez uniquement les packs qui correspondent à vos cycles, et vous pouvez les combiner sur un même compte.",
+                },
+                {
+                  q: 'EcoleDigitale convient-il hors de la Côte d’Ivoire ?',
+                  a: "EcoleDigitale s'adresse à l'Afrique francophone, avec la Côte d'Ivoire pour marché de référence. Pour un autre pays, échangeons sur vos besoins lors d'une démonstration.",
+                },
+              ].map(({ q, a }) => (
+                <div key={q}>
+                  <dt className="text-primary-800 font-medium">{q}</dt>
+                  <dd className="mt-1">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </Reveal>
       </section>
     </>
   );
