@@ -43,7 +43,7 @@
     "@axe-core/playwright": "^4.10.0",
     "@eslint/eslintrc": "3.3.5",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.48.0",
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.0",
